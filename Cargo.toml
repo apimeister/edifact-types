@@ -2,6 +2,12 @@
 name = "edifact-types"
 version = "0.1.0"
 edition = "2021"
+authors = ["Jens Walter <jens@apimeister.com>"]
+license = "MIT OR Apache-2.0"
+keywords = ["edi","edifact"]
+repository = "https://github.com/apimeister/edifact-types/"
+documentation = "https://docs.rs/edifact-types/"
+description = "Bindings for the Edifact standard"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
