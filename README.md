@@ -13,7 +13,8 @@ So far, there is also no validation attached to the structs.
 
 ## Supported Bindings
 
-None so far.
+* d00b
+  * iftsta
 
 Something missing? Please open an issue.
 

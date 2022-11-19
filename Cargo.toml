@@ -3,6 +3,11 @@ name = "edifact-types"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_edifact = "0.1"
+#serde_edifact = { path = "../serde_edifact", features = ["debug"] }
+
+[features]
+default = ["d00b"]
+d00b = []
