@@ -1,7 +1,9 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use strum_macros::EnumString;
 
 /// 1225  Message function code
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, EnumString)]
+#[strum(serialize_all = "camelCase")]
 pub enum _1225 {
     /// Cancellation
     ///
@@ -116,7 +118,7 @@ pub enum _1225 {
     #[serde(rename = "52")]
     _52,
     /// 53 Test
-    /// 
+    ///
     /// Code indicating the message is to be considered as a
     /// test.
     #[serde(rename = "53")]
@@ -488,7 +490,7 @@ pub enum _2379 {
 }
 
 /// 4343  Response type code
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, EnumString)]
 pub enum _4343 {
     AA,
     AB,

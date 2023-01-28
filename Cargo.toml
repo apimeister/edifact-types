@@ -13,6 +13,8 @@ description = "Bindings for the Edifact standard"
 serde = { version = "1", features = ["derive"] }
 serde_edifact = "0.2"
 # serde_edifact = { path = "../serde_edifact", features = ["debug"] }
+strum_macros = "0.24"
+strum = "0.24"
 
 [features]
 default = ["d00b","d95b"]

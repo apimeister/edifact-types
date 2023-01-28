@@ -1,3 +1,7 @@
+use std::str::FromStr;
+
+use crate::ParseError;
+
 use super::*;
 use serde::{Deserialize, Serialize};
 
@@ -17,13 +21,68 @@ pub struct Bgm {
     pub _040: Option<_4343>,
 }
 
+impl FromStr for Bgm {
+    type Err = ParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let x = s.trim_end_matches('\'');
+        let parts: Vec<&str> = x.split('+').collect();
+        if parts[0] == "BGM" {
+            if parts.len() > 5 {
+                Err(ParseError {
+                    msg: "too many segments".to_string(),
+                })
+            } else {
+                let mut bgm = Bgm::default();
+                if let Some(val) = parts.get(1) {
+                    bgm._010 = Some(C002::from_str(val).unwrap());
+                };
+                if let Some(val) = parts.get(2) {
+                    bgm._020 = Some(val.to_string());
+                };
+                if let Some(val) = parts.get(3) {
+                    let t = _1225::from_str(val).unwrap();
+                    bgm._030 = Some(t);
+                };
+                if let Some(val) = parts.get(4) {
+                    let t = _4343::from_str(val).unwrap();
+                    bgm._040 = Some(t);
+                };
+                Ok(bgm)
+            }
+        } else {
+            Err(ParseError {
+                msg: "segment name wrong".to_string(),
+            })
+        }
+    }
+}
+
 /// C002 - DOCUMENT/MESSAGE NAME
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq)]
 pub struct C002 {
     pub _010: Option<String>,
     pub _020: Option<String>,
     pub _030: Option<String>,
     pub _040: Option<String>,
+}
+
+impl FromStr for C002 {
+    type Err = ParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts: Vec<&str> = s.split(':').collect();
+        if parts.len() > 4 {
+            Err(ParseError { msg: "too many segments".to_string() })
+        }else{
+            Ok(C002{
+                _010: parts.get(0).map(|x|x.to_string()),
+                _020: parts.get(1).map(|x|x.to_string()),
+                _030: parts.get(2).map(|x|x.to_string()),
+                _040: parts.get(3).map(|x|x.to_string()),
+            })
+        }
+    }
 }
 
 /// C040 - CARRIER
