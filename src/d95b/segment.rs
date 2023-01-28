@@ -73,13 +73,15 @@ impl FromStr for C002 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts: Vec<&str> = s.split(':').collect();
         if parts.len() > 4 {
-            Err(ParseError { msg: "too many segments".to_string() })
-        }else{
-            Ok(C002{
-                _010: parts.get(0).map(|x|x.to_string()),
-                _020: parts.get(1).map(|x|x.to_string()),
-                _030: parts.get(2).map(|x|x.to_string()),
-                _040: parts.get(3).map(|x|x.to_string()),
+            Err(ParseError {
+                msg: "too many segments".to_string(),
+            })
+        } else {
+            Ok(C002 {
+                _010: parts.get(0).map(|x| x.to_string()),
+                _020: parts.get(1).map(|x| x.to_string()),
+                _030: parts.get(2).map(|x| x.to_string()),
+                _040: parts.get(3).map(|x| x.to_string()),
             })
         }
     }

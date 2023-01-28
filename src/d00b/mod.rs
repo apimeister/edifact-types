@@ -1,7 +1,7 @@
 mod segment;
 pub use segment::*;
 mod types;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 pub use types::*;
 
 #[cfg(test)]
@@ -27,16 +27,10 @@ pub struct Iftsta {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct IftstaSg1 {
-    
-}
+pub struct IftstaSg1 {}
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct IftstaSg3 {
-    
-}
+pub struct IftstaSg3 {}
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct IftstaSg4 {
-    
-}
+pub struct IftstaSg4 {}

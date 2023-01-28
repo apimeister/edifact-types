@@ -1,4 +1,4 @@
-use crate::d95b::{Bgm, C002, _4343, _1225};
+use crate::d95b::{Bgm, C002, _1225, _4343};
 
 #[test]
 #[should_panic]

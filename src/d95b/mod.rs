@@ -1,7 +1,7 @@
 mod segment;
 pub use segment::*;
 mod types;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 pub use types::*;
 
 #[cfg(test)]
@@ -11,7 +11,7 @@ mod test_coprar;
 mod test_segment;
 
 /// Container discharge/loading order message
-/// 
+///
 /// https://service.unece.org/trade/untdid/d95b/trmd/coprar_d.htm#MESDEF
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Coprar {
@@ -27,7 +27,7 @@ pub struct Coprar {
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
-pub struct CoprarSg1{
+pub struct CoprarSg1 {
     pub tdt: Tdt,
     pub rff: Vec<Rff>,
     pub loc: Vec<Loc>,
@@ -36,13 +36,13 @@ pub struct CoprarSg1{
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
-pub struct CoprarSg2{
+pub struct CoprarSg2 {
     pub nad: Nad,
     pub cta: Cta,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
-pub struct CoprarSg3{
+pub struct CoprarSg3 {
     pub eqd: Eqd,
     pub rff: Vec<Rff>,
     pub eqn: Vec<Eqn>,
@@ -62,7 +62,7 @@ pub struct CoprarSg3{
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
-pub struct CoprarSg3Sg4{
+pub struct CoprarSg3Sg4 {
     pub tdt: Tdt,
     pub rff: Option<Rff>,
     pub loc: Option<Loc>,
