@@ -3,13 +3,14 @@ use std::str::FromStr;
 use crate::ParseError;
 
 use super::*;
+use macros::DisplayInnerSegment;
 use serde::{Deserialize, Serialize};
 
 /// BGM - BEGINNING OF MESSAGE
 ///
 /// To indicate the type and function of a message and to
 /// transmit the identifying number.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Bgm {
     pub _010: Option<C002>,
     /// 1004 - Document/message number
@@ -59,7 +60,7 @@ impl FromStr for Bgm {
 }
 
 /// C002 - DOCUMENT/MESSAGE NAME
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment)]
 pub struct C002 {
     pub _010: Option<String>,
     pub _020: Option<String>,
@@ -91,7 +92,7 @@ impl FromStr for C002 {
 ///
 /// Identification of a carrier by code and/or by name. Code
 /// preferred.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C040 {
     /// Carrier identification
     ///
@@ -115,7 +116,7 @@ pub struct C040 {
 ///
 /// Code and/or name of a department or employee. Code
 /// preferred.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C056 {
     /// Department or employee identification
     ///
@@ -130,7 +131,7 @@ pub struct C056 {
 /// C058 - NAME AND ADDRESS
 ///
 /// Unstructured name and address: one to five lines.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C058 {
     /// Name and address line
     ///
@@ -158,7 +159,7 @@ pub struct C058 {
 ///
 /// Street address and/or PO Box number in a structured
 /// address: one to three lines.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C059 {
     /// Street and number/p.o. box
     ///
@@ -178,7 +179,7 @@ pub struct C059 {
 ///
 /// Identification of a transaction party by name, one to five
 /// lines. Party name may be formatted.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C080 {
     /// Party name
     ///
@@ -209,7 +210,7 @@ pub struct C080 {
 /// C082  PARTY IDENTIFICATION DETAILS
 ///
 /// Identification of a transaction party by code.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C082 {
     /// Party id. identification
     ///
@@ -228,7 +229,7 @@ pub struct C082 {
 /// C107 - TEXT REFERENCE
 ///
 /// Coded reference to a standard text and its source.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C107 {
     /// Free text, coded
     ///
@@ -247,7 +248,7 @@ pub struct C107 {
 /// C108 - TEXT LITERAL
 ///
 /// Free text; one to five lines.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C108 {
     /// Free text
     ///
@@ -275,7 +276,7 @@ pub struct C108 {
 ///
 /// Measurement value and relevant minimum and maximum
 /// tolerances in that order.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C174 {
     /// Measure unit qualifier
     ///
@@ -302,7 +303,7 @@ pub struct C174 {
 /// C205 - HAZARD CODE
 ///
 /// The identification of the dangerous goods in code.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C205 {
     /// Hazard code identification                        M  an..7
     pub _010: String,
@@ -315,7 +316,7 @@ pub struct C205 {
 /// C211 - DIMENSIONS
 ///
 /// Specification of the dimensions of a transportable unit.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C211 {
     /// Measure unit qualifier
     ///
@@ -339,7 +340,7 @@ pub struct C211 {
 ///
 /// Identification of the issuer of a seal on equipment either
 /// by code or by name.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C215 {
     /// Sealing party, coded
     ///
@@ -362,7 +363,7 @@ pub struct C215 {
 /// C219 - MOVEMENT TYPE
 ///
 /// Description of type of service for movement of cargo.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C219 {
     /// Movement type, coded
     ///
@@ -377,7 +378,7 @@ pub struct C219 {
 /// C220 - MODE OF TRANSPORT
 ///
 /// Method of transport code or name. Code preferred.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C220 {
     /// Mode of transport, coded
     ///
@@ -392,7 +393,7 @@ pub struct C220 {
 /// C222 - TRANSPORT IDENTIFICATION
 ///
 /// Code and/or name identifying the means of transport.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C222 {
     /// Id. of means of transport identification
     ///
@@ -420,7 +421,7 @@ pub struct C222 {
 ///
 /// Temperature at which a vapor according to ISO 1523/73 can
 /// be ignited.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C223 {
     /// Shipment flashpoint
     ///
@@ -436,7 +437,7 @@ pub struct C223 {
 ///
 /// Code and/or name identifying size and type of equipment
 /// used in transport. Code preferred.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C224 {
     /// Equipment size and type identification
     ///
@@ -460,7 +461,7 @@ pub struct C224 {
 ///
 /// Code and/or name identifying the type of means of
 /// transport.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C228 {
     /// Type of means of transport identification
     ///
@@ -476,7 +477,7 @@ pub struct C228 {
 ///
 /// Information on United Nations Dangerous Goods
 /// classification.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C234 {
     /// UNDG number
     ///
@@ -492,7 +493,7 @@ pub struct C234 {
 ///
 /// Identification of the Orange placard required on the means
 /// of transport.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C235 {
     /// Hazard identification number, upper part
     ///
@@ -508,7 +509,7 @@ pub struct C235 {
 ///
 /// Markings identifying the type of hazardous goods and
 /// similar information.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C236 {
     /// Dangerous goods label marking                     C  an..4
     pub _010: Option<String>,
@@ -522,7 +523,7 @@ pub struct C236 {
 ///
 /// Marks (letters and/or numbers) identifying equipment used
 /// for transport such as a container.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C237 {
     /// Equipment identification number
     ///
@@ -546,7 +547,7 @@ pub struct C237 {
 ///
 /// The temperature under which the goods are (to be) stored
 /// or shipped.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C239 {
     /// Temperature setting                               C  n3
     pub _010: Option<String>,
@@ -558,7 +559,7 @@ pub struct C239 {
 ///
 /// Control total for checking integrity of a message or part
 /// of a message.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C270 {
     /// Control qualifier
     ///
@@ -577,7 +578,7 @@ pub struct C270 {
 /// C280 - RANGE
 ///
 /// Range minimum and maximum limits.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C280 {
     /// Measure unit qualifier                            M  an..3
     pub _010: String,
@@ -591,7 +592,7 @@ pub struct C280 {
 ///
 /// To provide details of reason for, and responsibility for,
 /// use of transportation other than normally utilized.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C401 {
     /// Excess transportation reason, coded
     ///
@@ -610,7 +611,7 @@ pub struct C401 {
 /// C502 - MEASUREMENT DETAILS
 ///
 /// Identification of measurement type.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C502 {
     /// Measurement dimension, coded                      C  an..3
     pub _010: Option<String>,
@@ -625,7 +626,7 @@ pub struct C502 {
 /// C506 - REFERENCE
 ///
 /// Identification of a reference.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C506 {
     /// Reference qualifier
     ///
@@ -649,7 +650,7 @@ pub struct C506 {
 ///
 /// Date and/or time, or period relevant to the specified
 /// date/time/period type.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C507 {
     pub _010: String,
     pub _020: Option<String>,
@@ -659,7 +660,7 @@ pub struct C507 {
 /// C517 - LOCATION IDENTIFICATION
 ///
 /// Identification of a location by code or name.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C517 {
     /// Place/location identification
     ///
@@ -682,7 +683,7 @@ pub struct C517 {
 /// C519 - RELATED LOCATION ONE IDENTIFICATION
 ///
 /// Identification the first related location by code or name.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C519 {
     /// Related place/location one identification
     ///
@@ -705,7 +706,7 @@ pub struct C519 {
 /// C523 - NUMBER OF UNIT DETAILS
 ///
 /// Identification of number of units and its purpose.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C523 {
     /// Number of units                                   C  n..15
     pub _010: Option<String>,
@@ -716,7 +717,7 @@ pub struct C523 {
 /// C553 - RELATED LOCATION TWO IDENTIFICATION
 ///
 /// Identification of second related location by code or name.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C553 {
     /// Related place/location two identification
     ///
@@ -739,7 +740,7 @@ pub struct C553 {
 /// CNT - CONTROL TOTAL
 ///
 /// To provide control total.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Cnt {
     /// CONTROL
     pub _010: C270,
@@ -749,7 +750,7 @@ pub struct Cnt {
 ///
 /// To identify a person or a department to whom
 /// communication should be directed.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Cta {
     /// CONTACT FUNCTION, CODED
     ///
@@ -762,40 +763,56 @@ pub struct Cta {
 /// DGS - DANGEROUS GOODS
 ///
 /// To identify dangerous goods.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Dgs {
-    /// DANGEROUS GOODS REGULATIONS, CODED                    C  an..3
+    /// DANGEROUS GOODS REGULATIONS, CODED
+    /// 
+    /// C  an..3
     pub _010: Option<String>,
-    /// HAZARD CODE                                           C  
+    /// HAZARD CODE
     pub _020: Option<C205>,
-    /// UNDG INFORMATION                                      C  
+    /// UNDG INFORMATION
     pub _030: Option<C234>,
-    /// DANGEROUS GOODS SHIPMENT FLASHPOINT                   C  
+    /// DANGEROUS GOODS SHIPMENT FLASHPOINT
     pub _040: Option<C223>,
-    /// PACKING GROUP, CODED                                  C  an..3
+    /// PACKING GROUP, CODED
+    /// 
+    /// C  an..3
     pub _050: Option<String>,
-    /// EMS NUMBER                                            C  an..6
+    /// EMS NUMBER
+    /// 
+    /// C  an..6
     pub _060: Option<String>,
-    /// MFAG                                                  C  an..4
+    /// MFAG
+    /// 
+    /// C  an..4
     pub _070: Option<String>,
-    /// TREM CARD NUMBER                                      C  an..10
+    /// TREM CARD NUMBER
+    /// 
+    /// C  an..10
     pub _080: Option<String>,
-    /// HAZARD IDENTIFICATION                                 C  
+    /// HAZARD IDENTIFICATION
     pub _090: Option<C235>,
-    /// DANGEROUS GOODS LABEL                                 C  
+    /// DANGEROUS GOODS LABEL
     pub _100: Option<C236>,
-    /// PACKING INSTRUCTION, CODED                            C  an..3
+    /// PACKING INSTRUCTION, CODED
+    /// 
+    /// C  an..3
     pub _110: Option<String>,
-    /// CATEGORY OF MEANS OF TRANSPORT, CODED                 C  an..3
+    /// CATEGORY OF MEANS OF TRANSPORT, CODED
+    /// 
+    /// C  an..3
     pub _120: Option<String>,
-    /// PERMISSION FOR TRANSPORT, CODED                       C  an..3
+    /// PERMISSION FOR TRANSPORT, CODED
+    /// 
+    /// C  an..3
     pub _130: Option<String>,
 }
 
 /// DIM - DIMENSIONS
 ///
 /// To specify dimensions.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Dim {
     /// DIMENSION QUALIFIER
     ///
@@ -808,7 +825,7 @@ pub struct Dim {
 /// DTM - DATE/TIME/PERIOD
 ///
 /// To specify date, and/or time, or period.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Dtm {
     /// DATE/TIME/PERIOD
     pub _010: C507,
@@ -817,7 +834,7 @@ pub struct Dtm {
 /// EQA - ATTACHED EQUIPMENT
 ///
 /// To specify attached or related equipment.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Eqa {
     /// EQUIPMENT QUALIFIER
     ///
@@ -830,7 +847,7 @@ pub struct Eqa {
 /// EQD - EQUIPMENT DETAILS
 ///
 /// To identify a unit of equipment.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Eqd {
     /// EQUIPMENT QUALIFIER
     ///
@@ -857,7 +874,7 @@ pub struct Eqd {
 /// EQN - NUMBER OF UNITS
 ///
 /// To specify the number of units.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Eqn {
     /// NUMBER OF UNIT DETAILS
     pub _010: C523,
@@ -866,7 +883,7 @@ pub struct Eqn {
 /// FTX - Free Text
 ///
 /// To provide free form or coded text information.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Ftx {
     /// TEXT SUBJECT QUALIFIER
     ///
@@ -888,7 +905,7 @@ pub struct Ftx {
 ///
 /// To specify physical measurements, including dimension
 /// tolerances, weights and counts.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Mea {
     /// MEASUREMENT APPLICATION QUALIFIER                     M  an..3
     pub _010: String,
@@ -904,7 +921,7 @@ pub struct Mea {
 ///
 /// To identify a country/place/location/related location
 /// one/related location two.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Loc {
     pub _010: String,
     pub _020: C517,
@@ -921,7 +938,7 @@ pub struct Loc {
 /// To specify the name/address and their related
 /// function, either by CO82 only and/or unstructured by
 /// CO58 or structured by CO80 thru 3207.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Nad {
     pub _010: String,
     pub _020: Option<C082>,
@@ -937,7 +954,7 @@ pub struct Nad {
 /// RFF - REFERENCE
 ///
 /// To specify a reference.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Rff {
     // REFERENCE
     pub _010: C506,
@@ -946,7 +963,7 @@ pub struct Rff {
 /// RNG - RANGE DETAILS
 ///
 /// To identify a range.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Rng {
     /// RANGE TYPE QUALIFIER
     ///
@@ -957,32 +974,32 @@ pub struct Rng {
 }
 
 /// MESSAGE IDENTIFIER
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct S009 {
     /// Message type
     ///
     /// M  an..6
-    pub _0065: String,
+    pub _010: String,
     /// Message version number
     ///
     /// M  an..3
-    pub _0052: String,
+    pub _020: String,
     /// Message release number
     ///
     /// M  an..3
-    pub _0054: String,
+    pub _030: String,
     /// Controlling agency
     ///
     /// M  an..2
-    pub _0051: String,
+    pub _040: String,
     /// Association assigned code
     ///
     /// C  an..6
-    pub _0057: Option<String>,
+    pub _050: Option<String>,
 }
 
 /// STATUS OF THE TRANSFER
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct S010 {
     /// Sequence of transfers
     /// M  n..2
@@ -996,7 +1013,7 @@ pub struct S010 {
 /// SEL - SEAL NUMBER
 ///
 /// To specify a seal number related to equipment.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Sel {
     /// SEAL NUMBER
     ///
@@ -1017,7 +1034,7 @@ pub struct Sel {
 /// reference number and the identification of the means
 /// of transport.
 /// The segment may be pointed to by the TPL segment.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Tdt {
     pub _010: String,
     pub _020: String,
@@ -1034,7 +1051,7 @@ pub struct Tdt {
 ///
 /// To specify transport movement details for a goods item
 /// or equipment.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Tmd {
     /// MOVEMENT TYPE
     pub _010: Option<C219>,
@@ -1051,9 +1068,11 @@ pub struct Tmd {
 /// TMP - TEMPERATURE
 ///
 /// To specify the temperature setting.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Tmp {
-    /// TEMPERATURE QUALIFIER                                 M  an..3
+    /// TEMPERATURE QUALIFIER
+    /// 
+    /// M  an..3
     pub _010: String,
     /// TEMPERATURE SETTING
     pub _020: Option<C239>,
@@ -1062,7 +1081,7 @@ pub struct Tmp {
 /// UNH - MESSAGE HEADER
 ///
 /// To head, identify and specify a message.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Unh {
     /// MESSAGE REFERENCE NUMBER
     ///
@@ -1081,7 +1100,7 @@ pub struct Unh {
 /// UNT - MESSAGE TRAILER
 ///
 /// To end and check the completeness of a message.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Unt {
     /// NUMBER OF SEGMENTS IN THE MESSAGE
     ///

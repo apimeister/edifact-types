@@ -1,16 +1,16 @@
-use crate::d00b::Unh;
-
 use super::*;
 
 #[test]
 fn build_dtm() {
     let dtm = Dtm {
-        _01: "137".to_string(),
-        _02: Some("202201010021".to_string()),
-        _03: Some(super::_2379::_203),
+        _010: C507 {
+            _010: "137".to_string(),
+            _020: Some("202201010021".to_string()),
+            _030: Some(super::_2379::_203),
+        },
     };
-    println!("{:?}", dtm);
-    let str = serde_edifact::to_string(&dtm).unwrap();
+    println!("{dtm:?}");
+    let str = format!("{dtm}");
     println!("{}", str);
     assert_eq!(str, "DTM+137:202201010021:203'\n");
 }
@@ -32,8 +32,8 @@ fn build_bgm() {
         _030: Some(_1225::_9),
         _040: None,
     };
-    println!("{:?}", bgm);
-    let str = serde_edifact::to_string(&bgm).unwrap();
+    println!("{bgm:?}");
+    let str = format!("{bgm}");
     println!("{}", str);
     assert_eq!(str, "BGM+23+2BOG129382+9'\n");
 }
@@ -41,8 +41,7 @@ fn build_bgm() {
 #[test]
 fn build_iftsta() {
     let ifsta = Iftsta {
-        _0010: Unh {},
-        _0020: Bgm {
+        bgm: Bgm {
             _010: Some(C002 {
                 _010: Some("23".to_string()),
                 _020: None,
@@ -57,25 +56,22 @@ fn build_iftsta() {
             _030: Some(_1225::_9),
             _040: None,
         },
-        _0030: Dtm {
-            _01: "137".to_string(),
-            _02: Some("202201010021".to_string()),
-            _03: Some(crate::d00b::_2379::_203),
-        },
-        _0040: Tsr {},
-        _0050: IftstaSg1 {},
-        _0100: IftstaSg3 {},
-        _0130: Loc {},
-        _0140: Ftx {},
-        _0150: Cnt {},
-        _0160: IftstaSg4 {},
-        _0620: Unt {},
+        dtm: vec![Dtm {
+            _010: C507 {
+                _010: "137".to_string(),
+                _020: Some("202201010021".to_string()),
+                _030: Some(crate::d00b::_2379::_203),
+            },
+        },],
+        sg1: vec![IftstaSg1{
+            
+        }],
+        ..Default::default()
     };
-    println!("{:?}", ifsta);
-    let str = serde_edifact::to_string(&ifsta).unwrap();
+    println!("{ifsta:?}");
+    let str = format!("{ifsta}");
     println!("{}", str);
-    let target_str = r#"UNB+UNOC:2+SENDER:ZZZ+RECEIVER:ZZZ+220101:1021+2803570'
-UNH+2805567+IFTSTA:D:00B:UN'
+    let target_str = r#"UNH+2805567+IFTSTA:D:00B:UN'
 BGM+23+2BOG129382+9'
 DTM+137:202201010021:203'
 NAD+CA+ABCD:160++SENDER-COMP+STREET 1+CITY1++99999+DE'
@@ -105,8 +101,6 @@ DTM+133:202211210600:203'
 LOC+7+USWOQ:139::WOODRIDGE, IL, US'
 DTM+132:202211210700:203'
 EQD+CN+TRHU4561222+45G1:102:5+++5'
-UNT+31+2805567'
-UNZ+1+2805570'
-"#;
+UNT+31+2805567'"#;
     assert_eq!(str, target_str);
 }

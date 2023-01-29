@@ -1,16 +1,83 @@
 use super::Coprar;
 use crate::d95b::*;
 
+struct X{
+    a: String,
+    b: Option<String>,
+    c: Option<String>,
+    d: Vec<String>,
+}
+#[test]
+fn test_str() {
+    let x = X{
+        a:"a".to_string(),
+        b: None,
+        c: None,
+        d: vec![],
+    };
+    let mut v = vec![];
+    v.push(x.a);
+    v.push(x.b.as_ref().map_or("".to_string(),|x| format!("{x}")));
+    v.push(x.c.as_ref().map_or("".to_string(),|x| format!("{x}")));
+    if x.d.is_empty() {
+        v.push("".to_string());
+    }else{
+        x.d.iter().for_each(|x| v.push(format!("{}",x)));
+    }
+    println!("{v:?}");
+}
+
+#[test]
+fn render_bgm() {
+    let x = Bgm {
+        _010: Some(C002 {
+            _010: Some("45".to_string()),
+            ..Default::default()
+        }),
+        _020: Some("20121121084145".to_string()),
+        _030: Some(_1225::_9),
+        _040: Some(_4343::AB),
+    };
+    let expected = "BGM+45+20121121084145+9+AB";
+    let str = format!("{x}");
+    println!("{str}");
+    assert_eq!(str, expected)
+}
+
+#[test]
+fn render_eqd() {
+    let x = Eqd {
+        _010: "CN".to_string(),
+        _020: Some(C237 {
+            _010: Some("MSTI6415664".to_string()),
+            ..Default::default()
+        }),
+        _030: Some(C224 {
+            _010: Some("45G1".to_string()),
+            _020: Some("102".to_string()),
+            _030: Some("5".to_string()),
+            ..Default::default()
+        }),
+        _040: None,
+        _050: Some("6".to_string()),
+        _060: Some("5".to_string()),
+        ..Default::default()
+    };
+    let expected = "EQD+CN+MSTI6415664+45G1:102:5++6+5";
+    let str = format!("{x}");
+    println!("{str}");
+    assert_eq!(str, expected)
+}
 #[test]
 fn render_coprar() {
     let obj = Coprar {
         unh: Unh {
             _010: "638".to_string(),
             _020: Some(S009 {
-                _0065: "COPRAR".to_string(),
-                _0052: "D".to_string(),
-                _0054: "95B".to_string(),
-                _0051: "UN".to_string(),
+                _010: "COPRAR".to_string(),
+                _020: "D".to_string(),
+                _030: "95B".to_string(),
+                _040: "UN".to_string(),
                 ..Default::default()
             }),
             ..Default::default()

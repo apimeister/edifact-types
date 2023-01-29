@@ -1,7 +1,9 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{EnumString, Display};
 
 /// 1225  Message function code
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, EnumString, Display)]
+#[strum(serialize_all = "camelCase")]
 pub enum _1225 {
     /// Cancellation
     ///
@@ -136,7 +138,8 @@ pub enum _1225 {
 }
 
 /// 2379  Date or time or period format code
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, EnumString, Display)]
+#[strum(serialize_all = "camelCase")]
 pub enum _2379 {
     /// DDMMYY
     ///
@@ -500,7 +503,7 @@ pub enum _2379 {
 }
 
 /// 4343  Response type code
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
 pub enum _4343 {
     AA,
     AB,

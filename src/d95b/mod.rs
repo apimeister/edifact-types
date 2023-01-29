@@ -1,8 +1,10 @@
 mod segment;
+use macros::{DisplayOuterSegment, DisplayEdifact, DisplayEdifactSg};
 pub use segment::*;
 mod types;
 use serde::{Deserialize, Serialize};
 pub use types::*;
+use std::fmt;
 
 #[cfg(test)]
 mod test_coprar;
@@ -13,7 +15,7 @@ mod test_segment;
 /// Container discharge/loading order message
 ///
 /// https://service.unece.org/trade/untdid/d95b/trmd/coprar_d.htm#MESDEF
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifact)]
 pub struct Coprar {
     pub unh: Unh,
     pub bgm: Bgm,
@@ -26,7 +28,7 @@ pub struct Coprar {
     pub unt: Unt,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg1 {
     pub tdt: Tdt,
     pub rff: Vec<Rff>,
@@ -35,13 +37,13 @@ pub struct CoprarSg1 {
     pub ftx: Vec<Ftx>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg2 {
     pub nad: Nad,
     pub cta: Cta,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg3 {
     pub eqd: Eqd,
     pub rff: Vec<Rff>,
@@ -61,7 +63,7 @@ pub struct CoprarSg3 {
     pub nad: Option<Nad>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg3Sg4 {
     pub tdt: Tdt,
     pub rff: Option<Rff>,

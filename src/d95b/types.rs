@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
-use strum_macros::EnumString;
+use strum_macros::{EnumString, Display};
 
 /// 1225  Message function code
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, EnumString)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, EnumString, Display)]
 #[strum(serialize_all = "camelCase")]
 pub enum _1225 {
     /// Cancellation
@@ -490,7 +490,7 @@ pub enum _2379 {
 }
 
 /// 4343  Response type code
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, EnumString)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, EnumString, Display)]
 pub enum _4343 {
     AA,
     AB,

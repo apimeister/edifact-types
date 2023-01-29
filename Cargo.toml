@@ -11,10 +11,14 @@ description = "Bindings for the Edifact standard"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
-serde_edifact = "0.2"
-# serde_edifact = { path = "../serde_edifact", features = ["debug"] }
+# serde_edifact = "0.2"
+serde_edifact = { path = "../serde_edifact", features = ["debug"] }
 strum_macros = "0.24"
 strum = "0.24"
+proc-macro2 = "1"
+quote = "1.0"
+syn = { version = "1.0", features = ["parsing", "extra-traits"] }
+macros = { path = "./macros" }
 
 [features]
 default = ["d00b","d95b"]
