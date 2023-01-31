@@ -35,7 +35,6 @@ pub struct IftstaSg1 {
     sg2: Vec<IftstaSg2>,
 }
 
-
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg2 {
     cta: Cta,

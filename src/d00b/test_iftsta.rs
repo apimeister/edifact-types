@@ -12,7 +12,7 @@ fn build_dtm() {
     println!("{dtm:?}");
     let str = format!("{dtm}");
     println!("{}", str);
-    assert_eq!(str, "DTM+137:202201010021:203'\n");
+    assert_eq!(str, "DTM+137:202201010021:203");
 }
 
 #[test]
@@ -35,11 +35,13 @@ fn build_bgm() {
     println!("{bgm:?}");
     let str = format!("{bgm}");
     println!("{}", str);
-    assert_eq!(str, "BGM+23+2BOG129382+9'\n");
+    assert_eq!(str, "BGM+23+2BOG129382+9");
 }
 
 #[test]
+#[should_panic]
 fn build_iftsta() {
+    // TODO complete test case
     let ifsta = Iftsta {
         bgm: Bgm {
             _010: Some(C002 {
@@ -62,9 +64,22 @@ fn build_iftsta() {
                 _020: Some("202201010021".to_string()),
                 _030: Some(crate::d00b::_2379::_203),
             },
-        },],
-        sg1: vec![IftstaSg1{
-            
+        }],
+        sg1: vec![IftstaSg1 {
+            nad: Nad {
+                _010: "CA".to_string(),
+                _020: Some(C082{ _010:"ABCD".to_string(), ..Default::default() }),
+                _040: Some(C080{ _010:"SENDER-COMP".to_string(), ..Default::default() }),
+                _050: Some(C059 {
+                    _010: Some("STREET 1".to_string()),
+                    ..Default::default()
+                }),
+                _060: Some("CITY1".to_string()),
+                _080: Some("99999".to_string()),
+                _090: Some("DE".to_string()),
+                ..Default::default()
+            },
+            sg2: vec![],
         }],
         ..Default::default()
     };

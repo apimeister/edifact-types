@@ -766,7 +766,7 @@ pub struct Cta {
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Dgs {
     /// DANGEROUS GOODS REGULATIONS, CODED
-    /// 
+    ///
     /// C  an..3
     pub _010: Option<String>,
     /// HAZARD CODE
@@ -776,19 +776,19 @@ pub struct Dgs {
     /// DANGEROUS GOODS SHIPMENT FLASHPOINT
     pub _040: Option<C223>,
     /// PACKING GROUP, CODED
-    /// 
+    ///
     /// C  an..3
     pub _050: Option<String>,
     /// EMS NUMBER
-    /// 
+    ///
     /// C  an..6
     pub _060: Option<String>,
     /// MFAG
-    /// 
+    ///
     /// C  an..4
     pub _070: Option<String>,
     /// TREM CARD NUMBER
-    /// 
+    ///
     /// C  an..10
     pub _080: Option<String>,
     /// HAZARD IDENTIFICATION
@@ -796,15 +796,15 @@ pub struct Dgs {
     /// DANGEROUS GOODS LABEL
     pub _100: Option<C236>,
     /// PACKING INSTRUCTION, CODED
-    /// 
+    ///
     /// C  an..3
     pub _110: Option<String>,
     /// CATEGORY OF MEANS OF TRANSPORT, CODED
-    /// 
+    ///
     /// C  an..3
     pub _120: Option<String>,
     /// PERMISSION FOR TRANSPORT, CODED
-    /// 
+    ///
     /// C  an..3
     pub _130: Option<String>,
 }
@@ -1071,7 +1071,7 @@ pub struct Tmd {
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment)]
 pub struct Tmp {
     /// TEMPERATURE QUALIFIER
-    /// 
+    ///
     /// M  an..3
     pub _010: String,
     /// TEMPERATURE SETTING

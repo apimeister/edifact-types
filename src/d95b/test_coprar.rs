@@ -1,7 +1,7 @@
 use super::Coprar;
 use crate::d95b::*;
 
-struct X{
+struct X {
     a: String,
     b: Option<String>,
     c: Option<String>,
@@ -9,20 +9,20 @@ struct X{
 }
 #[test]
 fn test_str() {
-    let x = X{
-        a:"a".to_string(),
+    let x = X {
+        a: "a".to_string(),
         b: None,
         c: None,
         d: vec![],
     };
     let mut v = vec![];
     v.push(x.a);
-    v.push(x.b.as_ref().map_or("".to_string(),|x| format!("{x}")));
-    v.push(x.c.as_ref().map_or("".to_string(),|x| format!("{x}")));
+    v.push(x.b.as_ref().map_or("".to_string(), |x| format!("{x}")));
+    v.push(x.c.as_ref().map_or("".to_string(), |x| format!("{x}")));
     if x.d.is_empty() {
         v.push("".to_string());
-    }else{
-        x.d.iter().for_each(|x| v.push(format!("{}",x)));
+    } else {
+        x.d.iter().for_each(|x| v.push(format!("{}", x)));
     }
     println!("{v:?}");
 }

@@ -1,10 +1,10 @@
 mod segment;
-use macros::{DisplayOuterSegment, DisplayEdifact, DisplayEdifactSg};
+use macros::{DisplayEdifact, DisplayEdifactSg, DisplayOuterSegment};
 pub use segment::*;
 mod types;
 use serde::{Deserialize, Serialize};
-pub use types::*;
 use std::fmt;
+pub use types::*;
 
 #[cfg(test)]
 mod test_coprar;

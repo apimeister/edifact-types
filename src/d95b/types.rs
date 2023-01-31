@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use strum_macros::{EnumString, Display};
+use strum_macros::{Display, EnumString};
 
 /// 1225  Message function code
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, EnumString, Display)]
