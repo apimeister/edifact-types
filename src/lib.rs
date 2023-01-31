@@ -7,5 +7,5 @@ mod d95b;
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct ParseError {
-    msg: String,
+    pub msg: String,
 }

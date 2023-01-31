@@ -68,8 +68,14 @@ fn build_iftsta() {
         sg1: vec![IftstaSg1 {
             nad: Nad {
                 _010: "CA".to_string(),
-                _020: Some(C082{ _010:"ABCD".to_string(), ..Default::default() }),
-                _040: Some(C080{ _010:"SENDER-COMP".to_string(), ..Default::default() }),
+                _020: Some(C082 {
+                    _010: "ABCD".to_string(),
+                    ..Default::default()
+                }),
+                _040: Some(C080 {
+                    _010: "SENDER-COMP".to_string(),
+                    ..Default::default()
+                }),
                 _050: Some(C059 {
                     _010: Some("STREET 1".to_string()),
                     ..Default::default()

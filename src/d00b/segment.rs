@@ -40,7 +40,7 @@ pub struct C040 {
 }
 
 /// C056 DEPARTMENT OR EMPLOYEE DETAILS
-/// 
+///
 /// Code and/or name of a department or employee. Code
 /// preferred.
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
@@ -85,7 +85,7 @@ pub struct C059 {
 }
 
 /// C076 COMMUNICATION CONTACT
-/// 
+///
 /// Communication number of a department or employee in
 /// a specified channel.
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
