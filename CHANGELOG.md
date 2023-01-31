@@ -1,3 +1,7 @@
+# 0.3.1 2023-01-31
+
+* make modules public
+
 # 0.3.0 2023-01-31
 
 * change serialization to `Display`-Trait
