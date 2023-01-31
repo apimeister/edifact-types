@@ -79,7 +79,7 @@ impl FromStr for C002 {
             })
         } else {
             Ok(C002 {
-                _010: parts.get(0).map(|x| x.to_string()),
+                _010: parts.first().map(|x| x.to_string()),
                 _020: parts.get(1).map(|x| x.to_string()),
                 _030: parts.get(2).map(|x| x.to_string()),
                 _040: parts.get(3).map(|x| x.to_string()),

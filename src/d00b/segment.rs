@@ -4,7 +4,7 @@ use std::fmt::{self, Debug};
 
 use super::{_1225, _4343};
 
-/// BGM	BEGINNING OF MESSAGE
+/// BGM - BEGINNING OF MESSAGE
 ///
 /// A segment indicating the beginning of a message and identifying the consignment for which status is being reported.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -703,7 +703,7 @@ pub struct C827 {
     pub _030: Option<String>,
 }
 
-/// CNI	CONSIGNMENT INFORMATION
+/// CNI - CONSIGNMENT INFORMATION
 ///
 /// A segment to identify a consignment for which status details are given.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -730,7 +730,7 @@ pub struct Cnt {
     pub _010: C270,
 }
 
-/// CTA	CONTACT INFORMATION
+/// CTA - CONTACT INFORMATION
 ///
 /// A segment to specify a contact name associated with the party.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -745,7 +745,7 @@ pub struct Cta {
     pub _020: Option<C056>,
 }
 
-/// COM	COMMUNICATION CONTACT
+/// COM - COMMUNICATION CONTACT
 ///
 /// A segment to specify a communication number related to the contact.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -756,7 +756,7 @@ pub struct Com {
     pub _010: C076,
 }
 
-/// DGS	DANGEROUS GOODS
+/// DGS - DANGEROUS GOODS
 ///
 /// A segment to specify dangerous goods details related to the goods item.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -815,7 +815,7 @@ pub struct Dgs {
     pub _130: Option<String>,
 }
 
-/// DIM	- DIMENSIONS
+/// DIM - DIMENSIONS
 ///
 /// A segment specifying dimensions of a goods item.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
@@ -862,7 +862,7 @@ pub struct Dtm {
     pub _010: C507,
 }
 
-/// EQA	- ATTACHED EQUIPMENT
+/// EQA - ATTACHED EQUIPMENT
 ///
 /// A segment identifying attached equipment or related equipment such as a chassis attached to a container.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
@@ -908,7 +908,7 @@ pub struct Eqd {
     pub _060: Option<String>,
 }
 
-/// EQN	- NUMBER OF UNITS
+/// EQN - NUMBER OF UNITS
 ///
 /// A segment specifying the number of units to which the given measurement is applicable.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
@@ -950,7 +950,7 @@ pub struct Ftx {
     pub _060: Option<String>,
 }
 
-/// GID	GOODS ITEM DETAILS
+/// GID - GOODS ITEM DETAILS
 ///
 /// A segment identifying a goods item.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -981,7 +981,7 @@ pub struct Gid {
     pub _060: Option<C213>,
 }
 
-/// GIN	GOODS IDENTITY NUMBER
+/// GIN - GOODS IDENTITY NUMBER
 ///
 /// A segment specifying identity numbers related to the transport line items.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1027,7 +1027,7 @@ pub struct Han {
     pub _020: Option<C218>,
 }
 
-/// LOC	- PLACE/LOCATION IDENTIFICATION
+/// LOC - PLACE/LOCATION IDENTIFICATION
 ///
 /// A segment identifying a place/location which applies to the consignment such as consignment origin and destination.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1054,7 +1054,7 @@ pub struct Loc {
     pub _050: Option<String>,
 }
 
-/// MEA	- MEASUREMENTS
+/// MEA - MEASUREMENTS
 ///
 /// A segment specifying measurements, other than dimension, of a goods item.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1294,7 +1294,7 @@ pub struct Sgp {
     pub _020: Option<String>,
 }
 
-/// STS	STATUS
+/// STS - STATUS
 ///
 /// A segment specifying the status relating to a consignment (e.g. loaded).
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1329,7 +1329,7 @@ pub struct Sts {
     pub _070: Option<C556>,
 }
 
-/// TDT	DETAILS OF TRANSPORT
+/// TDT - DETAILS OF TRANSPORT
 ///
 /// A segment identifying conveyance related to the status or event such as flight, vessel/voyage.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1371,7 +1371,7 @@ pub struct Tdt {
     /// Code indicating the ownership of a means of transport.
     pub _090: Option<String>,
 }
-/// TMD	TRANSPORT MOVEMENT DETAILS
+/// TMD - TRANSPORT MOVEMENT DETAILS
 ///
 /// A segment to specify transport movement details related to the equipment.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1400,7 +1400,7 @@ pub struct Tpl {
     pub _010: C222,
 }
 
-/// TSR	TRANSPORT SERVICE REQUIREMENTS
+/// TSR - TRANSPORT SERVICE REQUIREMENTS
 ///
 /// A segment identifying the transport service relating to the consignment.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
