@@ -18,10 +18,6 @@ quote = "1.0"
 syn = { version = "1.0", features = ["parsing", "extra-traits"] }
 macros = { path = "./macros" }
 
-[dev-dependencies]
-# serde_edifact = "0.2"
-serde_edifact = { path = "../serde_edifact", features = ["debug"] }
-
 [features]
 default = ["d00b","d95b"]
 d00b = []

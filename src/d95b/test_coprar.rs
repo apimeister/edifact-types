@@ -414,7 +414,7 @@ fn render_coprar() {
         },
         ..Default::default()
     };
-    let str = serde_edifact::to_string(&obj).unwrap();
+    let str = format!("{obj}");
     println!("{}", str);
     let edi = std::fs::read_to_string("./test-data/d95b_coprar.edi").unwrap();
     assert_eq!(edi, str.trim());
