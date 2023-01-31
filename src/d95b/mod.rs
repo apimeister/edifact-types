@@ -1,5 +1,5 @@
 mod segment;
-use macros::{DisplayEdifact, DisplayEdifactSg, DisplayOuterSegment};
+use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg, DisplayOuterSegment};
 pub use segment::*;
 mod types;
 use serde::{Deserialize, Serialize};

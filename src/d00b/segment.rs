@@ -1,4 +1,4 @@
-use macros::{DisplayInnerSegment, DisplayOuterSegment};
+use edifact_types_macros::{DisplayInnerSegment, DisplayOuterSegment};
 use serde::{Deserialize, Serialize};
 use std::fmt::{self, Debug};
 

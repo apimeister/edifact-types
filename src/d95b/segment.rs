@@ -3,7 +3,7 @@ use std::str::FromStr;
 use crate::ParseError;
 
 use super::*;
-use macros::DisplayInnerSegment;
+use edifact_types_macros::DisplayInnerSegment;
 use serde::{Deserialize, Serialize};
 
 /// BGM - BEGINNING OF MESSAGE

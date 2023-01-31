@@ -1,7 +1,7 @@
 use std::fmt;
 
 mod segment;
-use macros::{DisplayEdifact, DisplayEdifactSg};
+use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg};
 pub use segment::*;
 mod types;
 use serde::{Deserialize, Serialize};
