@@ -25,7 +25,17 @@ pub struct Bgm {
 }
 
 /// C002 - DOCUMENT/MESSAGE NAME
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C002 {
     pub _010: Option<String>,
     pub _020: Option<String>,
@@ -37,7 +47,17 @@ pub struct C002 {
 ///
 /// Identification of a carrier by code and/or by name. Code
 /// preferred.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C040 {
     /// Carrier identification
     ///
@@ -61,7 +81,17 @@ pub struct C040 {
 ///
 /// Code and/or name of a department or employee. Code
 /// preferred.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C056 {
     /// Department or employee identification
     ///
@@ -76,7 +106,17 @@ pub struct C056 {
 /// C058 - NAME AND ADDRESS
 ///
 /// Unstructured name and address: one to five lines.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C058 {
     /// Name and address line
     ///
@@ -104,7 +144,17 @@ pub struct C058 {
 ///
 /// Street address and/or PO Box number in a structured
 /// address: one to three lines.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C059 {
     /// Street and number/p.o. box
     ///
@@ -124,7 +174,17 @@ pub struct C059 {
 ///
 /// Identification of a transaction party by name, one to five
 /// lines. Party name may be formatted.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C080 {
     /// Party name
     ///
@@ -155,7 +215,17 @@ pub struct C080 {
 /// C082  PARTY IDENTIFICATION DETAILS
 ///
 /// Identification of a transaction party by code.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C082 {
     /// Party id. identification
     ///
@@ -174,7 +244,17 @@ pub struct C082 {
 /// C107 - TEXT REFERENCE
 ///
 /// Coded reference to a standard text and its source.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C107 {
     /// Free text, coded
     ///
@@ -193,7 +273,17 @@ pub struct C107 {
 /// C108 - TEXT LITERAL
 ///
 /// Free text; one to five lines.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C108 {
     /// Free text
     ///
@@ -221,7 +311,17 @@ pub struct C108 {
 ///
 /// Measurement value and relevant minimum and maximum
 /// tolerances in that order.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C174 {
     /// Measure unit qualifier
     ///
@@ -248,7 +348,17 @@ pub struct C174 {
 /// C205 - HAZARD CODE
 ///
 /// The identification of the dangerous goods in code.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C205 {
     /// Hazard code identification                        M  an..7
     pub _010: String,
@@ -261,7 +371,17 @@ pub struct C205 {
 /// C211 - DIMENSIONS
 ///
 /// Specification of the dimensions of a transportable unit.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C211 {
     /// Measure unit qualifier
     ///
@@ -285,7 +405,17 @@ pub struct C211 {
 ///
 /// Identification of the issuer of a seal on equipment either
 /// by code or by name.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C215 {
     /// Sealing party, coded
     ///
@@ -308,7 +438,17 @@ pub struct C215 {
 /// C219 - MOVEMENT TYPE
 ///
 /// Description of type of service for movement of cargo.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C219 {
     /// Movement type, coded
     ///
@@ -323,7 +463,17 @@ pub struct C219 {
 /// C220 - MODE OF TRANSPORT
 ///
 /// Method of transport code or name. Code preferred.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C220 {
     /// Mode of transport, coded
     ///
@@ -338,7 +488,17 @@ pub struct C220 {
 /// C222 - TRANSPORT IDENTIFICATION
 ///
 /// Code and/or name identifying the means of transport.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C222 {
     /// Id. of means of transport identification
     ///
@@ -366,7 +526,17 @@ pub struct C222 {
 ///
 /// Temperature at which a vapor according to ISO 1523/73 can
 /// be ignited.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C223 {
     /// Shipment flashpoint
     ///
@@ -382,7 +552,17 @@ pub struct C223 {
 ///
 /// Code and/or name identifying size and type of equipment
 /// used in transport. Code preferred.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C224 {
     /// Equipment size and type identification
     ///
@@ -406,7 +586,17 @@ pub struct C224 {
 ///
 /// Code and/or name identifying the type of means of
 /// transport.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C228 {
     /// Type of means of transport identification
     ///
@@ -422,7 +612,17 @@ pub struct C228 {
 ///
 /// Information on United Nations Dangerous Goods
 /// classification.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C234 {
     /// UNDG number
     ///
@@ -438,7 +638,17 @@ pub struct C234 {
 ///
 /// Identification of the Orange placard required on the means
 /// of transport.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C235 {
     /// Hazard identification number, upper part
     ///
@@ -454,7 +664,17 @@ pub struct C235 {
 ///
 /// Markings identifying the type of hazardous goods and
 /// similar information.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C236 {
     /// Dangerous goods label marking                     C  an..4
     pub _010: Option<String>,
@@ -468,7 +688,17 @@ pub struct C236 {
 ///
 /// Marks (letters and/or numbers) identifying equipment used
 /// for transport such as a container.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C237 {
     /// Equipment identification number
     ///
@@ -492,7 +722,17 @@ pub struct C237 {
 ///
 /// The temperature under which the goods are (to be) stored
 /// or shipped.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C239 {
     /// Temperature setting                               C  n3
     pub _010: Option<String>,
@@ -504,7 +744,17 @@ pub struct C239 {
 ///
 /// Control total for checking integrity of a message or part
 /// of a message.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C270 {
     /// Control qualifier
     ///
@@ -523,7 +773,17 @@ pub struct C270 {
 /// C280 - RANGE
 ///
 /// Range minimum and maximum limits.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C280 {
     /// Measure unit qualifier                            M  an..3
     pub _010: String,
@@ -537,7 +797,17 @@ pub struct C280 {
 ///
 /// To provide details of reason for, and responsibility for,
 /// use of transportation other than normally utilized.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C401 {
     /// Excess transportation reason, coded
     ///
@@ -556,7 +826,17 @@ pub struct C401 {
 /// C502 - MEASUREMENT DETAILS
 ///
 /// Identification of measurement type.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C502 {
     /// Measurement dimension, coded                      C  an..3
     pub _010: Option<String>,
@@ -571,7 +851,17 @@ pub struct C502 {
 /// C506 - REFERENCE
 ///
 /// Identification of a reference.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C506 {
     /// Reference qualifier
     ///
@@ -595,7 +885,17 @@ pub struct C506 {
 ///
 /// Date and/or time, or period relevant to the specified
 /// date/time/period type.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C507 {
     pub _010: String,
     pub _020: Option<String>,
@@ -605,7 +905,17 @@ pub struct C507 {
 /// C517 - LOCATION IDENTIFICATION
 ///
 /// Identification of a location by code or name.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C517 {
     /// Place/location identification
     ///
@@ -628,7 +938,17 @@ pub struct C517 {
 /// C519 - RELATED LOCATION ONE IDENTIFICATION
 ///
 /// Identification the first related location by code or name.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C519 {
     /// Related place/location one identification
     ///
@@ -651,7 +971,17 @@ pub struct C519 {
 /// C523 - NUMBER OF UNIT DETAILS
 ///
 /// Identification of number of units and its purpose.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C523 {
     /// Number of units                                   C  n..15
     pub _010: Option<String>,
@@ -662,7 +992,17 @@ pub struct C523 {
 /// C553 - RELATED LOCATION TWO IDENTIFICATION
 ///
 /// Identification of second related location by code or name.
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct C553 {
     /// Related place/location two identification
     ///
@@ -919,7 +1259,17 @@ pub struct Rng {
 }
 
 /// MESSAGE IDENTIFIER
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct S009 {
     /// Message type
     ///
@@ -944,10 +1294,20 @@ pub struct S009 {
 }
 
 /// STATUS OF THE TRANSFER
-#[derive(Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseInnerSegment)]
+#[derive(
+    Debug,
+    Serialize,
+    Deserialize,
+    Default,
+    PartialEq,
+    Eq,
+    Clone,
+    DisplayInnerSegment,
+    ParseInnerSegment,
+)]
 pub struct S010 {
     /// Sequence of transfers
-    /// 
+    ///
     /// M  n..2
     pub _010: String,
     /// First and last transfer
