@@ -11,7 +11,7 @@ description = "Bindings for the Edifact standard"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
-strum_macros = "0.24"
+strum_macros = "0.25"
 strum = "0.25"
 proc-macro2 = "1"
 quote = "1.0"
