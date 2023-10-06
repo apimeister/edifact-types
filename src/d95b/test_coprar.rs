@@ -17,12 +17,12 @@ fn test_str() {
     };
     let mut v = vec![];
     v.push(x.a);
-    v.push(x.b.as_ref().map_or("".to_string(), |x| format!("{x}")));
-    v.push(x.c.as_ref().map_or("".to_string(), |x| format!("{x}")));
+    v.push(x.b.as_ref().map_or("".to_string(), |x| x.to_string()));
+    v.push(x.c.as_ref().map_or("".to_string(), |x| x.to_string()));
     if x.d.is_empty() {
         v.push("".to_string());
     } else {
-        x.d.iter().for_each(|x| v.push(format!("{}", x)));
+        x.d.iter().for_each(|x| v.push(x.to_string()));
     }
     println!("{v:?}");
 }
@@ -61,7 +61,6 @@ fn render_eqd() {
         _040: None,
         _050: Some("6".to_string()),
         _060: Some("5".to_string()),
-        ..Default::default()
     };
     let expected = "EQD+CN+MSTI6415664+45G1:102:5++6+5";
     let str = format!("{x}");
@@ -144,7 +143,6 @@ fn render_coprar() {
                         _010: "132".to_string(),
                         _020: Some("20121124".to_string()),
                         _030: Some("203".to_string()),
-                        ..Default::default()
                     },
                 },
                 Dtm {
@@ -152,7 +150,6 @@ fn render_coprar() {
                         _010: "133".to_string(),
                         _020: Some("20121125".to_string()),
                         _030: Some("203".to_string()),
-                        ..Default::default()
                     },
                 },
             ],
@@ -165,7 +162,6 @@ fn render_coprar() {
                     _010: "MSK".to_string(),
                     _020: Some("160".to_string()),
                     _030: Some("20".to_string()),
-                    ..Default::default()
                 }),
                 ..Default::default()
             },
@@ -412,7 +408,6 @@ fn render_coprar() {
             _010: "56".to_string(),
             _020: "638".to_string(),
         },
-        ..Default::default()
     };
     let str = format!("{obj}");
     println!("{}", str);
