@@ -1,6 +1,6 @@
 [package]
 name = "edifact-types"
-version = "0.3.2"
+version = "0.4.0"
 edition = "2021"
 authors = ["Jens Walter <jens@apimeister.com>"]
 license = "MIT OR Apache-2.0"
@@ -13,9 +13,6 @@ description = "Bindings for the Edifact standard"
 serde = { version = "1", features = ["derive"] }
 strum_macros = "0.25"
 strum = "0.25"
-proc-macro2 = "1"
-quote = "1.0"
-syn = { version = "2.0", features = ["parsing", "extra-traits"] }
 edifact-types-macros = "0.2"
 nom = "7"
 

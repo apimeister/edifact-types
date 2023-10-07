@@ -1,3 +1,7 @@
+# 0.4.0 2023-10-08
+
+* use nom for parsing
+
 # 0.3.2 2023-02-03
 
 * update macros
