@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumString};
 
 /// 1225  Message function code
-#[derive(Debug, Serialize, Deserialize, Clone, EnumString, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, EnumString, Display, PartialEq)]
 #[strum(serialize_all = "camelCase")]
 pub enum _1225 {
     /// Cancellation

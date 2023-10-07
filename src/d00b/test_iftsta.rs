@@ -2,7 +2,7 @@ use super::*;
 
 #[test]
 fn build_dtm() {
-    let dtm = Dtm {
+    let dtm = DTM {
         _010: C507 {
             _010: "137".to_string(),
             _020: Some("202201010021".to_string()),
@@ -17,7 +17,7 @@ fn build_dtm() {
 
 #[test]
 fn build_bgm() {
-    let bgm = Bgm {
+    let bgm = BGM {
         _010: Some(C002 {
             _010: Some("23".to_string()),
             _020: None,
@@ -35,7 +35,7 @@ fn build_bgm() {
     println!("{bgm:?}");
     let str = format!("{bgm}");
     println!("{}", str);
-    assert_eq!(str, "BGM+23+2BOG129382+9");
+    assert_eq!(str, "BGM+23+2BOG129382+9'\n");
 }
 
 #[test]
@@ -43,7 +43,7 @@ fn build_bgm() {
 fn build_iftsta() {
     // TODO complete test case
     let ifsta = Iftsta {
-        bgm: Bgm {
+        bgm: BGM {
             _010: Some(C002 {
                 _010: Some("23".to_string()),
                 _020: None,
@@ -58,7 +58,7 @@ fn build_iftsta() {
             _030: Some(_1225::_9),
             _040: None,
         },
-        dtm: vec![Dtm {
+        dtm: vec![DTM {
             _010: C507 {
                 _010: "137".to_string(),
                 _020: Some("202201010021".to_string()),
@@ -66,7 +66,7 @@ fn build_iftsta() {
             },
         }],
         sg1: vec![IftstaSg1 {
-            nad: Nad {
+            nad: NAD {
                 _010: "CA".to_string(),
                 _020: Some(C082 {
                     _010: "ABCD".to_string(),

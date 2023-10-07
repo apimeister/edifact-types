@@ -17,7 +17,7 @@ proc-macro2 = "1"
 quote = "1.0"
 syn = { version = "2.0", features = ["parsing", "extra-traits"] }
 edifact-types-macros = "0.2"
-# edifact-types-macros = { path = "../edifact-types-macros" }
+nom = "7"
 
 [features]
 default = ["d00b","d95b"]

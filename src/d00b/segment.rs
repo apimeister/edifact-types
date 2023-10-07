@@ -1,18 +1,71 @@
+use super::*;
+use crate::util::Parser;
 use edifact_types_macros::{DisplayInnerSegment, DisplayOuterSegment};
+use nom::{combinator::opt, IResult};
 use serde::{Deserialize, Serialize};
-use std::fmt::{self, Debug};
-
-use super::{_1225, _4343};
+use std::{
+    fmt::{self, Debug},
+    str::FromStr,
+};
 
 /// BGM - BEGINNING OF MESSAGE
 ///
 /// A segment indicating the beginning of a message and identifying the consignment for which status is being reported.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Bgm {
+#[derive(Debug, Serialize, Deserialize, Default)]
+pub struct BGM {
     pub _010: Option<C002>,
     pub _020: Option<C106>,
     pub _030: Option<_1225>,
     pub _040: Option<_4343>,
+}
+
+impl ::core::fmt::Display for BGM {
+    fn fmt<'x>(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut str: Vec<String> = vec![];
+        if let Some(val) = &self._010 {
+            str.push(val.to_string());
+        } else {
+            str.push("".to_string());
+        }
+        if let Some(val) = &self._020 {
+            str.push(val.to_string());
+        } else {
+            str.push("".to_string());
+        }
+        if let Some(val) = &self._030 {
+            str.push(val.to_string());
+        } else {
+            str.push("".to_string());
+        }
+        if let Some(val) = &self._040 {
+            str.push(val.to_string());
+        } else {
+            str.push("".to_string());
+        }
+        let joined = str.join("+");
+        let joined = joined.trim_end_matches("+");
+        write!(f, "BGM+{}'\n", joined)
+    }
+}
+
+impl<'a> Parser<&'a str, BGM, nom::error::Error<&'a str>> for BGM {
+    fn parse(input: &'a str) -> IResult<&'a str, BGM> {
+        let (output_rest, vars) = crate::util::parse_line(input, "BGM")?;
+        let mut output = BGM::default();
+        let (_, obj) = opt(C002::parse)(vars.first().unwrap())?;
+        output._010 = obj;
+        let (_, obj) = opt(C106::parse)(vars.get(1).unwrap())?;
+        output._020 = obj;
+        if let Some(var) = vars.get(2) {
+            let obj = _1225::from_str(var).unwrap();
+            output._030 = Some(obj);
+        }
+        if let Some(var) = vars.get(3) {
+            let obj = _4343::from_str(var).unwrap();
+            output._040 = Some(obj);
+        }
+        Ok((output_rest, output))
+    }
 }
 
 /// C002 - DOCUMENT/MESSAGE NAME
@@ -22,6 +75,19 @@ pub struct C002 {
     pub _020: Option<String>,
     pub _030: Option<String>,
     pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C002, nom::error::Error<&'a str>> for C002 {
+    fn parse(input: &'a str) -> IResult<&'a str, C002> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C002 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C040 - CARRIER
@@ -134,6 +200,18 @@ pub struct C106 {
     pub _010: Option<String>,
     pub _020: Option<String>,
     pub _030: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C106, nom::error::Error<&'a str>> for C106 {
+    fn parse(input: &'a str) -> IResult<&'a str, C106> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C106 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C107 - TEXT REFERENCE
@@ -760,7 +838,7 @@ pub struct Com {
 ///
 /// A segment to specify dangerous goods details related to the goods item.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Dgs {
+pub struct DGS {
     /// DANGEROUS GOODS REGULATIONS CODE
     ///
     /// Code specifying a dangerous goods regulation.
@@ -819,7 +897,7 @@ pub struct Dgs {
 ///
 /// A segment specifying dimensions of a goods item.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
-pub struct Dim {
+pub struct DIM {
     /// DIMENSION TYPE CODE QUALIFIER
     ///
     /// Code qualifying the type of the dimension.
@@ -858,7 +936,7 @@ pub struct Doc {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
-pub struct Dtm {
+pub struct DTM {
     pub _010: C507,
 }
 
@@ -866,7 +944,7 @@ pub struct Dtm {
 ///
 /// A segment identifying attached equipment or related equipment such as a chassis attached to a container.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
-pub struct Eqa {
+pub struct EQA {
     /// EQUIPMENT TYPE CODE QUALIFIER
     ///
     /// Code qualifying a type of equipment.
@@ -881,7 +959,7 @@ pub struct Eqa {
 ///
 /// A segment identifying equipment related to status or event such as a container of a multi-container consignment.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
-pub struct Eqd {
+pub struct EQD {
     /// EQUIPMENT TYPE CODE QUALIFIER
     ///
     /// Code qualifying a type of equipment.
@@ -912,7 +990,7 @@ pub struct Eqd {
 ///
 /// A segment specifying the number of units to which the given measurement is applicable.
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
-pub struct Eqn {
+pub struct EQN {
     /// C523 - NUMBER OF UNIT DETAILS
     ///
     /// Identification of number of units and its purpose.
@@ -923,7 +1001,7 @@ pub struct Eqn {
 ///
 /// A segment specifying free form or processable supplementary or other information.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Ftx {
+pub struct FTX {
     /// TEXT SUBJECT CODE QUALIFIER
     ///
     /// Code qualifying the subject of the text.
@@ -954,7 +1032,7 @@ pub struct Ftx {
 ///
 /// A segment identifying a goods item.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Gid {
+pub struct GID {
     /// GOODS ITEM NUMBER
     ///
     /// To specify a goods item within a consignment.
@@ -985,7 +1063,7 @@ pub struct Gid {
 ///
 /// A segment specifying identity numbers related to the transport line items.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Gin {
+pub struct GIN {
     /// OBJECT IDENTIFICATION CODE QUALIFIER
     ///
     /// Code qualifying the identification of an object.
@@ -1016,7 +1094,7 @@ pub struct Gin {
 ///
 /// A segment identifying handling instructions.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Han {
+pub struct HAN {
     /// C524 - HANDLING INSTRUCTIONS
     ///
     /// Instruction for the handling of goods, products or articles in shipment, storage etc.
@@ -1031,7 +1109,7 @@ pub struct Han {
 ///
 /// A segment identifying a place/location which applies to the consignment such as consignment origin and destination.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Loc {
+pub struct LOC {
     /// LOCATION FUNCTION CODE QUALIFIER
     ///
     /// Code identifying the function of a location.
@@ -1058,7 +1136,7 @@ pub struct Loc {
 ///
 /// A segment specifying measurements, other than dimension, of a goods item.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Mea {
+pub struct MEA {
     /// MEASUREMENT PURPOSE CODE QUALIFIER
     ///
     /// Code qualifying the purpose of the measurement.
@@ -1081,7 +1159,7 @@ pub struct Mea {
 ///
 /// A segment specifying the name and/or address associated with the event such as notify party, terminal address, trucking company for gate move.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Nad {
+pub struct NAD {
     /// PARTY FUNCTION CODE QUALIFIER
     ///
     /// Code giving specific meaning to a party.
@@ -1124,7 +1202,7 @@ pub struct Nad {
 ///
 /// A segment specifying marks related to the transport line items.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Pci {
+pub struct PCI {
     /// MARKING INSTRUCTIONS CODE
     ///
     /// Code specifying instructions for marking.
@@ -1147,7 +1225,7 @@ pub struct Pci {
 ///
 /// A segment to specify a reference number to equipment.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Rff {
+pub struct RFF {
     /// C506 - REFERENCE
     ///
     /// Identification of a reference.
@@ -1260,7 +1338,7 @@ pub struct S018 {
 ///
 /// A segment identifying seal and seal issuer associated with the equipment.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Sel {
+pub struct SEL {
     /// SEAL IDENTIFIER
     ///
     /// To identify a seal.
@@ -1283,7 +1361,7 @@ pub struct Sel {
 ///
 /// A segment to identify equipment in which (part of) a goods item is transported.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Sgp {
+pub struct SGP {
     /// C237 - EQUIPMENT IDENTIFICATION
     ///
     /// Marks (letters/numbers) identifying equipment.
@@ -1298,7 +1376,7 @@ pub struct Sgp {
 ///
 /// A segment specifying the status relating to a consignment (e.g. loaded).
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Sts {
+pub struct STS {
     /// C601 - STATUS CATEGORY
     ///
     /// To specify the category of the status.
@@ -1333,7 +1411,7 @@ pub struct Sts {
 ///
 /// A segment identifying conveyance related to the status or event such as flight, vessel/voyage.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Tdt {
+pub struct TDT {
     /// TRANSPORT STAGE CODE QUALIFIER
     ///
     /// Code qualifying a specific stage of transport.
@@ -1375,7 +1453,7 @@ pub struct Tdt {
 ///
 /// A segment to specify transport movement details related to the equipment.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Tmd {
+pub struct TMD {
     /// C219 - MOVEMENT TYPE
     ///
     /// Description of type of service for movement of cargo.
@@ -1393,7 +1471,7 @@ pub struct Tmd {
 ///
 /// A segment to identify the means of transport to which the equipment is linked, necessary in cases where this forms the key to retrieve relevant information.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Tpl {
+pub struct TPL {
     /// C222 - TRANSPORT IDENTIFICATION
     ///
     /// Code and/or name identifying the means of transport.
@@ -1404,7 +1482,7 @@ pub struct Tpl {
 ///
 /// A segment identifying the transport service relating to the consignment.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Tsr {
+pub struct TSR {
     /// CONTRACT AND CARRIAGE CONDITION
     ///
     /// To identify a contract and carriage condition.
@@ -1427,7 +1505,7 @@ pub struct Tsr {
 ///
 /// To head, identify and specify a message.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Unh {
+pub struct UNH {
     _010: Option<String>,
     _020: Option<S009>,
     _030: Option<String>,
@@ -1438,7 +1516,7 @@ pub struct Unh {
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
-pub struct Unt {
+pub struct UNT {
     /// NUMBER OF SEGMENTS IN A MESSAGE
     ///
     /// The number of segments in a message body, plus the message header segment and message trailer segment.

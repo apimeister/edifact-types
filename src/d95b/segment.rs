@@ -1,12 +1,10 @@
-use std::str::FromStr;
-
-use crate::ParseError;
-
 use super::*;
+use crate::ParseError;
 use edifact_types_macros::DisplayInnerSegment;
 use edifact_types_macros::ParseInnerSegment;
 use edifact_types_macros::ParseOuterSegment;
 use serde::{Deserialize, Serialize};
+use std::str::FromStr;
 
 /// BGM - BEGINNING OF MESSAGE
 ///
