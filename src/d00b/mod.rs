@@ -2,10 +2,13 @@ use std::fmt;
 
 mod segment;
 use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg};
+use nom::{IResult, multi::many0, combinator::opt};
 pub use segment::*;
 mod types;
 use serde::{Deserialize, Serialize};
 pub use types::*;
+
+use crate::util::Parser;
 
 #[cfg(test)]
 mod test_iftsta;
@@ -26,9 +29,33 @@ pub struct Iftsta {
     sg3: Vec<IftstaSg3>,
     loc: Vec<LOC>,
     ftx: Vec<FTX>,
-    cnt: Vec<Cnt>,
+    cnt: Vec<CNT>,
     sg4: Vec<IftstaSg4>,
     unt: UNT,
+}
+
+impl<'a> Parser<&'a str, Iftsta, nom::error::Error<&'a str>> for Iftsta {
+    fn parse(input: &'a str) -> IResult<&'a str, Iftsta> {
+        let mut output = Iftsta::default();
+        let (rest, obj) = UNH::parse(input)?;
+        output.unh = obj;
+        let (rest, obj) = BGM::parse(rest)?;
+        output.bgm = obj;
+        let (rest, obj) = many0(DTM::parse)(rest)?;
+        output.dtm = obj;
+        let (rest, obj) = opt(TSR::parse)(rest)?;
+        output.tsr = obj;
+        //TODO
+        let (rest, obj) = many0(LOC::parse)(rest)?;
+        output.loc = obj;
+        let (rest, obj) = many0(FTX::parse)(rest)?;
+        output.ftx = obj;
+        let (rest, obj) = many0(CNT::parse)(rest)?;
+        output.cnt = obj;
+        let (rest, obj) = UNT::parse(rest)?;
+        output.unt = obj;
+        Ok((rest, output))
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
@@ -39,8 +66,8 @@ pub struct IftstaSg1 {
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg2 {
-    cta: Cta,
-    com: Vec<Com>,
+    cta: CTA,
+    com: Vec<COM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
@@ -51,9 +78,9 @@ pub struct IftstaSg3 {
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg4 {
-    cni: Cni,
+    cni: CNI,
     loc: Vec<LOC>,
-    cnt: Vec<Cnt>,
+    cnt: Vec<CNT>,
     sg5: Vec<IftstaSg5>,
 }
 
@@ -62,7 +89,7 @@ pub struct IftstaSg5 {
     sts: STS,
     rff: Vec<RFF>,
     dtm: Vec<DTM>,
-    doc: Option<Doc>,
+    doc: Option<DOC>,
     ftx: Vec<FTX>,
     nad: Vec<NAD>,
     loc: Option<LOC>,

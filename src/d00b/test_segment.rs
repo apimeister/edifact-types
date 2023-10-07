@@ -10,3 +10,12 @@ fn test_bgm() {
     println!("{}", obj);
     assert_eq!(str, format!("{obj}"));
 }
+
+#[test]
+fn test_unh() {
+    let str = "UNH+2805567+IFTSTA:D:00B:UN'\n";
+    let (rest, obj) = UNH::parse(str).unwrap();
+    assert!(rest.is_empty());
+    println!("{obj:?}");
+    println!("{}", obj);
+}
