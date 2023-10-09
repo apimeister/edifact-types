@@ -1,3 +1,5 @@
+use std::vec;
+
 use super::*;
 
 #[test]
@@ -96,6 +98,156 @@ fn build_iftsta() {
                 ..Default::default()
             },
             segment_group_2: vec![],
+        }],
+        segment_group_3: vec![
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "4F".to_string(),
+                        _020: Some("100113938".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "AAZ".to_string(),
+                        _020: Some("ABCD".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "BN".to_string(),
+                        _020: Some("24O4023815".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "BM".to_string(),
+                        _020: Some("ABCD224O4023815X".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "EQ".to_string(),
+                        _020: Some("TRHU4307252".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "CO".to_string(),
+                        _020: Some("2023521591".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+            IftstaSg3 {
+                rff: RFF {
+                    _010: C506 {
+                        _010: "FF".to_string(),
+                        _020: Some("31075687".to_string()),
+                        ..Default::default()
+                    },
+                },
+                dtm: None,
+            },
+        ],
+        segment_group_4: vec![IftstaSg4 {
+            cni: CNI {
+                _010: Some("1".to_string()),
+                ..Default::default()
+            },
+            loc: vec![],
+            cnt: vec![],
+            // STS+1+P::HS:Rail Departed from In-Transit Locat'
+            segment_group_5: vec![IftstaSg5 {
+                sts: STS {
+                    _010: Some(C601 {
+                        _010: "1".to_string(),
+                        ..Default::default()
+                    }),
+                    _020: Some(C555 {
+                        _010: "P".to_string(),
+                        _020: None,
+                        _030: Some("HS".to_string()),
+                        _040: Some("Rail Departed from In-Transit Locat".to_string()),
+                    }),
+                    ..Default::default()
+                },
+                rff: vec![
+                    RFF {
+                        _010: C506 {
+                            _010: "BM".to_string(),
+                            _020: Some("ABCD224O4023815X".to_string()),
+                            ..Default::default()
+                        },
+                    },
+                    RFF {
+                        _010: C506 {
+                            _010: "BN".to_string(),
+                            _020: Some("24O4023815".to_string()),
+                            ..Default::default()
+                        },
+                    },
+                    RFF {
+                        _010: C506 {
+                            _010: "EQ".to_string(),
+                            _020: Some("TRHU4561222".to_string()),
+                            ..Default::default()
+                        },
+                    },
+                ],
+                dtm: vec![DTM {
+                    _010: C507 {
+                        _010: "334".to_string(),
+                        _020: Some("202211190710".to_string()),
+                        _030: Some(_2379::_203),
+                    },
+                }],
+                doc: None,
+                ftx: vec![],
+                nad: vec![],
+                loc: Some(LOC {
+                    _010: "175".to_string(),
+                    _020: Some(C517 {
+                        _010: Some("USSYR".to_string()),
+                        _020: Some("227".to_string()),
+                        _030: None,
+                        _040: Some("SYRACUSE".to_string()),
+                    }),
+                    _030: Some(C519 {
+                        _010: Some("US".to_string()),
+                        _020: Some("162".to_string()),
+                        _030: None,
+                        _040: None,
+                    }),
+                    _040: None,
+                    _050: None,
+                }),
+                pci: vec![],
+                segment_group_6: vec![],
+                segment_group_8: vec![],
+                segment_group_10: vec![],
+            }],
         }],
         ..Default::default()
     };

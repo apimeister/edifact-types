@@ -956,10 +956,10 @@ pub struct C517 {
     /// Location name code
     ///
     /// Code specifying the name of the location.
-    _010: Option<String>,
-    _020: Option<String>,
-    _030: Option<String>,
-    _040: Option<String>,
+    pub _010: Option<String>,
+    pub _020: Option<String>,
+    pub _030: Option<String>,
+    pub _040: Option<String>,
 }
 
 impl<'a> Parser<&'a str, C517, nom::error::Error<&'a str>> for C517 {
@@ -980,10 +980,10 @@ impl<'a> Parser<&'a str, C517, nom::error::Error<&'a str>> for C517 {
 /// Identification the first related location by code or name.
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
 pub struct C519 {
-    _010: Option<String>,
-    _020: Option<String>,
-    _030: Option<String>,
-    _040: Option<String>,
+    pub _010: Option<String>,
+    pub _020: Option<String>,
+    pub _030: Option<String>,
+    pub _040: Option<String>,
 }
 
 impl<'a> Parser<&'a str, C519, nom::error::Error<&'a str>> for C519 {
@@ -2321,7 +2321,7 @@ impl<'a> Parser<&'a str, TSR, nom::error::Error<&'a str>> for TSR {
 }
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
-pub struct UNA{
+pub struct UNA {
     _010: String,
 }
 
@@ -2331,12 +2331,11 @@ impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
         let mut output = UNA::default();
         output._010 = vars.first().unwrap().to_string();
         Ok((output_rest, output))
-
     }
 }
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
-pub struct UNB{
+pub struct UNB {
     _010: String,
 }
 
@@ -2346,7 +2345,6 @@ impl<'a> Parser<&'a str, UNB, nom::error::Error<&'a str>> for UNB {
         let mut output = UNB::default();
         output._010 = vars.first().unwrap().to_string();
         Ok((output_rest, output))
-
     }
 }
 
@@ -2392,9 +2390,8 @@ impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
     }
 }
 
-
 #[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
-pub struct UNZ{
+pub struct UNZ {
     _010: String,
 }
 
