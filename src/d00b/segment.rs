@@ -1935,7 +1935,7 @@ impl<'a> Parser<&'a str, S009, nom::error::Error<&'a str>> for S009 {
         output._050 = vars.get(4).map(crate::util::unborrow_string);
         output._060 = vars.get(5).map(crate::util::unborrow_string);
         output._070 = vars.get(6).map(crate::util::unborrow_string);
-        Ok((output_rest, output))
+        Ok(("", output))
     }
 }
 
