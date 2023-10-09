@@ -1596,9 +1596,11 @@ pub struct FTX {
 impl<'a> Parser<&'a str, FTX, nom::error::Error<&'a str>> for FTX {
     fn parse(input: &'a str) -> IResult<&'a str, FTX> {
         let (output_rest, vars) = crate::util::parse_line(input, "FTX")?;
-        let mut output = FTX::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).map(|x| x.to_string());
+        let mut output = FTX {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            ..Default::default()
+        };
         if let Some(val) = vars.get(2) {
             let (_, obj) = C107::parse(val)?;
             output._030 = Some(obj);
@@ -1720,8 +1722,10 @@ pub struct LOC {
 impl<'a> Parser<&'a str, LOC, nom::error::Error<&'a str>> for LOC {
     fn parse(input: &'a str) -> IResult<&'a str, LOC> {
         let (output_rest, vars) = crate::util::parse_line(input, "LOC")?;
-        let mut output = LOC::default();
-        output._010 = vars.first().unwrap().to_string();
+        let mut output = LOC {
+            _010: vars.first().unwrap().to_string(),
+            ..Default::default()
+        };
         if let Some(val) = vars.get(1) {
             let (_, obj) = C517::parse(val)?;
             output._020 = Some(obj);
@@ -1927,14 +1931,15 @@ pub struct S009 {
 impl<'a> Parser<&'a str, S009, nom::error::Error<&'a str>> for S009 {
     fn parse(input: &'a str) -> IResult<&'a str, S009> {
         let vars: Vec<&str> = input.split(':').collect();
-        let mut output = S009::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).unwrap().to_string();
-        output._030 = vars.get(2).unwrap().to_string();
-        output._040 = vars.get(3).unwrap().to_string();
-        output._050 = vars.get(4).map(crate::util::unborrow_string);
-        output._060 = vars.get(5).map(crate::util::unborrow_string);
-        output._070 = vars.get(6).map(crate::util::unborrow_string);
+        let output = S009 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).unwrap().to_string(),
+            _030: vars.get(2).unwrap().to_string(),
+            _040: vars.get(3).unwrap().to_string(),
+            _050: vars.get(4).map(crate::util::unborrow_string),
+            _060: vars.get(5).map(crate::util::unborrow_string),
+            _070: vars.get(6).map(crate::util::unborrow_string),
+        };
         Ok(("", output))
     }
 }
@@ -1954,9 +1959,10 @@ pub struct S010 {
 impl<'a> Parser<&'a str, S010, nom::error::Error<&'a str>> for S010 {
     fn parse(input: &'a str) -> IResult<&'a str, S010> {
         let vars: Vec<&str> = input.split(':').collect();
-        let mut output = S010::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).map(crate::util::unborrow_string);
+        let output = S010 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+        };
         Ok(("", output))
     }
 }
@@ -1982,11 +1988,12 @@ pub struct S016 {
 impl<'a> Parser<&'a str, S016, nom::error::Error<&'a str>> for S016 {
     fn parse(input: &'a str) -> IResult<&'a str, S016> {
         let vars: Vec<&str> = input.split(':').collect();
-        let mut output = S016::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).map(crate::util::unborrow_string);
-        output._030 = vars.get(2).map(crate::util::unborrow_string);
-        output._040 = vars.get(3).map(crate::util::unborrow_string);
+        let output = S016 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+        };
         Ok(("", output))
     }
 }
@@ -2014,11 +2021,12 @@ pub struct S017 {
 impl<'a> Parser<&'a str, S017, nom::error::Error<&'a str>> for S017 {
     fn parse(input: &'a str) -> IResult<&'a str, S017> {
         let vars: Vec<&str> = input.split(':').collect();
-        let mut output = S017::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).map(crate::util::unborrow_string);
-        output._030 = vars.get(2).map(crate::util::unborrow_string);
-        output._040 = vars.get(3).map(crate::util::unborrow_string);
+        let output = S017 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+        };
         Ok(("", output))
     }
 }
@@ -2046,11 +2054,12 @@ pub struct S018 {
 impl<'a> Parser<&'a str, S018, nom::error::Error<&'a str>> for S018 {
     fn parse(input: &'a str) -> IResult<&'a str, S018> {
         let vars: Vec<&str> = input.split(':').collect();
-        let mut output = S018::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).map(crate::util::unborrow_string);
-        output._030 = vars.get(2).map(crate::util::unborrow_string);
-        output._040 = vars.get(3).map(crate::util::unborrow_string);
+        let output = S018 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+        };
         Ok(("", output))
     }
 }
@@ -2328,8 +2337,9 @@ pub struct UNA {
 impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
     fn parse(input: &'a str) -> IResult<&'a str, UNA> {
         let (output_rest, vars) = crate::util::parse_line(input, "UNA")?;
-        let mut output = UNA::default();
-        output._010 = vars.first().unwrap().to_string();
+        let output = UNA {
+            _010: vars.first().unwrap().to_string(),
+        };
         Ok((output_rest, output))
     }
 }
@@ -2342,8 +2352,9 @@ pub struct UNB {
 impl<'a> Parser<&'a str, UNB, nom::error::Error<&'a str>> for UNB {
     fn parse(input: &'a str) -> IResult<&'a str, UNB> {
         let (output_rest, vars) = crate::util::parse_line(input, "UNB")?;
-        let mut output = UNB::default();
-        output._010 = vars.first().unwrap().to_string();
+        let output = UNB {
+            _010: vars.first().unwrap().to_string(),
+        };
         Ok((output_rest, output))
     }
 }
@@ -2365,8 +2376,10 @@ pub struct UNH {
 impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
     fn parse(input: &'a str) -> IResult<&'a str, UNH> {
         let (output_rest, vars) = crate::util::parse_line(input, "UNH")?;
-        let mut output = UNH::default();
-        output._010 = vars.first().unwrap().to_string();
+        let mut output = UNH {
+            _010: vars.first().unwrap().to_string(),
+            ..Default::default()
+        };
         let (_, obj) = S009::parse(vars.get(1).unwrap())?;
         output._020 = obj;
         output._030 = vars.get(2).map(|x| x.to_string());
@@ -2398,8 +2411,9 @@ pub struct UNZ {
 impl<'a> Parser<&'a str, UNZ, nom::error::Error<&'a str>> for UNZ {
     fn parse(input: &'a str) -> IResult<&'a str, UNZ> {
         let (output_rest, vars) = crate::util::parse_line(input, "UNZ")?;
-        let mut output = UNZ::default();
-        output._010 = vars.first().unwrap().to_string();
+        let output = UNZ {
+            _010: vars.first().unwrap().to_string(),
+        };
         Ok((output_rest, output))
     }
 }
@@ -2419,9 +2433,10 @@ pub struct UNT {
 impl<'a> Parser<&'a str, UNT, nom::error::Error<&'a str>> for UNT {
     fn parse(input: &'a str) -> IResult<&'a str, UNT> {
         let (output_rest, vars) = crate::util::parse_line(input, "UNT")?;
-        let mut output = UNT::default();
-        output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(1).unwrap().to_string();
+        let output = UNT {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).unwrap().to_string(),
+        };
         Ok((output_rest, output))
     }
 }
