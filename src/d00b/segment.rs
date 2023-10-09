@@ -1926,7 +1926,7 @@ pub struct S009 {
 
 impl<'a> Parser<&'a str, S009, nom::error::Error<&'a str>> for S009 {
     fn parse(input: &'a str) -> IResult<&'a str, S009> {
-        let (output_rest, vars) = crate::util::parse_line(input, "S009")?;
+        let vars: Vec<&str> = input.split(':').collect();
         let mut output = S009::default();
         output._010 = vars.first().unwrap().to_string();
         output._020 = vars.get(1).unwrap().to_string();
