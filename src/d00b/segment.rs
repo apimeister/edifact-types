@@ -102,6 +102,19 @@ pub struct C040 {
     pub _040: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C040, nom::error::Error<&'a str>> for C040 {
+    fn parse(input: &'a str) -> IResult<&'a str, C040> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C040 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C056 DEPARTMENT OR EMPLOYEE DETAILS
 ///
 /// Code and/or name of a department or employee. Code
@@ -131,6 +144,20 @@ pub struct C058 {
     pub _050: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C058, nom::error::Error<&'a str>> for C058 {
+    fn parse(input: &'a str) -> IResult<&'a str, C058> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C058 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C059 - STREET
 ///
 /// Street address and/or PO Box number in a structured
@@ -145,6 +172,19 @@ pub struct C059 {
     pub _030: Option<String>,
     /// Street and number or post office box identifier                                C      an..35
     pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C059, nom::error::Error<&'a str>> for C059 {
+    fn parse(input: &'a str) -> IResult<&'a str, C059> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C059 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C076 COMMUNICATION CONTACT
@@ -179,6 +219,21 @@ pub struct C080 {
     pub _060: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C080, nom::error::Error<&'a str>> for C080 {
+    fn parse(input: &'a str) -> IResult<&'a str, C080> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C080 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C082 PARTY IDENTIFICATION DETAILS
 ///
 /// Identification of a transaction party by code.
@@ -190,6 +245,18 @@ pub struct C082 {
     pub _020: Option<String>,
     /// Code list responsible agency code         C      an..3
     pub _030: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C082, nom::error::Error<&'a str>> for C082 {
+    fn parse(input: &'a str) -> IResult<&'a str, C082> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C082 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C106 DOCUMENT/MESSAGE IDENTIFICATION
@@ -278,6 +345,20 @@ pub struct C174 {
     pub _050: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C174, nom::error::Error<&'a str>> for C174 {
+    fn parse(input: &'a str) -> IResult<&'a str, C174> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C174 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C205 HAZARD CODE
 ///
 /// The identification of the dangerous goods in code.
@@ -301,6 +382,17 @@ pub struct C208 {
     pub _010: String,
     /// Object identifier                         C      an..35
     pub _020: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C208, nom::error::Error<&'a str>> for C208 {
+    fn parse(input: &'a str) -> IResult<&'a str, C208> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C208 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C210 - MARKS & LABELS
@@ -330,6 +422,25 @@ pub struct C210 {
     pub _100: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C210, nom::error::Error<&'a str>> for C210 {
+    fn parse(input: &'a str) -> IResult<&'a str, C210> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C210 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| x.to_string()),
+            _070: vars.get(6).map(|x| x.to_string()),
+            _080: vars.get(7).map(|x| x.to_string()),
+            _090: vars.get(8).map(|x| x.to_string()),
+            _100: vars.get(9).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C211 - DIMENSIONS
 ///
 /// Specification of the dimensions of a transportable unit.
@@ -351,6 +462,19 @@ pub struct C211 {
     ///
     /// To specify the value of a height dimension.
     pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C211, nom::error::Error<&'a str>> for C211 {
+    fn parse(input: &'a str) -> IResult<&'a str, C211> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C211 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C213 NUMBER AND TYPE OF PACKAGES
@@ -388,6 +512,19 @@ pub struct C215 {
     pub _040: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C215, nom::error::Error<&'a str>> for C215 {
+    fn parse(input: &'a str) -> IResult<&'a str, C215> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C215 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C218 HAZARDOUS MATERIAL
 ///
 /// To specify a hazardous material.
@@ -414,6 +551,17 @@ pub struct C219 {
     pub _020: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C219, nom::error::Error<&'a str>> for C219 {
+    fn parse(input: &'a str) -> IResult<&'a str, C219> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C219 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C220 - MODE OF TRANSPORT
 ///
 /// Method of transport code or name. Code preferred.
@@ -423,6 +571,17 @@ pub struct C220 {
     pub _010: Option<String>,
     /// Transport mode name                       C      an..17
     pub _020: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C220, nom::error::Error<&'a str>> for C220 {
+    fn parse(input: &'a str) -> IResult<&'a str, C220> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C220 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C222 - TRANSPORT IDENTIFICATION
@@ -440,6 +599,20 @@ pub struct C222 {
     pub _040: Option<String>,
     /// Transport means nationality code      
     pub _050: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C222, nom::error::Error<&'a str>> for C222 {
+    fn parse(input: &'a str) -> IResult<&'a str, C222> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C222 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C223 DANGEROUS GOODS SHIPMENT FLASHPOINT
@@ -468,6 +641,20 @@ pub struct C224 {
     /// Equipment size and type description       C      an..35
     pub _040: Option<String>,
 }
+
+impl<'a> Parser<&'a str, C224, nom::error::Error<&'a str>> for C224 {
+    fn parse(input: &'a str) -> IResult<&'a str, C224> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C224 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C228 - TRANSPORT MEANS
 ///
 /// Code and/or name identifying the type of means of transport.
@@ -477,6 +664,17 @@ pub struct C228 {
     pub _010: Option<String>,
     /// Transport means description          
     pub _020: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C228, nom::error::Error<&'a str>> for C228 {
+    fn parse(input: &'a str) -> IResult<&'a str, C228> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C228 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C233 - SERVICE
@@ -499,9 +697,9 @@ impl<'a> Parser<&'a str, C233, nom::error::Error<&'a str>> for C233 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(2).map(|x| x.to_string()),
-            _050: vars.get(2).map(|x| x.to_string()),
-            _060: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -563,6 +761,19 @@ pub struct C237 {
     pub _040: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C237, nom::error::Error<&'a str>> for C237 {
+    fn parse(input: &'a str) -> IResult<&'a str, C237> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C237 {
+            _010: vars.first().map(crate::util::unborrow_string),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C270 - CONTROL
 ///
 /// Control total for checking integrity of a message or part
@@ -589,7 +800,7 @@ impl<'a> Parser<&'a str, C270, nom::error::Error<&'a str>> for C270 {
         let output = C270 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).unwrap().to_string(),
-            _030: vars.get(2).map(|x| x.to_string()),
+            _030: vars.get(2).map(crate::util::unborrow_string),
         };
         Ok(("", output))
     }
@@ -611,6 +822,18 @@ pub struct C401 {
     pub _030: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C401, nom::error::Error<&'a str>> for C401 {
+    fn parse(input: &'a str) -> IResult<&'a str, C401> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C401 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).unwrap().to_string(),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C502 MEASUREMENT DETAILS
 ///
 /// Identification of measurement type.
@@ -624,6 +847,19 @@ pub struct C502 {
     pub _030: Option<String>,
     /// Non-discrete measurement name             C      an..70
     pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C502, nom::error::Error<&'a str>> for C502 {
+    fn parse(input: &'a str) -> IResult<&'a str, C502> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C502 {
+            _010: vars.first().map(crate::util::unborrow_string),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C503 DOCUMENT/MESSAGE DETAILS
@@ -646,6 +882,21 @@ pub struct C503 {
     pub _060: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C503, nom::error::Error<&'a str>> for C503 {
+    fn parse(input: &'a str) -> IResult<&'a str, C503> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C503 {
+            _010: vars.first().map(crate::util::unborrow_string),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+            _050: vars.get(4).map(crate::util::unborrow_string),
+            _060: vars.get(5).map(crate::util::unborrow_string),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C506 - REFERENCE
 ///
 /// Identification of a reference.
@@ -661,6 +912,20 @@ pub struct C506 {
     pub _040: Option<String>,
     /// Revision identifier                       C      an..6
     pub _050: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C506, nom::error::Error<&'a str>> for C506 {
+    fn parse(input: &'a str) -> IResult<&'a str, C506> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C506 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
 }
 
 /// C507 DTM  DATE/TIME/PERIOD
@@ -921,6 +1186,18 @@ pub struct C601 {
     pub _030: Option<String>,
 }
 
+impl<'a> Parser<&'a str, C601, nom::error::Error<&'a str>> for C601 {
+    fn parse(input: &'a str) -> IResult<&'a str, C601> {
+        let vars: Vec<&str> = input.split(':').collect();
+        let output = C601 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C703 - NATURE OF CARGO
 ///
 /// Rough classification of a type of cargo.
@@ -1016,6 +1293,18 @@ pub struct CNI {
     ///
     /// To identify the loading sequence of a consignment or consignments.
     pub _030: Option<String>,
+}
+
+impl<'a> Parser<&'a str, CNI, nom::error::Error<&'a str>> for CNI {
+    fn parse(input: &'a str) -> IResult<&'a str, CNI> {
+        let (output_rest, vars) = crate::util::parse_line(input, "CNI")?;
+        let output = CNI {
+            _010: vars.first().map(crate::util::unborrow_string),
+            _020: vars.get(1).map(|x| C503::parse(x).unwrap().1),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
@@ -1135,6 +1424,17 @@ pub struct DIM {
     pub _020: C211,
 }
 
+impl<'a> Parser<&'a str, DIM, nom::error::Error<&'a str>> for DIM {
+    fn parse(input: &'a str) -> IResult<&'a str, DIM> {
+        let (output_rest, vars) = crate::util::parse_line(input, "DIM")?;
+        let output = DIM {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C211::parse(x).unwrap().1).unwrap(),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// DOC - DOCUMENT/MESSAGE DETAILS
 ///
 /// A segment to specify document details related to the status code, such as indication which document is missing (status code: document missing).
@@ -1160,6 +1460,20 @@ pub struct DOC {
     ///
     /// Quantity of document originals required.
     pub _050: Option<String>,
+}
+
+impl<'a> Parser<&'a str, DOC, nom::error::Error<&'a str>> for DOC {
+    fn parse(input: &'a str) -> IResult<&'a str, DOC> {
+        let (output_rest, vars) = crate::util::parse_line(input, "DOC")?;
+        let output = DOC {
+            _010: vars.first().map(|x| C002::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| C503::parse(x).unwrap().1),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+            _050: vars.get(4).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
@@ -1220,6 +1534,21 @@ pub struct EQD {
     ///
     /// Code indicating whether an object is full or empty.
     pub _060: Option<String>,
+}
+
+impl<'a> Parser<&'a str, EQD, nom::error::Error<&'a str>> for EQD {
+    fn parse(input: &'a str) -> IResult<&'a str, EQD> {
+        let (output_rest, vars) = crate::util::parse_line(input, "EQD")?;
+        let output = EQD {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C237::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C224::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| x.to_string()),
+        };
+        Ok((output_rest, output))
+    }
 }
 
 /// EQN - NUMBER OF UNITS
@@ -1433,6 +1762,19 @@ pub struct MEA {
     pub _040: Option<String>,
 }
 
+impl<'a> Parser<&'a str, MEA, nom::error::Error<&'a str>> for MEA {
+    fn parse(input: &'a str) -> IResult<&'a str, MEA> {
+        let (output_rest, vars) = crate::util::parse_line(input, "MEA")?;
+        let output = MEA {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C502::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C174::parse(x).unwrap().1),
+            _040: vars.get(3).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// NAD - NAME AND ADDRESS
 ///
 /// A segment specifying the name and/or address associated with the event such as notify party, terminal address, trucking company for gate move.
@@ -1476,6 +1818,24 @@ pub struct NAD {
     pub _090: Option<String>,
 }
 
+impl<'a> Parser<&'a str, NAD, nom::error::Error<&'a str>> for NAD {
+    fn parse(input: &'a str) -> IResult<&'a str, NAD> {
+        let (output_rest, vars) = crate::util::parse_line(input, "NAD")?;
+        let output = NAD {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C082::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C058::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C080::parse(x).unwrap().1),
+            _050: vars.get(4).map(|x| C059::parse(x).unwrap().1),
+            _060: vars.get(5).map(crate::util::unborrow_string),
+            _070: vars.get(6).map(|x| C819::parse(x).unwrap().1),
+            _080: vars.get(7).map(crate::util::unborrow_string),
+            _090: vars.get(8).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// PCI - PACKAGE IDENTIFICATION
 ///
 /// A segment specifying marks related to the transport line items.
@@ -1499,6 +1859,19 @@ pub struct PCI {
     pub _040: Option<C827>,
 }
 
+impl<'a> Parser<&'a str, PCI, nom::error::Error<&'a str>> for PCI {
+    fn parse(input: &'a str) -> IResult<&'a str, PCI> {
+        let (output_rest, vars) = crate::util::parse_line(input, "PCI")?;
+        let output = PCI {
+            _010: vars.first().map(crate::util::unborrow_string),
+            _020: vars.get(1).map(|x| C210::parse(x).unwrap().1),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(|x| C827::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// RFF - REFERENCE
 ///
 /// A segment to specify a reference number to equipment.
@@ -1508,6 +1881,15 @@ pub struct RFF {
     ///
     /// Identification of a reference.
     pub _010: C506,
+}
+
+impl<'a> Parser<&'a str, RFF, nom::error::Error<&'a str>> for RFF {
+    fn parse(input: &'a str) -> IResult<&'a str, RFF> {
+        let (output_rest, vars) = crate::util::parse_line(input, "RFF")?;
+        let (_, obj) = C506::parse(vars.first().unwrap())?;
+        let output = RFF { _010: obj };
+        Ok((output_rest, output))
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
@@ -1696,6 +2078,19 @@ pub struct SEL {
     pub _040: Option<C208>,
 }
 
+impl<'a> Parser<&'a str, SEL, nom::error::Error<&'a str>> for SEL {
+    fn parse(input: &'a str) -> IResult<&'a str, SEL> {
+        let (output_rest, vars) = crate::util::parse_line(input, "SEL")?;
+        let output = SEL {
+            _010: vars.first().map(crate::util::unborrow_string),
+            _020: vars.get(1).map(|x| C215::parse(x).unwrap().1),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+            _040: vars.get(3).map(|x| C208::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// SGP - SPLIT GOODS PLACEMENT
 ///
 /// A segment to identify equipment in which (part of) a goods item is transported.
@@ -1746,6 +2141,22 @@ pub struct STS {
     pub _070: Option<C556>,
 }
 
+impl<'a> Parser<&'a str, STS, nom::error::Error<&'a str>> for STS {
+    fn parse(input: &'a str) -> IResult<&'a str, STS> {
+        let (output_rest, vars) = crate::util::parse_line(input, "STS")?;
+        let output = STS {
+            _010: vars.first().map(|x| C601::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| C555::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C556::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C556::parse(x).unwrap().1),
+            _050: vars.get(4).map(|x| C556::parse(x).unwrap().1),
+            _060: vars.get(5).map(|x| C556::parse(x).unwrap().1),
+            _070: vars.get(6).map(|x| C556::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// TDT - DETAILS OF TRANSPORT
 ///
 /// A segment identifying conveyance related to the status or event such as flight, vessel/voyage.
@@ -1788,6 +2199,28 @@ pub struct TDT {
     /// Code indicating the ownership of a means of transport.
     pub _090: Option<String>,
 }
+
+impl<'a> Parser<&'a str, TDT, nom::error::Error<&'a str>> for TDT {
+    fn parse(input: &'a str) -> IResult<&'a str, TDT> {
+        let (output_rest, vars) = crate::util::parse_line(input, "TDT")?;
+        let output = TDT {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(|x| C220::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C228::parse(x).unwrap().1),
+            _050: vars.get(4).map(|x| C040::parse(x).unwrap().1),
+            _060: vars.get(5).map(crate::util::unborrow_string),
+            _070: vars
+                .get(6)
+                .filter(|x| !x.is_empty())
+                .map(|x| C401::parse(x).unwrap().1),
+            _080: vars.get(7).map(|x| C222::parse(x).unwrap().1),
+            _090: vars.get(8).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// TMD - TRANSPORT MOVEMENT DETAILS
 ///
 /// A segment to specify transport movement details related to the equipment.
@@ -1806,6 +2239,19 @@ pub struct TMD {
     /// Code specifying the arrangement for the haulage of goods.
     pub _030: Option<String>,
 }
+
+impl<'a> Parser<&'a str, TMD, nom::error::Error<&'a str>> for TMD {
+    fn parse(input: &'a str) -> IResult<&'a str, TMD> {
+        let (output_rest, vars) = crate::util::parse_line(input, "TMD")?;
+        let output = TMD {
+            _010: vars.first().map(|x| C219::parse(x).unwrap().1),
+            _020: vars.get(1).map(crate::util::unborrow_string),
+            _030: vars.get(2).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// TPL - TRANSPORT PLACEMENT
 ///
 /// A segment to identify the means of transport to which the equipment is linked, necessary in cases where this forms the key to retrieve relevant information.
@@ -1815,6 +2261,16 @@ pub struct TPL {
     ///
     /// Code and/or name identifying the means of transport.
     pub _010: C222,
+}
+
+impl<'a> Parser<&'a str, TPL, nom::error::Error<&'a str>> for TPL {
+    fn parse(input: &'a str) -> IResult<&'a str, TPL> {
+        let (output_rest, vars) = crate::util::parse_line(input, "TPL")?;
+        let output = TPL {
+            _010: vars.first().map(|x| C222::parse(x).unwrap().1).unwrap(),
+        };
+        Ok((output_rest, output))
+    }
 }
 
 /// TSR - TRANSPORT SERVICE REQUIREMENTS
@@ -1869,21 +2325,21 @@ impl<'a> Parser<&'a str, TSR, nom::error::Error<&'a str>> for TSR {
 /// To head, identify and specify a message.
 #[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
 pub struct UNH {
-    _010: Option<String>,
-    _020: Option<S009>,
-    _030: Option<String>,
-    _040: Option<S010>,
-    _050: Option<S016>,
-    _060: Option<S017>,
-    _070: Option<S018>,
+    pub _010: String,
+    pub _020: S009,
+    pub _030: Option<String>,
+    pub _040: Option<S010>,
+    pub _050: Option<S016>,
+    pub _060: Option<S017>,
+    pub _070: Option<S018>,
 }
 
 impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
     fn parse(input: &'a str) -> IResult<&'a str, UNH> {
         let (output_rest, vars) = crate::util::parse_line(input, "UNH")?;
         let mut output = UNH::default();
-        output._010 = vars.first().map(|x| x.to_string());
-        let (_, obj) = opt(S009::parse)(vars.get(1).unwrap())?;
+        output._010 = vars.first().unwrap().to_string();
+        let (_, obj) = S009::parse(vars.get(1).unwrap())?;
         output._020 = obj;
         output._030 = vars.get(2).map(|x| x.to_string());
         if let Some(val) = vars.get(3) {
@@ -1923,7 +2379,7 @@ impl<'a> Parser<&'a str, UNT, nom::error::Error<&'a str>> for UNT {
         let (output_rest, vars) = crate::util::parse_line(input, "UNT")?;
         let mut output = UNT::default();
         output._010 = vars.first().unwrap().to_string();
-        output._020 = vars.get(2).unwrap().to_string();
+        output._020 = vars.get(1).unwrap().to_string();
         Ok((output_rest, output))
     }
 }

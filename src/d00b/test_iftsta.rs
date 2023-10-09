@@ -42,6 +42,17 @@ fn build_bgm() {
 fn build_iftsta() {
     // TODO complete test case
     let ifsta = Iftsta {
+        unh: UNH {
+            _010: "2805567".to_string(),
+            _020: S009 {
+                _010: "IFTSTA".to_string(),
+                _020: "D".to_string(),
+                _030: "00B".to_string(),
+                _040: "UN".to_string(),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
         bgm: BGM {
             _010: Some(C002 {
                 _010: Some("23".to_string()),
@@ -64,7 +75,7 @@ fn build_iftsta() {
                 _030: Some(crate::d00b::_2379::_203),
             },
         }],
-        sg1: vec![IftstaSg1 {
+        segment_group_1: vec![IftstaSg1 {
             nad: NAD {
                 _010: "CA".to_string(),
                 _020: Some(C082 {
@@ -84,7 +95,7 @@ fn build_iftsta() {
                 _090: Some("DE".to_string()),
                 ..Default::default()
             },
-            sg2: vec![],
+            segment_group_2: vec![],
         }],
         ..Default::default()
     };
@@ -126,8 +137,8 @@ UNT+31+2805567'"#;
 }
 
 #[test]
-fn parse_iftsta(){
-     let input_str = r#"UNH+2805567+IFTSTA:D:00B:UN'
+fn parse_iftsta() {
+    let input_str = r#"UNH+2805567+IFTSTA:D:00B:UN'
 BGM+23+2BOG129382+9'
 DTM+137:202201010021:203'
 NAD+CA+ABCD:160++SENDER-COMP+STREET 1+CITY1++99999+DE'
@@ -158,6 +169,7 @@ LOC+7+USWOQ:139::WOODRIDGE, IL, US'
 DTM+132:202211210700:203'
 EQD+CN+TRHU4561222+45G1:102:5+++5'
 UNT+31+2805567'"#;
-let (rest,obj) = Iftsta::parse(input_str).unwrap();
-println!("{obj:?}");
+    let (rest, obj) = Iftsta::parse(input_str).unwrap();
+    println!("{obj:?}");
+    assert!(rest.is_empty());
 }
