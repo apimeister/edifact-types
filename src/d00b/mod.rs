@@ -19,23 +19,48 @@ mod test_iftsta;
 #[cfg(test)]
 mod test_segment;
 
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
+pub struct Interchange<T> {
+    pub una: Option<UNA>,
+    pub unb: UNB,
+    pub segment: T,
+    pub unz: UNZ,
+}
+
+impl<'a, T: Default + Parser<&'a str, T, nom::error::Error<&'a str>>>
+    Parser<&'a str, Interchange<T>, nom::error::Error<&'a str>> for Interchange<T>
+{
+    fn parse(input: &'a str) -> IResult<&'a str, Interchange<T>> {
+        let mut output = Interchange::default();
+        let (input, obj) = opt(UNA::parse)(input)?;
+        output.una = obj;
+        let (input, obj) = UNB::parse(input)?;
+        output.unb = obj;
+        let (input, t_obj) = T::parse(input)?;
+        output.segment = t_obj;
+        let (input, obj) = UNZ::parse(input)?;
+        output.unz = obj;
+        Ok((input, output))
+    }
+}
+
 /// A message to report the transport status and/or a change in the
 /// transport status (i.e. event) between agreed parties.
 ///
 /// https://service.unece.org/trade/untdid/d00b/trmd/iftsta_c.htm
 #[derive(Debug, Serialize, Deserialize, Default, DisplayEdifact)]
 pub struct Iftsta {
-    unh: UNH,
-    bgm: BGM,
-    dtm: Vec<DTM>,
-    tsr: Option<TSR>,
-    segment_group_1: Vec<IftstaSg1>,
-    segment_group_3: Vec<IftstaSg3>,
-    loc: Vec<LOC>,
-    ftx: Vec<FTX>,
-    cnt: Vec<CNT>,
-    segment_group_4: Vec<IftstaSg4>,
-    unt: UNT,
+    pub unh: UNH,
+    pub bgm: BGM,
+    pub dtm: Vec<DTM>,
+    pub tsr: Option<TSR>,
+    pub segment_group_1: Vec<IftstaSg1>,
+    pub segment_group_3: Vec<IftstaSg3>,
+    pub loc: Vec<LOC>,
+    pub ftx: Vec<FTX>,
+    pub cnt: Vec<CNT>,
+    pub segment_group_4: Vec<IftstaSg4>,
+    pub unt: UNT,
 }
 
 impl<'a> Parser<&'a str, Iftsta, nom::error::Error<&'a str>> for Iftsta {
@@ -172,103 +197,103 @@ impl<'a> Parser<&'a str, Iftsta, nom::error::Error<&'a str>> for Iftsta {
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg1 {
-    nad: NAD,
-    segment_group_2: Vec<IftstaSg2>,
+    pub nad: NAD,
+    pub segment_group_2: Vec<IftstaSg2>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg2 {
-    cta: CTA,
-    com: Vec<COM>,
+    pub cta: CTA,
+    pub com: Vec<COM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg3 {
-    rff: RFF,
-    dtm: Option<DTM>,
+    pub rff: RFF,
+    pub dtm: Option<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg4 {
-    cni: CNI,
-    loc: Vec<LOC>,
-    cnt: Vec<CNT>,
-    segment_group_5: Vec<IftstaSg5>,
+    pub cni: CNI,
+    pub loc: Vec<LOC>,
+    pub cnt: Vec<CNT>,
+    pub segment_group_5: Vec<IftstaSg5>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg5 {
-    sts: STS,
-    rff: Vec<RFF>,
-    dtm: Vec<DTM>,
-    doc: Option<DOC>,
-    ftx: Vec<FTX>,
-    nad: Vec<NAD>,
-    loc: Option<LOC>,
-    pci: Vec<PCI>,
-    segment_group_6: Vec<IftstaSg6>,
-    segment_group_8: Vec<IftstaSg8>,
-    segment_group_10: Vec<IftstaSg10>,
+    pub sts: STS,
+    pub rff: Vec<RFF>,
+    pub dtm: Vec<DTM>,
+    pub doc: Option<DOC>,
+    pub ftx: Vec<FTX>,
+    pub nad: Vec<NAD>,
+    pub loc: Option<LOC>,
+    pub pci: Vec<PCI>,
+    pub segment_group_6: Vec<IftstaSg6>,
+    pub segment_group_8: Vec<IftstaSg8>,
+    pub segment_group_10: Vec<IftstaSg10>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg6 {
-    tdt: TDT,
-    dtm: Vec<DTM>,
-    rff: Vec<RFF>,
-    segment_group_7: Vec<IftstaSg7>,
+    pub tdt: TDT,
+    pub dtm: Vec<DTM>,
+    pub rff: Vec<RFF>,
+    pub segment_group_7: Vec<IftstaSg7>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg7 {
-    loc: LOC,
-    dtm: Vec<DTM>,
+    pub loc: LOC,
+    pub dtm: Vec<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg8 {
-    eqd: EQD,
-    mea: Vec<MEA>,
-    dim: Vec<DIM>,
-    sel: Vec<SEL>,
-    rff: Vec<RFF>,
-    tpl: Vec<TPL>,
-    tmd: Option<TMD>,
-    segment_group_9: Vec<IftstaSg9>,
+    pub eqd: EQD,
+    pub mea: Vec<MEA>,
+    pub dim: Vec<DIM>,
+    pub sel: Vec<SEL>,
+    pub rff: Vec<RFF>,
+    pub tpl: Vec<TPL>,
+    pub tmd: Option<TMD>,
+    pub segment_group_9: Vec<IftstaSg9>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg9 {
-    eqa: EQA,
-    sel: Vec<SEL>,
+    pub eqa: EQA,
+    pub sel: Vec<SEL>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg10 {
-    gid: GID,
-    han: Vec<HAN>,
-    sgp: Vec<SGP>,
-    dgs: Vec<DGS>,
-    ftx: Vec<FTX>,
-    segment_group_11: Vec<IftstaSg11>,
-    segment_group_12: Vec<IftstaSg12>,
-    segment_group_13: Vec<IftstaSg13>,
+    pub gid: GID,
+    pub han: Vec<HAN>,
+    pub sgp: Vec<SGP>,
+    pub dgs: Vec<DGS>,
+    pub ftx: Vec<FTX>,
+    pub segment_group_11: Vec<IftstaSg11>,
+    pub segment_group_12: Vec<IftstaSg12>,
+    pub segment_group_13: Vec<IftstaSg13>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg11 {
-    mea: MEA,
-    eqn: Option<EQN>,
+    pub mea: MEA,
+    pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg12 {
-    dim: DIM,
-    eqn: Option<EQN>,
+    pub dim: DIM,
+    pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
 pub struct IftstaSg13 {
-    pci: PCI,
-    gin: Vec<GIN>,
+    pub pci: PCI,
+    pub gin: Vec<GIN>,
 }

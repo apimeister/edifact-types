@@ -2320,6 +2320,36 @@ impl<'a> Parser<&'a str, TSR, nom::error::Error<&'a str>> for TSR {
     }
 }
 
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
+pub struct UNA{
+    _010: String,
+}
+
+impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
+    fn parse(input: &'a str) -> IResult<&'a str, UNA> {
+        let (output_rest, vars) = crate::util::parse_line(input, "UNA")?;
+        let mut output = UNA::default();
+        output._010 = vars.first().unwrap().to_string();
+        Ok((output_rest, output))
+
+    }
+}
+
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
+pub struct UNB{
+    _010: String,
+}
+
+impl<'a> Parser<&'a str, UNB, nom::error::Error<&'a str>> for UNB {
+    fn parse(input: &'a str) -> IResult<&'a str, UNB> {
+        let (output_rest, vars) = crate::util::parse_line(input, "UNB")?;
+        let mut output = UNB::default();
+        output._010 = vars.first().unwrap().to_string();
+        Ok((output_rest, output))
+
+    }
+}
+
 /// UNH - MESSAGE HEADER
 ///
 /// To head, identify and specify a message.
@@ -2358,6 +2388,21 @@ impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
             let (_, obj) = opt(S018::parse)(val)?;
             output._070 = obj;
         }
+        Ok((output_rest, output))
+    }
+}
+
+
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
+pub struct UNZ{
+    _010: String,
+}
+
+impl<'a> Parser<&'a str, UNZ, nom::error::Error<&'a str>> for UNZ {
+    fn parse(input: &'a str) -> IResult<&'a str, UNZ> {
+        let (output_rest, vars) = crate::util::parse_line(input, "UNZ")?;
+        let mut output = UNZ::default();
+        output._010 = vars.first().unwrap().to_string();
         Ok((output_rest, output))
     }
 }
