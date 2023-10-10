@@ -1,9 +1,9 @@
 use nom::{
-    bytes::complete::{escaped, is_not, tag, take_while},
+    bytes::complete::{escaped, is_not, tag},
     character::complete::{newline, one_of},
     combinator::opt,
     multi::separated_list0,
-    sequence::delimited,
+    sequence::{delimited, preceded},
     IResult,
 };
 
@@ -16,9 +16,7 @@ pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Ve
     )(input)?;
     let (_, vars) = separated_list0(
         tag("+"),
-        take_while(|x: char| {
-            x != '+' && (x.is_alphanumeric() || x.is_whitespace() || x.is_ascii_punctuation())
-        }),
+        preceded(opt(tag("+")), escaped(is_not("?+"), '?', one_of(r#":?+'"#))),
     )(vars)?;
     // look for trailing newline
     let (rest, _) = opt(newline)(rest)?;
@@ -43,6 +41,26 @@ mod test {
         println!("### input ##\n {input_str:?}");
         let (rest, line_vars) = parse_line(input_str, "UNH").unwrap();
         println!("### vars ##\n {line_vars:?}");
+        println!("### rest ##\n {rest:?}");
+        assert!(rest.is_empty());
+    }
+
+    #[test]
+    fn parse_line_vars_test() {
+        let input_str = r#"3757?'651?+IFTSTA?:D:0??0B:UN+123+hello?+??world+goodbye"#;
+        println!("### input ##\n {input_str:?}");
+        let result: IResult<&str, Vec<&str>> = separated_list0(
+            tag("+"),
+            preceded(opt(tag("+")), escaped(is_not("?+"), '?', one_of(r#":?+'"#))),
+        )(input_str);
+        let (rest, vars) = match result {
+            Ok((a, b)) => (a, b),
+            Err(e) => {
+                println!("{e}");
+                ("", vec![""])
+            }
+        };
+        println!("### vars ##\n {vars:?}");
         println!("### rest ##\n {rest:?}");
         assert!(rest.is_empty());
     }
