@@ -76,7 +76,7 @@ pub struct C002 {
 
 impl<'a> Parser<&'a str, C002, nom::error::Error<&'a str>> for C002 {
     fn parse(input: &'a str) -> IResult<&'a str, C002> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C002 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -104,7 +104,7 @@ pub struct C040 {
 
 impl<'a> Parser<&'a str, C040, nom::error::Error<&'a str>> for C040 {
     fn parse(input: &'a str) -> IResult<&'a str, C040> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C040 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -146,7 +146,7 @@ pub struct C058 {
 
 impl<'a> Parser<&'a str, C058, nom::error::Error<&'a str>> for C058 {
     fn parse(input: &'a str) -> IResult<&'a str, C058> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C058 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -176,7 +176,7 @@ pub struct C059 {
 
 impl<'a> Parser<&'a str, C059, nom::error::Error<&'a str>> for C059 {
     fn parse(input: &'a str) -> IResult<&'a str, C059> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C059 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -221,7 +221,7 @@ pub struct C080 {
 
 impl<'a> Parser<&'a str, C080, nom::error::Error<&'a str>> for C080 {
     fn parse(input: &'a str) -> IResult<&'a str, C080> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C080 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -249,7 +249,7 @@ pub struct C082 {
 
 impl<'a> Parser<&'a str, C082, nom::error::Error<&'a str>> for C082 {
     fn parse(input: &'a str) -> IResult<&'a str, C082> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C082 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -269,7 +269,7 @@ pub struct C106 {
 
 impl<'a> Parser<&'a str, C106, nom::error::Error<&'a str>> for C106 {
     fn parse(input: &'a str) -> IResult<&'a str, C106> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C106 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -291,7 +291,7 @@ pub struct C107 {
 
 impl<'a> Parser<&'a str, C107, nom::error::Error<&'a str>> for C107 {
     fn parse(input: &'a str) -> IResult<&'a str, C107> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C107 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -315,7 +315,7 @@ pub struct C108 {
 
 impl<'a> Parser<&'a str, C108, nom::error::Error<&'a str>> for C108 {
     fn parse(input: &'a str) -> IResult<&'a str, C108> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C108 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -347,7 +347,7 @@ pub struct C174 {
 
 impl<'a> Parser<&'a str, C174, nom::error::Error<&'a str>> for C174 {
     fn parse(input: &'a str) -> IResult<&'a str, C174> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C174 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -386,7 +386,7 @@ pub struct C208 {
 
 impl<'a> Parser<&'a str, C208, nom::error::Error<&'a str>> for C208 {
     fn parse(input: &'a str) -> IResult<&'a str, C208> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C208 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -424,7 +424,7 @@ pub struct C210 {
 
 impl<'a> Parser<&'a str, C210, nom::error::Error<&'a str>> for C210 {
     fn parse(input: &'a str) -> IResult<&'a str, C210> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C210 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -466,7 +466,7 @@ pub struct C211 {
 
 impl<'a> Parser<&'a str, C211, nom::error::Error<&'a str>> for C211 {
     fn parse(input: &'a str) -> IResult<&'a str, C211> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C211 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -514,7 +514,7 @@ pub struct C215 {
 
 impl<'a> Parser<&'a str, C215, nom::error::Error<&'a str>> for C215 {
     fn parse(input: &'a str) -> IResult<&'a str, C215> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C215 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -553,7 +553,7 @@ pub struct C219 {
 
 impl<'a> Parser<&'a str, C219, nom::error::Error<&'a str>> for C219 {
     fn parse(input: &'a str) -> IResult<&'a str, C219> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C219 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -575,7 +575,7 @@ pub struct C220 {
 
 impl<'a> Parser<&'a str, C220, nom::error::Error<&'a str>> for C220 {
     fn parse(input: &'a str) -> IResult<&'a str, C220> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C220 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -603,7 +603,7 @@ pub struct C222 {
 
 impl<'a> Parser<&'a str, C222, nom::error::Error<&'a str>> for C222 {
     fn parse(input: &'a str) -> IResult<&'a str, C222> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C222 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -644,7 +644,7 @@ pub struct C224 {
 
 impl<'a> Parser<&'a str, C224, nom::error::Error<&'a str>> for C224 {
     fn parse(input: &'a str) -> IResult<&'a str, C224> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C224 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -668,7 +668,7 @@ pub struct C228 {
 
 impl<'a> Parser<&'a str, C228, nom::error::Error<&'a str>> for C228 {
     fn parse(input: &'a str) -> IResult<&'a str, C228> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C228 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -692,7 +692,7 @@ pub struct C233 {
 
 impl<'a> Parser<&'a str, C233, nom::error::Error<&'a str>> for C233 {
     fn parse(input: &'a str) -> IResult<&'a str, C233> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C233 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -763,7 +763,7 @@ pub struct C237 {
 
 impl<'a> Parser<&'a str, C237, nom::error::Error<&'a str>> for C237 {
     fn parse(input: &'a str) -> IResult<&'a str, C237> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C237 {
             _010: vars.first().map(crate::util::unborrow_string),
             _020: vars.get(1).map(crate::util::unborrow_string),
@@ -796,7 +796,7 @@ pub struct C270 {
 
 impl<'a> Parser<&'a str, C270, nom::error::Error<&'a str>> for C270 {
     fn parse(input: &'a str) -> IResult<&'a str, C270> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C270 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).unwrap().to_string(),
@@ -824,7 +824,7 @@ pub struct C401 {
 
 impl<'a> Parser<&'a str, C401, nom::error::Error<&'a str>> for C401 {
     fn parse(input: &'a str) -> IResult<&'a str, C401> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C401 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).unwrap().to_string(),
@@ -851,7 +851,7 @@ pub struct C502 {
 
 impl<'a> Parser<&'a str, C502, nom::error::Error<&'a str>> for C502 {
     fn parse(input: &'a str) -> IResult<&'a str, C502> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C502 {
             _010: vars.first().map(crate::util::unborrow_string),
             _020: vars.get(1).map(crate::util::unborrow_string),
@@ -884,7 +884,7 @@ pub struct C503 {
 
 impl<'a> Parser<&'a str, C503, nom::error::Error<&'a str>> for C503 {
     fn parse(input: &'a str) -> IResult<&'a str, C503> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C503 {
             _010: vars.first().map(crate::util::unborrow_string),
             _020: vars.get(1).map(crate::util::unborrow_string),
@@ -916,7 +916,7 @@ pub struct C506 {
 
 impl<'a> Parser<&'a str, C506, nom::error::Error<&'a str>> for C506 {
     fn parse(input: &'a str) -> IResult<&'a str, C506> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C506 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -938,7 +938,7 @@ pub struct C507 {
 
 impl<'a> Parser<&'a str, C507, nom::error::Error<&'a str>> for C507 {
     fn parse(input: &'a str) -> IResult<&'a str, C507> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C507 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -964,7 +964,7 @@ pub struct C517 {
 
 impl<'a> Parser<&'a str, C517, nom::error::Error<&'a str>> for C517 {
     fn parse(input: &'a str) -> IResult<&'a str, C517> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C517 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -988,7 +988,7 @@ pub struct C519 {
 
 impl<'a> Parser<&'a str, C519, nom::error::Error<&'a str>> for C519 {
     fn parse(input: &'a str) -> IResult<&'a str, C519> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C519 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1012,7 +1012,7 @@ pub struct C523 {
 
 impl<'a> Parser<&'a str, C523, nom::error::Error<&'a str>> for C523 {
     fn parse(input: &'a str) -> IResult<&'a str, C523> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C523 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1039,7 +1039,7 @@ pub struct C524 {
 
 impl<'a> Parser<&'a str, C524, nom::error::Error<&'a str>> for C524 {
     fn parse(input: &'a str) -> IResult<&'a str, C524> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C524 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1062,7 +1062,7 @@ pub struct C536 {
 
 impl<'a> Parser<&'a str, C536, nom::error::Error<&'a str>> for C536 {
     fn parse(input: &'a str) -> IResult<&'a str, C536> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C536 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1084,7 +1084,7 @@ pub struct C537 {
 
 impl<'a> Parser<&'a str, C537, nom::error::Error<&'a str>> for C537 {
     fn parse(input: &'a str) -> IResult<&'a str, C537> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C537 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1107,7 +1107,7 @@ pub struct C553 {
 
 impl<'a> Parser<&'a str, C553, nom::error::Error<&'a str>> for C553 {
     fn parse(input: &'a str) -> IResult<&'a str, C553> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C553 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1134,7 +1134,7 @@ pub struct C555 {
 }
 impl<'a> Parser<&'a str, C555, nom::error::Error<&'a str>> for C555 {
     fn parse(input: &'a str) -> IResult<&'a str, C555> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C555 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1162,7 +1162,7 @@ pub struct C556 {
 
 impl<'a> Parser<&'a str, C556, nom::error::Error<&'a str>> for C556 {
     fn parse(input: &'a str) -> IResult<&'a str, C556> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C556 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1188,7 +1188,7 @@ pub struct C601 {
 
 impl<'a> Parser<&'a str, C601, nom::error::Error<&'a str>> for C601 {
     fn parse(input: &'a str) -> IResult<&'a str, C601> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C601 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1210,7 +1210,7 @@ pub struct C703 {
 
 impl<'a> Parser<&'a str, C703, nom::error::Error<&'a str>> for C703 {
     fn parse(input: &'a str) -> IResult<&'a str, C703> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C703 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1238,7 +1238,7 @@ pub struct C819 {
 
 impl<'a> Parser<&'a str, C819, nom::error::Error<&'a str>> for C819 {
     fn parse(input: &'a str) -> IResult<&'a str, C819> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C819 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1266,7 +1266,7 @@ pub struct C827 {
 
 impl<'a> Parser<&'a str, C827, nom::error::Error<&'a str>> for C827 {
     fn parse(input: &'a str) -> IResult<&'a str, C827> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C827 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
@@ -1930,7 +1930,7 @@ pub struct S009 {
 
 impl<'a> Parser<&'a str, S009, nom::error::Error<&'a str>> for S009 {
     fn parse(input: &'a str) -> IResult<&'a str, S009> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S009 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).unwrap().to_string(),
@@ -1958,7 +1958,7 @@ pub struct S010 {
 
 impl<'a> Parser<&'a str, S010, nom::error::Error<&'a str>> for S010 {
     fn parse(input: &'a str) -> IResult<&'a str, S010> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S010 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(crate::util::unborrow_string),
@@ -1987,7 +1987,7 @@ pub struct S016 {
 
 impl<'a> Parser<&'a str, S016, nom::error::Error<&'a str>> for S016 {
     fn parse(input: &'a str) -> IResult<&'a str, S016> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S016 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(crate::util::unborrow_string),
@@ -2020,7 +2020,7 @@ pub struct S017 {
 
 impl<'a> Parser<&'a str, S017, nom::error::Error<&'a str>> for S017 {
     fn parse(input: &'a str) -> IResult<&'a str, S017> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S017 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(crate::util::unborrow_string),
@@ -2053,7 +2053,7 @@ pub struct S018 {
 
 impl<'a> Parser<&'a str, S018, nom::error::Error<&'a str>> for S018 {
     fn parse(input: &'a str) -> IResult<&'a str, S018> {
-        let vars: Vec<&str> = input.split(':').collect();
+        let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S018 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(crate::util::unborrow_string),
