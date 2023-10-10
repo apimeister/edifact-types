@@ -21,24 +21,18 @@ pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Ve
 }
 
 pub fn parse_plus_section(input: &str) -> IResult<&str, Vec<&str>> {
-    println!("### parse_plus_ection - input ##\n {input:?}");
     let (rest, vars) = separated_list0(
         tag("+"),
         preceded(opt(tag("+")), escaped(is_not("?+"), '?', one_of(r#":?+'"#))),
     )(input)?;
-    println!("### parse_plus_ection - vars ##\n {vars:?}");
-    println!("### parse_plus_ection - rest ##\n {rest:?}");
     Ok((rest, vars))
 }
 
 pub fn parse_colon_section(input: &str) -> IResult<&str, Vec<&str>> {
-    println!("### parse_colon_section - input ##\n {input:?}");
     let (rest, vars) = separated_list0(
         tag(":"),
         preceded(opt(tag(":")), escaped(is_not("?:"), '?', one_of(r#":?+'"#))),
     )(input)?;
-    println!("### parse_colon_section - vars ##\n {vars:?}");
-    println!("### parse_colon_section - rest ##\n {rest:?}");
     Ok((rest, vars))
 }
 
