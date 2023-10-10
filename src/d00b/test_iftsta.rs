@@ -290,7 +290,7 @@ UNT+31+2805567'"#;
 
 #[test]
 fn parse_iftsta() {
-    let input_str = r#"UNH+2805567+IFTSTA:D:00B:UN'
+    let input_str = r#"UNH+2805567+IFTSTA:D:0?:0B:UN'
 BGM+23+2BOG129382+9'
 DTM+137:202201010021:203'
 NAD+CA+ABCD:160++SENDER-COMP+STREET 1+CITY1++99999+DE'

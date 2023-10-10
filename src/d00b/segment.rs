@@ -2391,11 +2391,11 @@ impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
             let (_, obj) = opt(S016::parse)(val)?;
             output._050 = obj;
         }
-        if let Some(val) = vars.get(3) {
+        if let Some(val) = vars.get(5) {
             let (_, obj) = opt(S017::parse)(val)?;
             output._060 = obj;
         }
-        if let Some(val) = vars.get(3) {
+        if let Some(val) = vars.get(6) {
             let (_, obj) = opt(S018::parse)(val)?;
             output._070 = obj;
         }
