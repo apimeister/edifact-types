@@ -112,6 +112,7 @@ impl<'a> Parser<&'a str, Iftsta, nom::error::Error<&'a str>> for Iftsta {
             let (rest, loc) = many0(LOC::parse)(rest)?;
             let (rest, cnt) = many0(CNT::parse)(rest)?;
             loop_rest = rest;
+            // segment group 5
             let mut loop_sg5 = vec![];
             while peek(opt(STS::parse))(loop_rest)?.1.is_some() {
                 let (rest, sts) = STS::parse(loop_rest)?;
@@ -123,12 +124,14 @@ impl<'a> Parser<&'a str, Iftsta, nom::error::Error<&'a str>> for Iftsta {
                 let (rest, loc) = opt(LOC::parse)(rest)?;
                 let (rest, pci) = many0(PCI::parse)(rest)?;
                 loop_rest = rest;
+                // segment group 6
                 let mut loop_sg6 = vec![];
                 while peek(opt(TDT::parse))(loop_rest)?.1.is_some() {
                     let (rest, tdt) = TDT::parse(rest)?;
                     let (rest, dtm) = many0(DTM::parse)(rest)?;
                     let (rest, rff) = many0(RFF::parse)(rest)?;
                     loop_rest = rest;
+                    // segment group 7
                     let mut loop_sg7 = vec![];
                     while peek(opt(LOC::parse))(loop_rest)?.1.is_some() {
                         let (rest, loc) = LOC::parse(loop_rest)?;
