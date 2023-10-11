@@ -1,3 +1,7 @@
+# 0.4.1 2023-10-*
+
+* support escaped characters
+
 # 0.4.0 2023-10-08
 
 * use nom for parsing
