@@ -44,6 +44,26 @@ impl<'a, T: Default + Parser<&'a str, T, nom::error::Error<&'a str>>>
     }
 }
 
+#[derive(Debug, Serialize, Deserialize, Default, DisplayEdifact)]
+pub struct Iftmin {
+    pub unh: UNH,
+    pub bgm: BGM,
+    pub unt: UNT,
+}
+
+impl<'a> Parser<&'a str, Iftmin, nom::error::Error<&'a str>> for Iftmin {
+    fn parse(input: &'a str) -> IResult<&'a str, Iftmin> {
+        let mut output = Iftmin::default();
+        let (rest, obj) = UNH::parse(input)?;
+        output.unh = obj;
+        let (rest, obj) = BGM::parse(rest)?;
+        output.bgm = obj;
+        let (rest, obj) = UNT::parse(rest)?;
+        output.unt = obj;
+        Ok((rest, output))
+    }
+}
+
 /// A message to report the transport status and/or a change in the
 /// transport status (i.e. event) between agreed parties.
 ///
