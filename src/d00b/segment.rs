@@ -1339,6 +1339,26 @@ pub struct CTA {
     pub _020: Option<C056>,
 }
 
+/// COD - Component details
+///
+/// To provide component details of an object (e.g. product, container) such as its type and the material of which it is composed.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+pub struct COD {
+    pub _010: Option<C823>,
+    pub _020: Option<C824>,
+}
+
+impl<'a> Parser<&'a str, COD, nom::error::Error<&'a str>> for COD {
+    fn parse(input: &'a str) -> IResult<&'a str, COD> {
+        let (output_rest, vars) = crate::util::parse_line(input, "COD")?;
+        let output = COD {
+            _010: vars.first().map(|x| C823::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| C824::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// COM - COMMUNICATION CONTACT
 ///
 /// A segment to specify a communication number related to the contact.
@@ -1348,6 +1368,32 @@ pub struct COM {
     ///
     /// Communication number of a department or employee in a specified channel.
     pub _010: C076,
+}
+
+/// DAM - Damage
+///
+/// To specify damage including action taken.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+pub struct DAM {
+    pub _010: String,
+    pub _020: Option<C821>,
+    pub _030: Option<C822>,
+    pub _040: Option<C825>,
+    pub _050: Option<C826>,
+}
+
+impl<'a> Parser<&'a str, DAM, nom::error::Error<&'a str>> for DAM {
+    fn parse(input: &'a str) -> IResult<&'a str, DAM> {
+        let (output_rest, vars) = crate::util::parse_line(input, "DAM")?;
+        let output = DAM {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C821::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C822::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C825::parse(x).unwrap().1),
+            _050: vars.get(4).map(|x| C826::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
 }
 
 /// DGS - DANGEROUS GOODS
