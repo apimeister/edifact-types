@@ -477,6 +477,44 @@ impl<'a> Parser<&'a str, C211, nom::error::Error<&'a str>> for C211 {
     }
 }
 
+/// C212 Item number identification
+///
+/// Goods identification for a specified source.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C212 {
+    /// Item identifier                             an..35
+    ///
+    /// To identify an item.
+    pub _010: Option<String>,
+    /// Item type identification code               an..3
+    ///
+    /// Coded identification of an item type.
+    /// 1 User or association defined code.
+    /// May be used in combination with 1131/3055.
+    pub _020: Option<String>,
+    /// Code list identification code               an..17
+    ///
+    /// Code identifying a code list.
+    pub _030: Option<String>,
+    /// Code list responsible agency code           an..3
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C212, nom::error::Error<&'a str>> for C212 {
+    fn parse(input: &'a str) -> IResult<&'a str, C212> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C212 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C213 NUMBER AND TYPE OF PACKAGES
 ///
 /// Number and type of individual parts of a shipment.
@@ -1249,6 +1287,177 @@ impl<'a> Parser<&'a str, C819, nom::error::Error<&'a str>> for C819 {
     }
 }
 
+/// C821 Type of damage
+///
+/// To specify the type of damage to an object.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C821 {
+    /// Damage type description code              C      an..3
+    pub _010: Option<String>,
+    /// Code list identification code             C      an..17
+    pub _020: Option<String>,
+    /// Code list responsible agency code         C      an..3
+    pub _030: Option<String>,
+    /// Damage type description                   C      an..35
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C821, nom::error::Error<&'a str>> for C821 {
+    fn parse(input: &'a str) -> IResult<&'a str, C821> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C821 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C822 Damage area
+///
+/// To specify where the damage is on an object.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C822 {
+    /// Damage area description code              C      an..4
+    pub _010: Option<String>,
+    /// Code list identification code             C      an..17
+    pub _020: Option<String>,
+    /// Code list responsible agency code         C      an..3
+    pub _030: Option<String>,
+    /// Damage area description                   C      an..35
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C822, nom::error::Error<&'a str>> for C822 {
+    fn parse(input: &'a str) -> IResult<&'a str, C822> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C822 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C823 Type of unit/component
+///
+/// To identify the type of unit/component 
+/// of an object (e.g. lock, door, tyre).
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C823 {
+    /// Unit or component type description code   C      an..3
+    pub _010: Option<String>,
+    /// Code list identification code             C      an..17
+    pub _020: Option<String>,
+    /// Code list responsible agency code         C      an..3
+    pub _030: Option<String>,
+    /// Unit or component type description        C      an..35
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C823, nom::error::Error<&'a str>> for C823 {
+    fn parse(input: &'a str) -> IResult<&'a str, C823> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C823 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C824 Component material
+///
+/// To identify the material of which 
+/// a component is composed (e.g. steel, plastics).
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C824 {
+    /// Component material description code       C      an..3
+    pub _010: Option<String>,
+    /// Code list identification code             C      an..17
+    pub _020: Option<String>,
+    /// Code list responsible agency code         C      an..3
+    pub _030: Option<String>,
+    /// Component material description            C      an..35
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C824, nom::error::Error<&'a str>> for C824 {
+    fn parse(input: &'a str) -> IResult<&'a str, C824> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C824 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C825 Damage severity
+///
+/// To specify the severity of damage to an object.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C825 {
+    /// Damage severity description code          C      an..3
+    pub _010: Option<String>,
+    /// Code list identification code             C      an..17
+    pub _020: Option<String>,
+    /// Code list responsible agency code         C      an..3
+    pub _030: Option<String>,
+    /// Damage severity description               C      an..35
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C825, nom::error::Error<&'a str>> for C825 {
+    fn parse(input: &'a str) -> IResult<&'a str, C825> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C825 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C826 Action
+///
+/// To indicate an action which has been taken or
+///  is to be taken (e.g. in relation to a certain object).
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C826 {
+    /// Action request/notification description code         C      an..3
+    pub _010: Option<String>,
+    /// Code list identification code                        C      an..17
+    pub _020: Option<String>,
+    /// Code list responsible agency code                    C      an..3
+    pub _030: Option<String>,
+    /// Action request/notification description              C      an..35
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C826, nom::error::Error<&'a str>> for C826 {
+    fn parse(input: &'a str) -> IResult<&'a str, C826> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C826 {
+            _010: vars.get(0).map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C827 - TYPE OF MARKING
 ///
 /// Specification of the type of marking that reflects
@@ -1881,6 +2090,53 @@ impl<'a> Parser<&'a str, NAD, nom::error::Error<&'a str>> for NAD {
             _070: vars.get(6).map(|x| C819::parse(x).unwrap().1),
             _080: vars.get(7).map(crate::util::unborrow_string),
             _090: vars.get(8).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// PIA Additional product id
+///
+/// To specify additional or substitutional item identification codes.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct PIA {
+    /// Product identifier code qualifier
+    ///
+    /// Code qualifying the product identifier.
+    pub _010: String,
+    /// C212 Item number identification
+    ///
+    /// Goods identification for a specified source.
+    pub _020: C212,
+    /// C212 Item number identification
+    ///
+    /// Goods identification for a specified source.
+    pub _030: Option<C212>,
+    /// C212 Item number identification
+    ///
+    /// Goods identification for a specified source.
+    pub _040: Option<C212>,
+    /// C212 Item number identification
+    ///
+    /// Goods identification for a specified source.
+    pub _050: Option<C212>,
+    /// C212 Item number identification
+    ///
+    /// Goods identification for a specified source.
+    pub _060: Option<C212>,
+}
+
+impl<'a> Parser<&'a str, PIA, nom::error::Error<&'a str>> for PIA {
+    fn parse(input: &'a str) -> IResult<&'a str, PIA> {
+        let (output_rest, vars) = crate::util::parse_line(input, "PIA")?;
+        let output = PIA {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C212::parse(x).unwrap().1).unwrap(),
+            _030: vars.get(2).map(|x| C212::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C212::parse(x).unwrap().1),
+            _050: vars.get(4).map(|x| C212::parse(x).unwrap().1),
+            _060: vars.get(5).map(|x| C212::parse(x).unwrap().1),
+            ..Default::default()
         };
         Ok((output_rest, output))
     }
