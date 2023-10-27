@@ -506,7 +506,7 @@ impl<'a> Parser<&'a str, C212, nom::error::Error<&'a str>> for C212 {
     fn parse(input: &'a str) -> IResult<&'a str, C212> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C212 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -715,6 +715,43 @@ impl<'a> Parser<&'a str, C228, nom::error::Error<&'a str>> for C228 {
     }
 }
 
+/// C232 Government action
+///
+/// Code indicating a type of government action.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C232 {
+    /// Government agency identification code
+    /// 
+    /// Code identifying a government agency.
+    pub _010: Option<String>,
+    /// Government involvement code
+    /// 
+    /// Code indicating the requirement and status of governmental involvement.
+    pub _020: Option<String>,
+    /// Government action code
+    /// 
+    /// Code specifying a type of government action
+    /// such as inspection, detention, fumigation, security.
+    pub _030: Option<String>,
+    /// Government procedure code
+    /// 
+    /// Code specifying a government procedure.
+    pub _040: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C232, nom::error::Error<&'a str>> for C232 {
+    fn parse(input: &'a str) -> IResult<&'a str, C232> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C232 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C233 - SERVICE
 ///
 /// To identify a service (which may constitute an additional component to a basic contract).
@@ -803,10 +840,33 @@ impl<'a> Parser<&'a str, C237, nom::error::Error<&'a str>> for C237 {
     fn parse(input: &'a str) -> IResult<&'a str, C237> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C237 {
-            _010: vars.first().map(crate::util::unborrow_string),
-            _020: vars.get(1).map(crate::util::unborrow_string),
-            _030: vars.get(2).map(crate::util::unborrow_string),
-            _040: vars.get(3).map(crate::util::unborrow_string),
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C239 - TEMPERATURE SETTING
+///
+/// The temperature under which the goods are (to be) stored
+/// or shipped.
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
+pub struct C239 {
+    /// Temperature value           C  n..15
+    pub _010: Option<String>,
+    /// Measurement unit code       C  an..3
+    pub _020: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C239, nom::error::Error<&'a str>> for C239 {
+    fn parse(input: &'a str) -> IResult<&'a str, C239> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C239 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -837,8 +897,39 @@ impl<'a> Parser<&'a str, C270, nom::error::Error<&'a str>> for C270 {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C270 {
             _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).unwrap().to_string(),
-            _030: vars.get(2).map(crate::util::unborrow_string),
+            _020: vars.get(1).map(|x| x.to_string()).unwrap(),
+            _030: vars.get(2).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C280 Range
+///
+/// Range minimum and maximum limits.
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
+pub struct C280 {
+    /// Measurement unit code    C  an..3
+    /// 
+    /// 1 See UN/ECE Recommendation 20, common code.
+    pub _010: String,
+    /// Range minimum value      C  an..18
+    /// 
+    /// To specify the minimum value of a range.
+    pub _020: Option<String>,
+    /// Range maximum value      C  an..18
+    /// 
+    /// To specify the maximum value of a range.
+    pub _030: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C280, nom::error::Error<&'a str>> for C280 {
+    fn parse(input: &'a str) -> IResult<&'a str, C280> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C280 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -865,8 +956,51 @@ impl<'a> Parser<&'a str, C401, nom::error::Error<&'a str>> for C401 {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C401 {
             _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).unwrap().to_string(),
-            _030: vars.get(2).map(crate::util::unborrow_string),
+            _020: vars.get(1).map(|x| x.to_string()).unwrap(),
+            _030: vars.get(2).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C501 Percentage details
+///
+/// Identification of measurement type.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C501 {
+    /// Percentage type code qualifier              C      an..3
+    /// 
+    /// Code qualifying the type of percentage.
+    pub _010: String,
+    /// Percentage                                  C      an..10
+    /// 
+    /// To specify a percentage.
+    pub _020: Option<String>,
+    /// Percentage basis identification code        C      an..3
+    /// 
+    /// Code specifying the basis on which a percentage is calculated.
+    /// 
+    /// 1 User or association defined code. May be used in combination with 1131/3055.
+    pub _030: Option<String>,
+    /// Code list identification code               C      an..17
+    /// 
+    /// Code identifying a code list.
+    pub _040: Option<String>,
+    /// Code list responsible agency code           C      an..3
+    /// 
+    /// Code specifying the agency responsible for a code list.
+    pub _050: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C501, nom::error::Error<&'a str>> for C501 {
+    fn parse(input: &'a str) -> IResult<&'a str, C501> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C501 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -891,10 +1025,10 @@ impl<'a> Parser<&'a str, C502, nom::error::Error<&'a str>> for C502 {
     fn parse(input: &'a str) -> IResult<&'a str, C502> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C502 {
-            _010: vars.first().map(crate::util::unborrow_string),
-            _020: vars.get(1).map(crate::util::unborrow_string),
-            _030: vars.get(2).map(crate::util::unborrow_string),
-            _040: vars.get(3).map(crate::util::unborrow_string),
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -924,12 +1058,12 @@ impl<'a> Parser<&'a str, C503, nom::error::Error<&'a str>> for C503 {
     fn parse(input: &'a str) -> IResult<&'a str, C503> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C503 {
-            _010: vars.first().map(crate::util::unborrow_string),
-            _020: vars.get(1).map(crate::util::unborrow_string),
-            _030: vars.get(2).map(crate::util::unborrow_string),
-            _040: vars.get(3).map(crate::util::unborrow_string),
-            _050: vars.get(4).map(crate::util::unborrow_string),
-            _060: vars.get(5).map(crate::util::unborrow_string),
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -981,6 +1115,52 @@ impl<'a> Parser<&'a str, C507, nom::error::Error<&'a str>> for C507 {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| _2379::from_str(x).unwrap()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C516 Monetary amount
+///
+/// Amount of goods or services stated as a
+/// monetary amount in a specified currency.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C516 {
+    /// Monetary amount type code qualifier
+    ///
+    /// Code qualifying the type of monetary amount.
+    pub _010: String,
+    /// Monetary amount
+    /// 
+    /// To specify a monetary amount.
+    pub _020: Option<String>,
+    /// Currency identification code
+    /// 
+    /// Code specifying a monetary unit.
+    /// 
+    /// 1 Use ISO 4217 three alpha code.
+    pub _030: Option<String>,
+    /// Currency type code qualifier
+    /// 
+    /// Code qualifying the type of currency.
+    pub _040: Option<String>,
+    /// Status description code
+    /// 
+    /// Code specifying a status.
+    /// 
+    /// 1 For transport status, use UN/ECE Recommendation 24.
+    pub _050: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C516, nom::error::Error<&'a str>> for C516 {
+    fn parse(input: &'a str) -> IResult<&'a str, C516> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C516 {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
         };
         Ok(("", output))
     }
@@ -1306,7 +1486,7 @@ impl<'a> Parser<&'a str, C821, nom::error::Error<&'a str>> for C821 {
     fn parse(input: &'a str) -> IResult<&'a str, C821> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C821 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1334,7 +1514,7 @@ impl<'a> Parser<&'a str, C822, nom::error::Error<&'a str>> for C822 {
     fn parse(input: &'a str) -> IResult<&'a str, C822> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C822 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1363,7 +1543,7 @@ impl<'a> Parser<&'a str, C823, nom::error::Error<&'a str>> for C823 {
     fn parse(input: &'a str) -> IResult<&'a str, C823> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C823 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1392,7 +1572,7 @@ impl<'a> Parser<&'a str, C824, nom::error::Error<&'a str>> for C824 {
     fn parse(input: &'a str) -> IResult<&'a str, C824> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C824 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1420,7 +1600,7 @@ impl<'a> Parser<&'a str, C825, nom::error::Error<&'a str>> for C825 {
     fn parse(input: &'a str) -> IResult<&'a str, C825> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C825 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1449,7 +1629,7 @@ impl<'a> Parser<&'a str, C826, nom::error::Error<&'a str>> for C826 {
     fn parse(input: &'a str) -> IResult<&'a str, C826> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C826 {
-            _010: vars.get(0).map(|x| x.to_string()),
+            _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1932,6 +2112,48 @@ pub struct GIN {
     pub _060: Option<C208>,
 }
 
+/// GOR Governmental requirements
+///
+/// To indicate the requirement for a specific governmental action and/or
+/// procedure or which specific procedure is valid for a specific part of the transport.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct GOR {
+    /// Transport movement code
+    ///
+    /// Code specifying the transport movement.
+    pub _010: Option<String>,
+    /// C232 Government action
+    ///
+    /// Code indicating a type of government action.
+    pub _020: Option<C232>,
+    /// C232 Government action
+    ///
+    /// Code indicating a type of government action.
+    pub _030: Option<C232>,
+    /// C232 Government action
+    ///
+    /// Code indicating a type of government action.
+    pub _040: Option<C232>,
+    /// C232 Government action
+    ///
+    /// Code indicating a type of government action.
+    pub _050: Option<C232>,
+}
+
+impl<'a> Parser<&'a str, GOR, nom::error::Error<&'a str>> for GOR {
+    fn parse(input: &'a str) -> IResult<&'a str, GOR> {
+        let (output_rest, vars) = crate::util::parse_line(input, "GOR")?;
+        let output = GOR {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| C232::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C232::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C232::parse(x).unwrap().1),
+            _050: vars.get(4).map(|x| C232::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// HAN - HANDLING INSTRUCTIONS
 ///
 /// A segment identifying handling instructions.
@@ -2029,6 +2251,27 @@ impl<'a> Parser<&'a str, MEA, nom::error::Error<&'a str>> for MEA {
             _020: vars.get(1).map(|x| C502::parse(x).unwrap().1),
             _030: vars.get(2).map(|x| C174::parse(x).unwrap().1),
             _040: vars.get(3).map(crate::util::unborrow_string),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// MOA Monetary amount
+///
+/// To specify a monetary amount.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct MOA {
+    /// C516 Monetary amount
+    ///
+    /// Amount of goods or services stated as a monetary amount in a specified currency.
+    pub _010: C516,
+}
+
+impl<'a> Parser<&'a str, MOA, nom::error::Error<&'a str>> for MOA {
+    fn parse(input: &'a str) -> IResult<&'a str, MOA> {
+        let (output_rest, vars) = crate::util::parse_line(input, "MOA")?;
+        let output = MOA {
+            _010: vars.first().map(|x| C516::parse(x).unwrap().1).unwrap(),
         };
         Ok((output_rest, output))
     }
@@ -2136,7 +2379,34 @@ impl<'a> Parser<&'a str, PIA, nom::error::Error<&'a str>> for PIA {
             _040: vars.get(3).map(|x| C212::parse(x).unwrap().1),
             _050: vars.get(4).map(|x| C212::parse(x).unwrap().1),
             _060: vars.get(5).map(|x| C212::parse(x).unwrap().1),
-            ..Default::default()
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// PCD Percentage details
+///
+/// To specify percentage information.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct PCD {
+    /// Product identifier code qualifier
+    ///
+    /// Code qualifying the product identifier.
+    pub _010: C501,
+    /// Status description code
+    /// 
+    /// Code specifying a status.
+    /// 
+    /// 1 For transport status, use UN/ECE Recommendation 24.
+    pub _020: Option<String>,
+}
+
+impl<'a> Parser<&'a str, PCD, nom::error::Error<&'a str>> for PCD {
+    fn parse(input: &'a str) -> IResult<&'a str, PCD> {
+        let (output_rest, vars) = crate::util::parse_line(input, "PCD")?;
+        let output = PCD {
+            _010: vars.first().map(|x| C501::parse(x).unwrap().1).unwrap(),
+            _020: vars.get(1).map(|x| x.to_string()),
         };
         Ok((output_rest, output))
     }
@@ -2194,6 +2464,32 @@ impl<'a> Parser<&'a str, RFF, nom::error::Error<&'a str>> for RFF {
         let (output_rest, vars) = crate::util::parse_line(input, "RFF")?;
         let (_, obj) = C506::parse(vars.first().unwrap())?;
         let output = RFF { _010: obj };
+        Ok((output_rest, output))
+    }
+}
+
+/// RNG Range details
+///
+/// To identify a range.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct RNG {
+    /// Range type code qualifier
+    ///
+    /// Code qualifying a type of range.
+    pub _010: String,
+    /// C280 Range
+    /// 
+    /// Range minimum and maximum limits.
+    pub _020: Option<C280>,
+}
+
+impl<'a> Parser<&'a str, RNG, nom::error::Error<&'a str>> for RNG {
+    fn parse(input: &'a str) -> IResult<&'a str, RNG> {
+        let (output_rest, vars) = crate::util::parse_line(input, "RNG")?;
+        let output = RNG {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C280::parse(x).unwrap().1),
+        };
         Ok((output_rest, output))
     }
 }
@@ -2562,6 +2858,31 @@ impl<'a> Parser<&'a str, TMD, nom::error::Error<&'a str>> for TMD {
         Ok((output_rest, output))
     }
 }
+
+/// TMP Temperature
+///
+/// To specify the temperature setting.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct TMP {
+    /// Temperature type code qualifier
+    ///
+    /// Code qualifying the type of a temperature.
+    pub _010: String,
+    /// Temperature setting
+    pub _020: Option<C239>
+}
+
+impl<'a> Parser<&'a str, TMP, nom::error::Error<&'a str>> for TMP {
+    fn parse(input: &'a str) -> IResult<&'a str, TMP> {
+        let (output_rest, vars) = crate::util::parse_line(input, "TMP")?;
+        let output = TMP {
+            _010: vars.first().unwrap().to_string(),
+            _020: vars.get(1).map(|x| C239::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 
 /// TPL - TRANSPORT PLACEMENT
 ///
