@@ -721,20 +721,20 @@ impl<'a> Parser<&'a str, C228, nom::error::Error<&'a str>> for C228 {
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
 pub struct C232 {
     /// Government agency identification code
-    /// 
+    ///
     /// Code identifying a government agency.
     pub _010: Option<String>,
     /// Government involvement code
-    /// 
+    ///
     /// Code indicating the requirement and status of governmental involvement.
     pub _020: Option<String>,
     /// Government action code
-    /// 
+    ///
     /// Code specifying a type of government action
     /// such as inspection, detention, fumigation, security.
     pub _030: Option<String>,
     /// Government procedure code
-    /// 
+    ///
     /// Code specifying a government procedure.
     pub _040: Option<String>,
 }
@@ -910,15 +910,15 @@ impl<'a> Parser<&'a str, C270, nom::error::Error<&'a str>> for C270 {
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayInnerSegment)]
 pub struct C280 {
     /// Measurement unit code    C  an..3
-    /// 
+    ///
     /// 1 See UN/ECE Recommendation 20, common code.
     pub _010: String,
     /// Range minimum value      C  an..18
-    /// 
+    ///
     /// To specify the minimum value of a range.
     pub _020: Option<String>,
     /// Range maximum value      C  an..18
-    /// 
+    ///
     /// To specify the maximum value of a range.
     pub _030: Option<String>,
 }
@@ -969,25 +969,25 @@ impl<'a> Parser<&'a str, C401, nom::error::Error<&'a str>> for C401 {
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
 pub struct C501 {
     /// Percentage type code qualifier              C      an..3
-    /// 
+    ///
     /// Code qualifying the type of percentage.
     pub _010: String,
     /// Percentage                                  C      an..10
-    /// 
+    ///
     /// To specify a percentage.
     pub _020: Option<String>,
     /// Percentage basis identification code        C      an..3
-    /// 
+    ///
     /// Code specifying the basis on which a percentage is calculated.
-    /// 
+    ///
     /// 1 User or association defined code. May be used in combination with 1131/3055.
     pub _030: Option<String>,
     /// Code list identification code               C      an..17
-    /// 
+    ///
     /// Code identifying a code list.
     pub _040: Option<String>,
     /// Code list responsible agency code           C      an..3
-    /// 
+    ///
     /// Code specifying the agency responsible for a code list.
     pub _050: Option<String>,
 }
@@ -1131,23 +1131,23 @@ pub struct C516 {
     /// Code qualifying the type of monetary amount.
     pub _010: String,
     /// Monetary amount
-    /// 
+    ///
     /// To specify a monetary amount.
     pub _020: Option<String>,
     /// Currency identification code
-    /// 
+    ///
     /// Code specifying a monetary unit.
-    /// 
+    ///
     /// 1 Use ISO 4217 three alpha code.
     pub _030: Option<String>,
     /// Currency type code qualifier
-    /// 
+    ///
     /// Code qualifying the type of currency.
     pub _040: Option<String>,
     /// Status description code
-    /// 
+    ///
     /// Code specifying a status.
-    /// 
+    ///
     /// 1 For transport status, use UN/ECE Recommendation 24.
     pub _050: Option<String>,
 }
@@ -1525,7 +1525,7 @@ impl<'a> Parser<&'a str, C822, nom::error::Error<&'a str>> for C822 {
 
 /// C823 Type of unit/component
 ///
-/// To identify the type of unit/component 
+/// To identify the type of unit/component
 /// of an object (e.g. lock, door, tyre).
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
 pub struct C823 {
@@ -1554,7 +1554,7 @@ impl<'a> Parser<&'a str, C823, nom::error::Error<&'a str>> for C823 {
 
 /// C824 Component material
 ///
-/// To identify the material of which 
+/// To identify the material of which
 /// a component is composed (e.g. steel, plastics).
 #[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
 pub struct C824 {
@@ -2394,9 +2394,9 @@ pub struct PCD {
     /// Code qualifying the product identifier.
     pub _010: C501,
     /// Status description code
-    /// 
+    ///
     /// Code specifying a status.
-    /// 
+    ///
     /// 1 For transport status, use UN/ECE Recommendation 24.
     pub _020: Option<String>,
 }
@@ -2478,7 +2478,7 @@ pub struct RNG {
     /// Code qualifying a type of range.
     pub _010: String,
     /// C280 Range
-    /// 
+    ///
     /// Range minimum and maximum limits.
     pub _020: Option<C280>,
 }
@@ -2869,7 +2869,7 @@ pub struct TMP {
     /// Code qualifying the type of a temperature.
     pub _010: String,
     /// Temperature setting
-    pub _020: Option<C239>
+    pub _020: Option<C239>,
 }
 
 impl<'a> Parser<&'a str, TMP, nom::error::Error<&'a str>> for TMP {
@@ -2882,7 +2882,6 @@ impl<'a> Parser<&'a str, TMP, nom::error::Error<&'a str>> for TMP {
         Ok((output_rest, output))
     }
 }
-
 
 /// TPL - TRANSPORT PLACEMENT
 ///
