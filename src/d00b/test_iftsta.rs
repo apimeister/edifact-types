@@ -194,6 +194,7 @@ fn build_iftsta() {
                     ..Default::default()
                 },
                 rff: vec![
+                    // RFF+BM:ABCD224O4023815X'
                     RFF {
                         _010: C506 {
                             _010: "BM".to_string(),
@@ -201,6 +202,7 @@ fn build_iftsta() {
                             ..Default::default()
                         },
                     },
+                    // RFF+BN:24O4023815'
                     RFF {
                         _010: C506 {
                             _010: "BN".to_string(),
@@ -208,6 +210,7 @@ fn build_iftsta() {
                             ..Default::default()
                         },
                     },
+                    // RFF+EQ:TRHU4561222'
                     RFF {
                         _010: C506 {
                             _010: "EQ".to_string(),
@@ -216,6 +219,7 @@ fn build_iftsta() {
                         },
                     },
                 ],
+                // DTM+334:202211190710:203'
                 dtm: vec![DTM {
                     _010: C507 {
                         _010: "334".to_string(),
@@ -226,6 +230,7 @@ fn build_iftsta() {
                 doc: None,
                 ftx: vec![],
                 nad: vec![],
+                // LOC+175+USSYR:227::SYRACUSE+US:162'
                 loc: Some(LOC {
                     _010: "175".to_string(),
                     _020: Some(C517 {
@@ -244,8 +249,63 @@ fn build_iftsta() {
                     _050: None,
                 }),
                 pci: vec![],
-                segment_group_6: vec![],
-                segment_group_8: vec![],
+                segment_group_6: vec![
+                    IftstaSg6 {
+                        // TDT+1++2+25+ABCD:172::SENDER-COMP+++:::CSX TRANSPORTATION'
+                        tdt: TDT { 
+                            _010: "1".to_string(), 
+                            _020: None,
+                            _030: Some(C220 {
+                                _010: Some("2".to_string()),
+                                _020: None}),
+                            _040: Some(C228 { _010: Some("25".to_string()), _020: None }),
+                            _050: Some(C040 { _010: Some("ABCD".to_string()), _020: Some("172".to_string()), _030: None, _040: Some("SENDER-COMP".to_string()) }),
+                            _060: None,
+                            _070: None,
+                            _080: Some(C222 { _010: None, _020: None, _030: None, _040: Some("CSX TRANSPORTATION".to_string()), _050: None }),
+                            _090: None
+                        },
+                        dtm: vec![],
+                        rff: vec![],
+                        segment_group_7: vec![
+                            IftstaSg7 { 
+                                // LOC+9+COCTG:139::SOCIEDAD PORTUARIA DE CARTAGEN, , CO'
+                                loc: LOC { _010: "11".to_string(), _020: Some(C517 { _010: Some("COCTG".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("SOCIEDAD PORTUARIA DE CARTAGEN, , CO".to_string()) }), _030: None, _040: None, _050: None }, 
+                                // DTM+186:202211091415:203'
+                                dtm: vec![DTM { _010: C507 { _010: "186".to_string(), _020: Some("202211091415".to_string()), _030: Some(_2379::_203) } }] },
+                            IftstaSg7 { 
+                                // LOC+11+USNYC:139::APM TERMINALS ELIZABETH, , US'
+                                loc: LOC { _010: "29".to_string(), _020: Some(C517 { _010: Some("USNYC".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("APM TERMINALS ELIZABETH, , US".to_string()) }), _030: None, _040: None, _050: None }, 
+                                dtm: vec![
+                                // DTM+178:202211170505:203'
+                                DTM { _010: C507 { _010: "178".to_string(), _020: Some("202211170505".to_string()), _030: Some(_2379::_203) } },
+                                // DTM+133:202211181630:203'
+                                DTM { _010: C507 { _010: "133".to_string(), _020: Some("202211181630".to_string()), _030: Some(_2379::_203) } },
+                                ] },
+                            IftstaSg7 { 
+                                // LOC+29+USCHI:139::CSX 59TH STREET RAMP, , US'
+                                loc: LOC { _010: "7".to_string(), _020: Some(C517 { _010: Some("USCHI".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("CSX 59TH STREET RAMP, , U".to_string()) }), _030: None, _040: None, _050: None }, 
+                                dtm: vec![
+                                    // DTM+132:202211210600:203'
+                                    DTM { _010: C507 { _010: "132".to_string(), _020: Some("202211210600".to_string()), _030: Some(_2379::_203) } },
+                                    // DTM+133:202211210600:203'
+                                    DTM { _010: C507 { _010: "133".to_string(), _020: Some("202211210600".to_string()), _030: Some(_2379::_203) } },
+                                    ] },
+                            IftstaSg7 { 
+                                // LOC+7+USWOQ:139::WOODRIDGE, IL, US'
+                                loc: LOC { _010: "7".to_string(), _020: Some(C517 { _010: Some("USWOQ".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("WOODRIDGE, IL, US".to_string()) }), _030: None, _040: None, _050: None }, 
+                            // DTM+132:202211210700:203'
+                            dtm: vec![DTM { _010: C507 { _010: "132".to_string(), _020: Some("202211210700".to_string()), _030: Some(_2379::_203) } }] },
+                        ] }
+                ],
+                segment_group_8: vec![
+                    IftstaSg8 { 
+                        // EQD+CN+TRHU4561222+45G1:102:5+++5'
+                        eqd: EQD { _010: "CN".to_string(), _020: Some(C237 { _010: Some("TRHU4561222".to_string()), _020: None, _030: None, _040: None }), 
+                        _030: Some(C224 { _010: Some("45G1".to_string()), _020: Some("102".to_string()), _030: Some("5".to_string()), _040: None }),
+                        _040: None, _050: None, _060: Some("5".to_string()) },
+                        mea: vec![], dim: vec![], sel: vec![], rff: vec![], tpl: vec![], tmd: None, segment_group_9: vec![] },
+                ],
                 segment_group_10: vec![],
             }],
         }],
