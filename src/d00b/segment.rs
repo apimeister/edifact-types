@@ -4,45 +4,19 @@ use edifact_types_macros::{DisplayInnerSegment, DisplayOuterSegment};
 use nom::{combinator::opt, IResult};
 use serde::{Deserialize, Serialize};
 use std::{
-    fmt::{self, Debug, Display},
+    fmt::{self, Debug},
     str::FromStr,
 };
 
 /// BGM - BEGINNING OF MESSAGE
 ///
 /// A segment indicating the beginning of a message and identifying the consignment for which status is being reported.
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayOuterSegment)]
 pub struct BGM {
     pub _010: Option<C002>,
     pub _020: Option<C106>,
     pub _030: Option<_1225>,
     pub _040: Option<_4343>,
-}
-
-impl Display for BGM {
-    fn fmt<'x>(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let arr = vec![
-            self._010
-                .as_ref()
-                .map(|x| x.to_string())
-                .unwrap_or_default(),
-            self._020
-                .as_ref()
-                .map(|x| x.to_string())
-                .unwrap_or_default(),
-            self._030
-                .as_ref()
-                .map(|x| x.to_string())
-                .unwrap_or_default(),
-            self._040
-                .as_ref()
-                .map(|x| x.to_string())
-                .unwrap_or_default(),
-        ];
-        let joined = arr.join("+");
-        let joined = joined.trim_end_matches('+');
-        writeln!(f, "BGM+{}'", joined)
-    }
 }
 
 impl<'a> Parser<&'a str, BGM, nom::error::Error<&'a str>> for BGM {

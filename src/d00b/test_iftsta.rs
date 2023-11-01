@@ -37,7 +37,7 @@ fn build_bgm() {
     println!("{bgm:?}");
     let str = format!("{bgm}");
     println!("{}", str);
-    assert_eq!(str, "BGM+23+2BOG129382+9'\n");
+    assert_eq!(str, "BGM+23+2BOG129382+9");
 }
 
 #[test]
