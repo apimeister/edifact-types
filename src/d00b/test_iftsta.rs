@@ -77,12 +77,14 @@ fn build_iftsta() {
                 _030: Some(crate::d00b::_2379::_203),
             },
         }],
+        tsr: None,
         segment_group_1: vec![IftstaSg1 {
             nad: NAD {
                 _010: "CA".to_string(),
                 _020: Some(C082 {
                     _010: "ABCD".to_string(),
-                    ..Default::default()
+                    _020: Some("160".to_string()),
+                    _030: None
                 }),
                 _040: Some(C080 {
                     _010: "SENDER-COMP".to_string(),
@@ -171,6 +173,9 @@ fn build_iftsta() {
                 dtm: None,
             },
         ],
+        loc: vec![],
+        ftx: vec![],
+        cnt: vec![],
         segment_group_4: vec![IftstaSg4 {
             cni: CNI {
                 _010: Some("1".to_string()),
@@ -270,12 +275,12 @@ fn build_iftsta() {
                         segment_group_7: vec![
                             IftstaSg7 { 
                                 // LOC+9+COCTG:139::SOCIEDAD PORTUARIA DE CARTAGEN, , CO'
-                                loc: LOC { _010: "11".to_string(), _020: Some(C517 { _010: Some("COCTG".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("SOCIEDAD PORTUARIA DE CARTAGEN, , CO".to_string()) }), _030: None, _040: None, _050: None }, 
+                                loc: LOC { _010: "9".to_string(), _020: Some(C517 { _010: Some("COCTG".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("SOCIEDAD PORTUARIA DE CARTAGEN, , CO".to_string()) }), _030: None, _040: None, _050: None }, 
                                 // DTM+186:202211091415:203'
                                 dtm: vec![DTM { _010: C507 { _010: "186".to_string(), _020: Some("202211091415".to_string()), _030: Some(_2379::_203) } }] },
                             IftstaSg7 { 
                                 // LOC+11+USNYC:139::APM TERMINALS ELIZABETH, , US'
-                                loc: LOC { _010: "29".to_string(), _020: Some(C517 { _010: Some("USNYC".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("APM TERMINALS ELIZABETH, , US".to_string()) }), _030: None, _040: None, _050: None }, 
+                                loc: LOC { _010: "11".to_string(), _020: Some(C517 { _010: Some("USNYC".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("APM TERMINALS ELIZABETH, , US".to_string()) }), _030: None, _040: None, _050: None }, 
                                 dtm: vec![
                                 // DTM+178:202211170505:203'
                                 DTM { _010: C507 { _010: "178".to_string(), _020: Some("202211170505".to_string()), _030: Some(_2379::_203) } },
@@ -284,7 +289,7 @@ fn build_iftsta() {
                                 ] },
                             IftstaSg7 { 
                                 // LOC+29+USCHI:139::CSX 59TH STREET RAMP, , US'
-                                loc: LOC { _010: "7".to_string(), _020: Some(C517 { _010: Some("USCHI".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("CSX 59TH STREET RAMP, , U".to_string()) }), _030: None, _040: None, _050: None }, 
+                                loc: LOC { _010: "29".to_string(), _020: Some(C517 { _010: Some("USCHI".to_string()), _020: Some("139".to_string()), _030: None, _040: Some("CSX 59TH STREET RAMP, , US".to_string()) }), _030: None, _040: None, _050: None }, 
                                 dtm: vec![
                                     // DTM+132:202211210600:203'
                                     DTM { _010: C507 { _010: "132".to_string(), _020: Some("202211210600".to_string()), _030: Some(_2379::_203) } },
@@ -309,7 +314,8 @@ fn build_iftsta() {
                 segment_group_10: vec![],
             }],
         }],
-        ..Default::default()
+        // UNT+31+2805567'
+        unt: UNT { _010: "31".to_string(), _020: "2805567".to_string() }
     };
     println!("{ifsta:?}");
     let str = format!("{ifsta}");
