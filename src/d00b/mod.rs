@@ -344,8 +344,8 @@ pub struct Iftmin {
     pub segment_group_4: Vec<IftminSg4>,
     pub segment_group_6: Vec<IftminSg6>,
     pub segment_group_7: Vec<IftminSg7>,
-    // pub segment_group_8: Vec<IftminSg8>,
-    // pub segment_group_11: Vec<IftminSg11>,
+    pub segment_group_8: Vec<IftminSg8>,
+    pub segment_group_11: Vec<IftminSg11>,
     // pub segment_group_18: Vec<IftminSg18>,
     // pub segment_group_37: Vec<IftminSg37>,
     pub unt: UNT,
@@ -410,7 +410,6 @@ impl<'a> Parser<&'a str, Iftmin, nom::error::Error<&'a str>> for Iftmin {
             }
             loop_sg3.push(IftminSg3 { rff, dtm });
         }
-        println!("loop_sg3 obj: {loop_sg3:?} \nrest: {input:?}");
         output.segment_group_3 = loop_sg3;
 
         // Segment Group 4
@@ -463,7 +462,6 @@ impl<'a> Parser<&'a str, Iftmin, nom::error::Error<&'a str>> for Iftmin {
                 iftmin_sg5,
             });
         }
-        println!("loop_sg4 obj: {loop_sg4:?} \nrest: {input:?}");
         output.segment_group_4 = loop_sg4;
 
         // Segment Group 6
@@ -500,7 +498,6 @@ impl<'a> Parser<&'a str, Iftmin, nom::error::Error<&'a str>> for Iftmin {
                 moa,
             });
         }
-        println!("loop_sg6 obj: {loop_sg6:?} \nrest: {input:?}");
         output.segment_group_6 = loop_sg6;
 
         // Segment Group 7
@@ -538,8 +535,218 @@ impl<'a> Parser<&'a str, Iftmin, nom::error::Error<&'a str>> for Iftmin {
                 qty,
             });
         }
-        println!("loop_sg7 obj: {loop_sg7:?} \nrest: {input:?}");
         output.segment_group_7 = loop_sg7;
+
+        // Segment Group 8
+        let mut loop_sg8 = vec![];
+        while peek(opt(TDT::parse))(input)?.1.is_some() {
+            let (outer_rest, tdt) = TDT::parse(input)?;
+            input = outer_rest;
+            let mut dtm = vec![];
+            while peek(opt(DTM::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_dtm) = DTM::parse(input)?;
+                input = inner_rest;
+                dtm.push(inner_dtm);
+            }
+            let mut tsr = vec![];
+            while peek(opt(TSR::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_tsr) = TSR::parse(input)?;
+                input = inner_rest;
+                tsr.push(inner_tsr);
+            }
+            let mut iftmin_sg9 = vec![];
+            while peek(opt(LOC::parse))(input)?.1.is_some() {
+                let (inner_rest, loc) = LOC::parse(input)?;
+                input = inner_rest;
+                let mut iftmin_sg9_dtm = vec![];
+                while peek(opt(DTM::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_dtm) = DTM::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg9_dtm.push(inner_dtm);
+                }
+                iftmin_sg9.push(IftminSg9 {
+                    loc,
+                    dtm: iftmin_sg9_dtm,
+                });
+            }
+            let mut iftmin_sg10 = vec![];
+            while peek(opt(RFF::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_rff) = RFF::parse(input)?;
+                let (inner_rest, inner_dtm) = opt(DTM::parse)(inner_rest)?;
+                input = inner_rest;
+                iftmin_sg10.push(IftminSg10 {
+                    rff: inner_rff,
+                    dtm: inner_dtm,
+                });
+            }
+
+            loop_sg8.push(IftminSg8 {
+                tdt,
+                dtm,
+                tsr,
+                iftmin_sg9,
+                iftmin_sg10,
+            });
+        }
+        output.segment_group_8 = loop_sg8;
+
+        // Segment Group 11
+        let mut loop_sg11 = vec![];
+        while peek(opt(NAD::parse))(input)?.1.is_some() {
+            let (outer_rest, nad) = NAD::parse(input)?;
+            input = outer_rest;
+            let mut loc = vec![];
+            while peek(opt(LOC::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_loc) = LOC::parse(input)?;
+                input = inner_rest;
+                loc.push(inner_loc);
+            }
+            let mut moa = vec![];
+            while peek(opt(MOA::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_moa) = MOA::parse(input)?;
+                input = inner_rest;
+                moa.push(inner_moa);
+            }
+            let mut iftmin_sg12 = vec![];
+            while peek(opt(CTA::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_cta) = CTA::parse(input)?;
+                input = inner_rest;
+                let mut iftmin_sg12_com = vec![];
+                while peek(opt(COM::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_com) = COM::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg12_com.push(inner_com);
+                }
+                iftmin_sg12.push(IftminSg12 {
+                    cta: inner_cta,
+                    com: iftmin_sg12_com,
+                });
+            }
+            let mut iftmin_sg13 = vec![];
+            while peek(opt(DOC::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_doc) = DOC::parse(input)?;
+                let (inner_rest, inner_dtm) = opt(DTM::parse)(inner_rest)?;
+                input = inner_rest;
+                iftmin_sg13.push(IftminSg13 {
+                    doc: inner_doc,
+                    dtm: inner_dtm,
+                });
+            }
+            let mut iftmin_sg14 = vec![];
+            while peek(opt(TCC::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_tcc) = TCC::parse(input)?;
+                let (inner_rest, inner_cux) = opt(CUX::parse)(inner_rest)?;
+                let (inner_rest, inner_pri) = opt(PRI::parse)(inner_rest)?;
+                let (inner_rest, inner_eqn) = opt(EQN::parse)(inner_rest)?;
+                let (inner_rest, inner_pcd) = opt(PCD::parse)(inner_rest)?;
+                input = inner_rest;
+                let mut iftmin_sg14_moa = vec![];
+                while peek(opt(MOA::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_moa) = MOA::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg14_moa.push(inner_moa);
+                }
+                let mut iftmin_sg14_qty = vec![];
+                while peek(opt(QTY::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_qty) = QTY::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg14_qty.push(inner_qty);
+                }
+
+                iftmin_sg14.push(IftminSg14 {
+                    tcc: inner_tcc,
+                    cux: inner_cux,
+                    pri: inner_pri,
+                    eqn: inner_eqn,
+                    pcd: inner_pcd,
+                    moa: iftmin_sg14_moa,
+                    qty: iftmin_sg14_qty,
+                });
+            }
+            let mut iftmin_sg15 = vec![];
+            while peek(opt(RFF::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_rff) = RFF::parse(input)?;
+                input = inner_rest;
+                let mut iftmin_sg15_dtm = vec![];
+                while peek(opt(DTM::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_dtm) = DTM::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg15_dtm.push(inner_dtm);
+                }
+                iftmin_sg15.push(IftminSg15 {
+                    rff: inner_rff,
+                    dtm: iftmin_sg15_dtm,
+                });
+            }
+            let mut iftmin_sg16 = vec![];
+            while peek(opt(CPI::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_cpi) = CPI::parse(input)?;
+                input = inner_rest;
+                let mut iftmin_sg16_rff = vec![];
+                while peek(opt(RFF::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_rff) = RFF::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg16_rff.push(inner_rff);
+                }
+                let (inner_rest, inner_cux) = opt(CUX::parse)(input)?;
+                input = inner_rest;
+                let mut iftmin_sg16_loc = vec![];
+                while peek(opt(LOC::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_loc) = LOC::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg16_loc.push(inner_loc);
+                }
+                let mut iftmin_sg16_moa = vec![];
+                while peek(opt(MOA::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_moa) = MOA::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg16_moa.push(inner_moa);
+                }
+
+                iftmin_sg16.push(IftminSg16 {
+                    cpi: inner_cpi,
+                    rff: iftmin_sg16_rff,
+                    cux: inner_cux,
+                    loc: iftmin_sg16_loc,
+                    moa: iftmin_sg16_moa,
+                });
+            }
+            let mut iftmin_sg17 = vec![];
+            while peek(opt(TSR::parse))(input)?.1.is_some() {
+                let (inner_rest, inner_tsr) = TSR::parse(input)?;
+                let (inner_rest, inner_rff) = opt(RFF::parse)(inner_rest)?;
+                let (inner_rest, inner_loc) = opt(LOC::parse)(inner_rest)?;
+                let (inner_rest, inner_tpl) = opt(TPL::parse)(inner_rest)?;
+                input = inner_rest;
+                let mut iftmin_sg17_ftx = vec![];
+                while peek(opt(FTX::parse))(input)?.1.is_some() {
+                    let (inner_rest, inner_ftx) = FTX::parse(input)?;
+                    input = inner_rest;
+                    iftmin_sg17_ftx.push(inner_ftx);
+                }
+                iftmin_sg17.push(IftminSg17 {
+                    tsr: inner_tsr,
+                    rff: inner_rff,
+                    loc: inner_loc,
+                    tpl: inner_tpl,
+                    ftx: iftmin_sg17_ftx,
+                });
+            }
+
+            loop_sg11.push(IftminSg11 {
+                nad,
+                loc,
+                moa,
+                iftmin_sg12,
+                iftmin_sg13,
+                iftmin_sg14,
+                iftmin_sg15,
+                iftmin_sg16,
+                iftmin_sg17,
+            });
+        }
+        println!("loop_sg11 obj: {loop_sg11:?} \nrest: {input:?}");
+        output.segment_group_11 = loop_sg11;
 
         let (input, obj) = UNT::parse(input)?;
         println!("UNT obj: {obj:?} \nrest: {input:?}");
@@ -602,6 +809,87 @@ pub struct IftminSg7 {
     pub pcd: Option<PCD>,
     pub moa: Vec<MOA>,
     pub qty: Vec<QTY>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg8 {
+    pub tdt: TDT,
+    pub dtm: Vec<DTM>,
+    pub tsr: Vec<TSR>,
+    pub iftmin_sg9: Vec<IftminSg9>,
+    pub iftmin_sg10: Vec<IftminSg10>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg9 {
+    pub loc: LOC,
+    pub dtm: Vec<DTM>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg10 {
+    pub rff: RFF,
+    pub dtm: Option<DTM>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg11 {
+    pub nad: NAD,
+    pub loc: Vec<LOC>,
+    pub moa: Vec<MOA>,
+    pub iftmin_sg12: Vec<IftminSg12>,
+    pub iftmin_sg13: Vec<IftminSg13>,
+    pub iftmin_sg14: Vec<IftminSg14>,
+    pub iftmin_sg15: Vec<IftminSg15>,
+    pub iftmin_sg16: Vec<IftminSg16>,
+    pub iftmin_sg17: Vec<IftminSg17>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg12 {
+    pub cta: CTA,
+    pub com: Vec<COM>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg13 {
+    pub doc: DOC,
+    pub dtm: Option<DTM>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg14 {
+    pub tcc: TCC,
+    pub cux: Option<CUX>,
+    pub pri: Option<PRI>,
+    pub eqn: Option<EQN>,
+    pub pcd: Option<PCD>,
+    pub moa: Vec<MOA>,
+    pub qty: Vec<QTY>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg15 {
+    pub rff: RFF,
+    pub dtm: Vec<DTM>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg16 {
+    pub cpi: CPI,
+    pub rff: Vec<RFF>,
+    pub cux: Option<CUX>,
+    pub loc: Vec<LOC>,
+    pub moa: Vec<MOA>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg17 {
+    pub tsr: TSR,
+    pub rff: Option<RFF>,
+    pub loc: Option<LOC>,
+    pub tpl: Option<TPL>,
+    pub ftx: Vec<FTX>,
 }
 
 /// A message to report the transport status and/or a change in the
