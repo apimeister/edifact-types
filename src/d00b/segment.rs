@@ -1526,9 +1526,20 @@ impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
     }
 }
 
+/// UNZ Interchange trailer
+///
+/// To end and check the completeness of an interchange.
 #[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment)]
 pub struct UNZ {
+    /// Interchange control count
+    ///
+    /// The count either of the number of messages or, if used, of the number of functional groups in an interchange. One of these counts shall appear.
     _010: String,
+    /// Interchange control reference
+    ///
+    /// Unique reference assigned by the sender to an interchange.
+    /// Shall be identical in UNB and UNZ.
+    _020: String,
 }
 
 impl<'a> Parser<&'a str, UNZ, nom::error::Error<&'a str>> for UNZ {
@@ -1536,6 +1547,7 @@ impl<'a> Parser<&'a str, UNZ, nom::error::Error<&'a str>> for UNZ {
         let (output_rest, vars) = crate::util::parse_line(input, "UNZ")?;
         let output = UNZ {
             _010: vars.first().map(|x| x.to_string()).unwrap(),
+            _020: vars.get(1).map(|x| x.to_string()).unwrap(),
         };
         Ok((output_rest, output))
     }
