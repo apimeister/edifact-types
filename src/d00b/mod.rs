@@ -1,18 +1,19 @@
-use std::fmt;
-
-mod segment;
+use crate::util::Parser;
 use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg};
 use nom::{
     combinator::{opt, peek},
     multi::many0,
     IResult,
 };
-pub use segment::*;
-mod types;
 use serde::{Deserialize, Serialize};
-pub use types::*;
+use std::fmt;
 
-use crate::util::Parser;
+mod types;
+pub use types::*;
+mod segment;
+pub use segment::*;
+mod element;
+pub use element::*;
 
 #[cfg(test)]
 mod test_coparn;
