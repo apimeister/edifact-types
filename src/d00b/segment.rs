@@ -103,12 +103,84 @@ impl<'a> Parser<&'a str, COD, nom::error::Error<&'a str>> for COD {
 /// COM - COMMUNICATION CONTACT
 ///
 /// A segment to specify a communication number related to the contact.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment)]
 pub struct COM {
     /// C076 - COMMUNICATION CONTACT
     ///
     /// Communication number of a department or employee in a specified channel.
     pub _010: C076,
+}
+
+impl<'a> Parser<&'a str, COM, nom::error::Error<&'a str>> for COM {
+    fn parse(input: &'a str) -> IResult<&'a str, COM> {
+        let (output_rest, vars) = crate::util::parse_line(input, "COM")?;
+        let output = COM {
+            _010: vars.first().map(|x| C076::parse(x).unwrap().1).unwrap(),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// CTA - CONTACT INFORMATION
+///
+/// A segment to specify a contact name associated with the party.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct CTA {
+    /// CONTACT FUNCTION CODE
+    ///
+    /// Code specifying the function of a contact (e.g. department or person).
+    pub _010: Option<_3139>,
+    /// C056 - DEPARTMENT OR EMPLOYEE DETAILS
+    ///
+    /// Code and/or name of a department or employee. Code preferred.
+    pub _020: Option<C056>,
+}
+
+impl<'a> Parser<&'a str, CTA, nom::error::Error<&'a str>> for CTA {
+    fn parse(input: &'a str) -> IResult<&'a str, CTA> {
+        let (output_rest, vars) = crate::util::parse_line(input, "CTA")?;
+        let output = CTA {
+            _010: vars.first().map(|x| _3139::from_str(x).unwrap()),
+            _020: vars.get(1).map(|x| C056::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// Currencies
+///
+/// A segment to specify a contact name associated with the party.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct CUX {
+    /// Currency details
+    ///
+    /// The usage to which a currency relates.
+    pub _010: Option<C504>,
+    /// Currency details
+    ///
+    /// The usage to which a currency relates.
+    pub _020: Option<C504>,
+    /// Currency exchange rate
+    ///
+    /// To specify the rate at which one specified currency is expressed in another specified currency.
+    pub _030: Option<String>,
+    /// Exchange rate currency market identifier
+    ///
+    /// To identify an exchange rate currency market.
+    pub _040: Option<_6341>,
+}
+
+impl<'a> Parser<&'a str, CUX, nom::error::Error<&'a str>> for CUX {
+    fn parse(input: &'a str) -> IResult<&'a str, CUX> {
+        let (output_rest, vars) = crate::util::parse_line(input, "CUX")?;
+        let output = CUX {
+            _010: vars.first().map(|x| C504::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| C504::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| x.to_string()),
+            _040: vars.get(3).map(|x| _6341::from_str(x).unwrap()),
+        };
+        Ok((output_rest, output))
+    }
 }
 
 /// DAM - Damage
@@ -434,6 +506,27 @@ impl<'a> Parser<&'a str, FTX, nom::error::Error<&'a str>> for FTX {
             _040: vars.get(3).map(|x| C108::parse(x).unwrap().1),
             _050: vars.get(4).map(|x| x.to_string()),
             _060: vars.get(5).map(|x| x.to_string()),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// GDS Nature of cargo
+///
+/// To indicate the type of cargo as a general classification.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+pub struct GDS {
+    /// C703 Nature of cargo
+    ///
+    /// Rough classification of a type of cargo.
+    pub _010: C703,
+}
+
+impl<'a> Parser<&'a str, GDS, nom::error::Error<&'a str>> for GDS {
+    fn parse(input: &'a str) -> IResult<&'a str, GDS> {
+        let (output_rest, vars) = crate::util::parse_line(input, "GDS")?;
+        let output = GDS {
+            _010: vars.first().map(|x| C703::parse(x).unwrap().1).unwrap(),
         };
         Ok((output_rest, output))
     }
@@ -1142,6 +1235,37 @@ impl<'a> Parser<&'a str, TMP, nom::error::Error<&'a str>> for TMP {
         let output = TMP {
             _010: vars.first().unwrap().to_string(),
             _020: vars.get(1).map(|x| C239::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// TOD Terms of delivery or transport
+///
+/// To specify terms of delivery or transport.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct TOD {
+    /// Delivery or transport terms function code
+    ///
+    /// Code specifying the function of delivery or transport terms.
+    pub _010: Option<_4055>,
+    /// Transport charges payment method
+    ///
+    /// Code specifying the payment method for transport charges.
+    pub _020: Option<_4215>,
+    /// Terms of delivery or transport
+    ///
+    /// Terms of delivery or transport code from a specified source.
+    pub _030: Option<C100>,
+}
+
+impl<'a> Parser<&'a str, TOD, nom::error::Error<&'a str>> for TOD {
+    fn parse(input: &'a str) -> IResult<&'a str, TOD> {
+        let (output_rest, vars) = crate::util::parse_line(input, "TOD")?;
+        let output = TOD {
+            _010: vars.first().map(|x| _4055::from_str(x).unwrap()),
+            _020: vars.get(1).map(|x| _4215::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| C100::parse(x).unwrap().1),
         };
         Ok((output_rest, output))
     }

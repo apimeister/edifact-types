@@ -18,6 +18,8 @@ pub use element::*;
 #[cfg(test)]
 mod test_coparn;
 #[cfg(test)]
+mod test_iftmin;
+#[cfg(test)]
 mod test_iftsta;
 #[cfg(test)]
 mod test_segment;
@@ -326,6 +328,26 @@ impl<'a> Parser<&'a str, Iftmcs, nom::error::Error<&'a str>> for Iftmcs {
 pub struct Iftmin {
     pub unh: UNH,
     pub bgm: BGM,
+    pub cta: Option<CTA>,
+    pub com: Vec<COM>,
+    pub dtm: Vec<DTM>,
+    pub tsr: Vec<TSR>,
+    pub cux: Vec<CUX>,
+    pub moa: Vec<MOA>,
+    pub ftx: Vec<FTX>,
+    pub cnt: Vec<CNT>,
+    pub doc: Vec<DOC>,
+    pub gds: Vec<GDS>,
+    pub segment_group_1: Vec<IftminSg1>,
+    pub segment_group_2: Vec<IftminSg2>,
+    pub segment_group_3: Vec<IftminSg3>,
+    // pub segment_group_4: Vec<IftminSg4>,
+    // pub segment_group_6: Vec<IftminSg6>,
+    // pub segment_group_7: Vec<IftminSg7>,
+    // pub segment_group_8: Vec<IftminSg8>,
+    // pub segment_group_11: Vec<IftminSg11>,
+    // pub segment_group_18: Vec<IftminSg18>,
+    // pub segment_group_37: Vec<IftminSg37>,
     pub unt: UNT,
 }
 
@@ -333,13 +355,115 @@ impl<'a> Parser<&'a str, Iftmin, nom::error::Error<&'a str>> for Iftmin {
     fn parse(input: &'a str) -> IResult<&'a str, Iftmin> {
         let mut output = Iftmin::default();
         let (rest, obj) = UNH::parse(input)?;
+        println!("UNH obj: {obj:?} \nrest: {rest:?}");
         output.unh = obj;
         let (rest, obj) = BGM::parse(rest)?;
+        println!("BGM obj: {obj:?} \nrest: {rest:?}");
         output.bgm = obj;
+        let (rest, obj) = opt(CTA::parse)(rest)?;
+        println!("CTA obj: {obj:?} \nrest: {rest:?}");
+        output.cta = obj;
+        let (rest, obj) = many0(COM::parse)(rest)?;
+        println!("COM obj: {obj:?} \nrest: {rest:?}");
+        output.com = obj;
+        let (rest, obj) = many0(DTM::parse)(rest)?;
+        println!("DTM obj: {obj:?} \nrest: {rest:?}");
+        output.dtm = obj;
+        let (rest, obj) = many0(TSR::parse)(rest)?;
+        println!("TSR obj: {obj:?} \nrest: {rest:?}");
+        output.tsr = obj;
+        let (rest, obj) = many0(CUX::parse)(rest)?;
+        println!("CUX obj: {obj:?} \nrest: {rest:?}");
+        output.cux = obj;
+        let (rest, obj) = many0(MOA::parse)(rest)?;
+        println!("MOA obj: {obj:?} \nrest: {rest:?}");
+        output.moa = obj;
+        let (rest, obj) = many0(FTX::parse)(rest)?;
+        println!("FTX obj: {obj:?} \nrest: {rest:?}");
+        output.ftx = obj;
+        let (rest, obj) = many0(CNT::parse)(rest)?;
+        println!("CNT obj: {obj:?} \nrest: {rest:?}");
+        output.cnt = obj;
+        let (rest, obj) = many0(DOC::parse)(rest)?;
+        println!("DOC obj: {obj:?} \nrest: {rest:?}");
+        output.doc = obj;
+        let (rest, obj) = many0(GDS::parse)(rest)?;
+        println!("GDS obj: {obj:?} \nrest: {rest:?}");
+        output.gds = obj;
+        // Segment Group 1
+        let mut loop_sg1 = vec![];
+        let mut loop_rest = rest;
+        while peek(opt(LOC::parse))(loop_rest)?.1.is_some() {
+            let (outer_rest, loc) = LOC::parse(loop_rest)?;
+            loop_rest = outer_rest;
+            let mut loop_dtm = vec![];
+            while peek(opt(DTM::parse))(loop_rest)?.1.is_some() {
+                let (inner_rest, dtm) = DTM::parse(loop_rest)?;
+                loop_rest = inner_rest;
+                loop_dtm.push(dtm);
+            }
+            loop_sg1.push(IftminSg1 { loc, dtm: loop_dtm });
+        }
+        let rest = loop_rest;
+        println!("loop_sg1 obj: {loop_sg1:?} \nrest: {rest:?}");
+        output.segment_group_1 = loop_sg1;
+        // Segment Group 2
+        let mut loop_sg2 = vec![];
+        let mut loop_rest = rest;
+        while peek(opt(TOD::parse))(loop_rest)?.1.is_some() {
+            let (outer_rest, tod) = TOD::parse(loop_rest)?;
+            loop_rest = outer_rest;
+            let mut loop_loc = vec![];
+            while peek(opt(LOC::parse))(loop_rest)?.1.is_some() {
+                let (inner_rest, loc) = LOC::parse(loop_rest)?;
+                loop_rest = inner_rest;
+                loop_loc.push(loc);
+            }
+            loop_sg2.push(IftminSg2 { tod, loc: loop_loc });
+        }
+        let rest = loop_rest;
+        println!("loop_sg2 obj: {loop_sg2:?} \nrest: {rest:?}");
+        output.segment_group_2 = loop_sg2;
+        // Segment Group 3
+        let mut loop_sg3 = vec![];
+        let mut loop_rest = rest;
+        while peek(opt(RFF::parse))(loop_rest)?.1.is_some() {
+            let (outer_rest, rff) = RFF::parse(loop_rest)?;
+            loop_rest = outer_rest;
+            let mut loop_dtm = vec![];
+            while peek(opt(DTM::parse))(loop_rest)?.1.is_some() {
+                let (inner_rest, dtm) = DTM::parse(loop_rest)?;
+                loop_rest = inner_rest;
+                loop_dtm.push(dtm);
+            }
+            loop_sg3.push(IftminSg3 { rff, dtm: loop_dtm });
+        }
+        let rest = loop_rest;
+        println!("loop_sg3 obj: {loop_sg3:?} \nrest: {rest:?}");
+        output.segment_group_3 = loop_sg3;
         let (rest, obj) = UNT::parse(rest)?;
+        println!("UNT obj: {obj:?} \nrest: {rest:?}");
         output.unt = obj;
         Ok((rest, output))
     }
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg1 {
+    pub loc: LOC,
+    pub dtm: Vec<DTM>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg2 {
+    pub tod: TOD,
+    pub loc: Vec<LOC>,
+}
+
+#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]
+pub struct IftminSg3 {
+    pub rff: RFF,
+    pub dtm: Vec<DTM>,
 }
 
 /// A message to report the transport status and/or a change in the

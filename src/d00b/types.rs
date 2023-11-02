@@ -9803,6 +9803,582 @@ pub enum _3055 {
     ZZZ,
 }
 
+/// Contact function code
+///
+/// Code specifying the function of a contact (e.g. department or person).
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _3139 {
+    /// Insurance contact
+    ///
+    /// Department/person to contact for matters regarding insurance.
+    AA,
+    /// Workshop contact
+    ///
+    /// Department/person to contact for matters regarding the workshop.
+    AB,
+    /// Accepting contact
+    ///
+    /// Department/person in charge of accepting incoming goods.
+    AC,
+    /// Accounting contact
+    ///
+    /// The contact responsible for accounting matters.
+    AD,
+    /// Contract contact
+    ///
+    /// Department/person to contact for matters regarding contracts.
+    AE,
+    /// Land registry contact
+    ///
+    /// Department/person to contact for matters regarding land registry.
+    AF,
+    /// Agent
+    ///
+    /// Department/person of the agent which acts on behalf of another party.
+    AG,
+    /// Coordination contact
+    ///
+    /// Department/person to contact for matters regarding technical coordination of works.
+    AH,
+    /// Project management contact
+    ///
+    /// Department/person to contact for matters regarding project management on behalf of the contractor.
+    AI,
+    /// Investment contact
+    ///
+    /// Department/person to contact for matters regarding investments.
+    AJ,
+    /// Works management contact
+    ///
+    /// Department/person to contact for matters regarding management of works on behalf of the owner.
+    AK,
+    /// Personnel contact
+    ///
+    /// Department/person to contact for matters regarding personnel (human resources).
+    AL,
+    /// Claims contact
+    ///
+    /// Department/person to contact for matters regarding claims.
+    AM,
+    /// Laboratory contact
+    ///
+    /// Department/person to contact for laboratory matters.
+    AN,
+    /// Plant/equipment contact
+    ///
+    /// Department/person to contact for matters regarding plant/equipment.
+    AO,
+    /// Accounts payable contact
+    ///
+    /// Department/person responsible for the accounts payable function within a corporation.
+    AP,
+    /// Quantity surveyor contact
+    ///
+    /// Department/person to contact for matters regarding quantity surveying.
+    AQ,
+    /// Accounts receivable contact
+    ///
+    /// Department/person responsible for the accounts receivable within a corporation.
+    AR,
+    /// Public relations contact
+    ///
+    /// Department/person to contact for matters regarding public relations.
+    AS,
+    /// Technical contact
+    ///
+    /// Department/person to contact for matters regarding technical issues.
+    AT,
+    /// City works authority contact
+    ///
+    /// Department/person to contact for matters regarding city works.
+    AU,
+    /// Maintenance contact
+    ///
+    /// Department/person to contact for matters regarding maintenance.
+    AV,
+    /// Town planning contact
+    ///
+    /// Department/person to contact for matters regarding town ` planning.
+    AW,
+    /// Traffic authority contact
+    ///
+    /// Department/person to contact for matters regarding traffic.
+    AX,
+    /// Electricity supply contact
+    ///
+    /// Department/person to contact for matters regarding electricity supply.
+    AY,
+    /// Gas supply contact
+    ///
+    /// Department/person to contact for matters regarding gas supply.
+    AZ,
+    /// Water supply contact
+    ///
+    /// Department/person to contact for matters regarding water supply.
+    BA,
+    /// Telecommunications network contact
+    ///
+    /// Department/person to contact for matters regarding telecommunications network.
+    BB,
+    /// Banking contact
+    ///
+    /// Contact person for bank.
+    BC,
+    /// New developments contact
+    ///
+    /// Department/person to contact for matters regarding new developments (e.g. construction).
+    BD,
+    /// Transport infrastructure authority
+    ///
+    /// Department/person to contact for matters regarding transport infrastructure.
+    BE,
+    /// Service contact
+    ///
+    /// Department/person to be contacted in service matters.
+    BF,
+    /// Auditing contact
+    ///
+    /// Department or person to contact with regard to auditing.
+    BG,
+    /// Legal auditing contact
+    ///
+    /// Department or person to contact with regard to legal auditing.
+    BH,
+    /// Software house contact
+    ///
+    /// Department or person to contact with regard to software house.
+    BI,
+    /// Department or person responsible for processing purchase order
+    ///
+    /// Identification of the department or person responsible for the processing of purchase orders.
+    BJ,
+    /// Electronic data interchange coordinator
+    ///
+    /// Code specifying a person responsible for the coordination of matters related to the exchange of information in electronic data interchange format.
+    BK,
+    /// Waiver contact
+    ///
+    /// Code specifying a party knowledgeable about a waiver.
+    BL,
+    /// Automated clearing house (ACH) contact
+    ///
+    /// Code specifying a person to be contacted at an automated clearing house.
+    BM,
+    /// Certification contact
+    ///
+    /// Code specifying a contact with knowledge of a certification action.
+    BN,
+    /// Ultimate consignee
+    ///
+    /// Final recipient of the consignment.
+    BU,
+    /// Carrier
+    ///
+    /// (3126) Party undertaking or arranging transport of goods between named points.
+    CA,
+    /// Changed by
+    ///
+    /// Person who made the change.
+    CB,
+    /// Responsible person for information production
+    ///
+    /// Responsible person to contact for matters regarding the production of information.
+    CC,
+    /// Responsible person for information dissemination
+    ///
+    /// Responsible person to contact for matters regarding information dissemination.
+    CD,
+    /// Head of unit for computer data processing
+    ///
+    /// Head of unit to contact for matters regarding computer data processing.
+    CE,
+    /// Head of unit for information production
+    ///
+    /// Head of unit to contact for matters regarding the production of information.
+    CF,
+    /// Head of unit for information dissemination
+    ///
+    /// Head of unit to contact for matters regarding dissemination of information.
+    CG,
+    /// Consignee
+    ///
+    /// (3132) Party to which goods are consigned.
+    CN,
+    /// Consignor
+    ///
+    /// (3336) Party which, by contract with a carrier, consigns or sends goods with the carrier, or has them conveyed by him. Synonym: shipper/sender.
+    CO,
+    /// Responsible person for computer data processing
+    ///
+    /// Responsible person to contact for matters regarding computer data processing.
+    CP,
+    /// Customer relations
+    ///
+    /// Individual responsible for customer relations.
+    CR,
+    /// Confirmed with
+    ///
+    /// Person with whom the contents of the purchase order has been discussed and agreed (e.g. by telephone) prior to the sending of this message.
+    CW,
+    /// Department/employee to execute export procedures
+    DE,
+    /// Department/employee to execute import procedures
+    DI,
+    /// Delivery contact
+    ///
+    /// Department/person responsible for delivery.
+    DL,
+    /// Entered by
+    ///
+    /// Name of an individual who made the entry.
+    EB,
+    /// Education coordinator
+    ///
+    /// Person in charge of coordination of education.
+    EC,
+    /// Engineering contact
+    ///
+    /// Department/person to contact for matters regarding engineering.
+    ED,
+    /// Expeditor
+    ///
+    /// The contact for expediting.
+    EX,
+    /// Goods receiving contact
+    ///
+    /// Department/person responsible for receiving the goods at the place of delivery.
+    GR,
+    /// Emergency dangerous goods contact
+    ///
+    /// Party who is to be contacted to intervene in case of emergency.
+    HE,
+    /// Dangerous goods contact
+    ///
+    /// Department/person to be contacted for details about the transportation of dangerous goods/hazardous material.
+    HG,
+    /// Hazardous material contact
+    ///
+    /// Department/person responsible for hazardous material control.
+    HM,
+    /// Information contact
+    ///
+    /// Department/person to contact for questions regarding transactions.
+    IC,
+    /// Insurer contact
+    IN,
+    /// Place of delivery contact
+    LB,
+    /// Place of collection contact
+    LO,
+    /// Material control contact
+    ///
+    /// Department/person responsible for the controlling/inspection of goods.
+    MC,
+    /// Material disposition contact
+    ///
+    /// Department/person responsible for the disposition/scheduling of goods.
+    MD,
+    /// Material handling contact
+    MH,
+    /// Message recipient contact
+    MR,
+    /// Message sender contact
+    MS,
+    /// Notification contact
+    NT,
+    /// Order contact
+    ///
+    /// An individual to contact for questions regarding this order.
+    OC,
+    /// Prototype coordinator
+    ///
+    /// Description to be provided.
+    PA,
+    /// Purchasing contact
+    ///
+    /// Department/person responsible for issuing this purchase order.
+    PD,
+    /// Payee contact
+    PE,
+    /// Product management contact
+    ///
+    /// Department/person to contact for questions regarding this order.
+    PM,
+    /// Quality assurance contact
+    ///
+    /// Quality assurance contact within an organization.
+    QA,
+    /// Quality coordinator contact
+    ///
+    /// Quality coordinator contact within an organization.
+    QC,
+    /// Receiving dock contact
+    ///
+    /// The receiving dock contact within an organization.
+    RD,
+    /// Sales administration
+    ///
+    /// Name of the sales administration contact within a corporation.
+    SA,
+    /// Schedule contact
+    ///
+    /// Name of the scheduling contact within a corporation.
+    SC,
+    /// Shipping contact
+    ///
+    /// The shipping department contact within an organization.
+    SD,
+    /// Sales representative or department
+    ///
+    /// The sales representative or department contact within an organization.
+    SR,
+    /// Supplier contact
+    ///
+    /// Department/person to be contacted at the supplier.
+    SU,
+    /// Traffic administrator
+    ///
+    /// The traffic administrator contact within an organization.
+    TA,
+    /// Test contact
+    ///
+    /// Department/person responsible for testing contact.
+    TD,
+    /// Technical documentation recipient
+    ///
+    /// Department/person to receive technical documentation.
+    TI,
+    /// Transport contact
+    ///
+    /// Department/person in charge of transportation.
+    TR,
+    /// Warehouse
+    ///
+    /// The warehouse contact within an organization.
+    WH,
+    /// Alternate contact
+    ///
+    /// Alternate department or person to contact.
+    WI,
+    /// Office Manager
+    ///
+    /// An individual responsible for managing the day to day activities of an office.
+    WJ,
+    /// Mutually defined
+    ZZZ,
+}
+
+/// Communication address code qualifier
+///
+/// Code qualifying the communication address.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _3155 {
+    /// Circuit switching
+    ///
+    /// A process that, on demand, connects two or more data terminal equipments and permits the exclusive use of a data circuit between them until the connection is released (ISO).
+    AA,
+    /// SITA
+    ///
+    /// Communications number assigned by Societe Internationale de Telecommunications Aeronautiques (SITA).
+    AB,
+    /// ARINC
+    ///
+    /// Communications number assigned by Aeronautical Radio Inc.
+    AC,
+    /// AT&T mailbox
+    ///
+    /// AT&T mailbox identifier.
+    AD,
+    /// Peripheral device
+    ///
+    /// Peripheral device identification.
+    AE,
+    /// U.S. Defense Switched Network
+    ///
+    /// The switched telecommunications network of the United States Department of Defense.
+    AF,
+    /// U.S. federal telecommunications system
+    ///
+    /// The switched telecommunications network of the United States government.
+    AG,
+    /// World Wide Web
+    ///
+    /// Data exchange via the World Wide Web.
+    AH,
+    /// International calling country code
+    ///
+    /// Identifies that portion of an international telephone number representing the country code to be used when calling internationally.
+    AI,
+    /// Alternate telephone
+    ///
+    /// Identifies the alternate telephone number.
+    AJ,
+    /// Videotex number
+    ///
+    /// Code that identifies the communications number for the online videotex service.
+    AK,
+    /// Cellular phone
+    ///
+    /// Identifies the cellular phone number.
+    AL,
+    /// International telephone direct line
+    ///
+    /// The international telephone direct line number.
+    AM,
+    /// O.F.T.P. (ODETTE File Transfer Protocol)
+    ///
+    /// ODETTE File Transfer Protocol.
+    AN,
+    /// Cable address
+    ///
+    /// EDI transmission
+    CA,
+    ///
+    /// Number identifying the service and service user.
+    /// EI,
+    /// Electronic mail
+    ///
+    /// Exchange of mail by electronic means.
+    EM,
+    /// Extension
+    ///
+    /// Telephone extension.
+    EX,
+    /// File transfer access method
+    ///
+    /// According to ISO.
+    FT,
+    /// Telefax
+    ///
+    /// Device used for transmitting and reproducing fixed graphic material (as printing) by means of signals over telephone lines or other electronic transmission media.
+    FX,
+    /// GEIS (General Electric Information Service) mailbox
+    ///
+    /// IBM information exchange
+    GM,
+    ///
+    /// Internal mail
+    /// IE,
+    ///
+    /// Internal mail address/number.
+    /// IM,
+    /// Mail
+    ///
+    /// Postal service document delivery.
+    MA,
+    /// Postbox number
+    ///
+    /// Packet switching
+    PB,
+    ///
+    /// The process of routing and transferring data by means of addressed packets so that a channel is occupied only during the transmission; upon completion of the transmission the channel is made available for the transfer of other packets (ISO).
+    /// PS,
+    /// S.W.I.F.T.
+    ///
+    /// Communications address assigned by Society for Worldwide Interbank Financial Telecommunications s.c.
+    SW,
+    /// Telephone
+    ///
+    /// Voice/data transmission by telephone.
+    TE,
+    /// Telegraph
+    ///
+    /// Text transmission via telegraph.
+    TG,
+    /// Telex
+    ///
+    /// Transmission of text/data via telex.
+    TL,
+    /// Telemail
+    ///
+    /// Transmission of text/data via telemail.
+    TM,
+    /// Teletext
+    ///
+    /// Transmission of text/data via teletext.
+    TT,
+    /// TWX
+    ///
+    /// Communication service involving Teletypewriter machines connected by wire or electronic transmission media. Teletypewriter machines are the devices used to send and receive signals and produce hardcopy from them.
+    TX,
+    /// X.400 address
+    ///
+    /// The X.400 address.
+    XF,
+    /// Pager
+    ///
+    /// Identifies that the communication number is for a pager.
+    XG,
+    /// International telephone switchboard
+    ///
+    /// The international telephone switchboard number.
+    XH,
+    /// National telephone direct line
+    ///
+    /// The national telephone direct line number.
+    XI,
+    /// National telephone switchboard
+    ///
+    /// The national telephone switchboard number.
+    XJ,
+}
+
+/// Delivery or transport terms description code
+///
+/// Code specifying the delivery or transport terms.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum _4053 {
+    /// Delivery arranged by the supplier
+    ///
+    /// Indicates that the supplier will arrange delivery of the goods.
+    #[serde(rename = "1")]
+    _1,
+    /// Delivery arranged by logistic service provider
+    ///
+    /// Code indicating that the logistic service provider has arranged the delivery of goods.
+    #[serde(rename = "2")]
+    _2,
+}
+
+/// Delivery or transport terms function code
+///
+/// Code specifying the function of delivery or transport terms.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum _4055 {
+    /// Price condition
+    ///
+    /// Description to be provided.
+    #[serde(rename = "1")]
+    _1,
+    /// Despatch condition
+    ///
+    /// Condition requested by the customer under which the supplier shall deliver: Extent of freight costs, means of transport.
+    #[serde(rename = "2")]
+    _2,
+    /// Price and despatch condition
+    ///
+    /// Description to be provided.
+    #[serde(rename = "3")]
+    _3,
+    /// Collected by customer
+    ///
+    /// Indicates that the customer will pick up the goods at the supplier. He will take care of the means of transport.
+    #[serde(rename = "4")]
+    _4,
+    /// Transport condition
+    ///
+    /// Specifies the conditions under which the transport takes place under the responsibility of the carrier.
+    #[serde(rename = "5")]
+    _5,
+    /// Delivery condition
+    ///
+    /// Specifies the conditions under which the goods must be delivered to the consignee.
+    #[serde(rename = "6")]
+    _6,
+}
+
 /// 4065 Contract and carriage condition code
 ///
 /// Code to identify the conditions of contract and carriage.
@@ -9971,6 +10547,124 @@ pub enum _4065 {
     _40,
 }
 
+/// Transport charges payment method code
+///
+/// Code specifying the payment method for transport charges.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _4215 {
+    /// Account
+    ///
+    /// The charges are to be charged to an account.
+    A,
+    /// Cash on delivery service charge paid by consignor
+    ///
+    /// An indication that the consignor is responsible for the payment of the cash on delivery service charge.
+    AA,
+    /// Cash on delivery service charge paid by consignee
+    ///
+    /// An indication that the consignee is responsible for the payment of the cash on delivery service charge.
+    AB,
+    /// Insurance costs paid by consignor
+    ///
+    /// An indication that the consignor is responsible for the payment of the insurance costs.
+    AC,
+    /// Insurance costs paid by consignee
+    ///
+    /// An indication that the consignee is responsible for the payment of the insurance costs.
+    AD,
+    /// Advance collect
+    ///
+    /// The amount of freight or other charge on a shipment advanced by one transportation line to another or to the shipper, to be collected from consignee.
+    CA,
+    /// Collect
+    ///
+    /// A shipment on which freight charges will be paid by consignee.
+    CC,
+    /// Collect, freight credited to payment customer
+    ///
+    /// The freight is collect but has been paid by the shipper and will be credited to that party.
+    CF,
+    /// Defined by buyer and seller
+    ///
+    DF,
+    /// FOB port of call
+    ///
+    /// Title and control of goods pass to the buyer at port of call. Responsibility for export taxes and cost of documents for overseas shipments have not been specified.
+    FO,
+    /// Information copy, no payment due
+    ///
+    /// Transaction set has been provided for information only.
+    IC,
+    /// Mixed
+    ///
+    /// The consignment is partially collect and partially prepaid.
+    MX,
+    /// Service freight, no charge
+    ///
+    /// The consignment is shipped on a service basis and there is no freight charge.
+    NC,
+    /// Not specified
+    NS,
+    /// Advance prepaid
+    ///
+    /// Costs have been paid in advance.
+    PA,
+    /// Customer pick-up/backhaul
+    ///
+    /// Buyer's private carriage picks up the goods as a return load to the buyer's facility.
+    PB,
+    /// Prepaid but charged to customer
+    ///
+    /// shipping charges have been paid in advance of shipment but are charged back to consignee usually as line item on invoice for the purchased goods.
+    PC,
+    /// Payable elsewhere
+    ///
+    /// Place of payment not known at the begin of conveyance.
+    PE,
+    /// Prepaid only
+    ///
+    /// Payment in advance of freight and/or other charges prior to delivery of shipment at destination, usually by shipper at point of origin.
+    PO,
+    /// Prepaid (by seller)
+    ///
+    /// Seller of goods makes payment to carrier for freight charges prior to shipment.
+    PP,
+    /// Pickup
+    ///
+    /// Customer is responsible for payment of pickup charges at shipping point.
+    PU,
+    /// Return container freight paid by customer
+    ///
+    /// The freight for returning the container is paid by the customer.
+    RC,
+    /// Return container freight free
+    ///
+    /// There is no freight charge for returning the container.
+    RF,
+    /// Return container freight paid by supplier
+    ///
+    /// The freight charge for returning the container is paid by the supplier.
+    RS,
+    /// Third party pay
+    ///
+    /// A third party, someone other than buyer or seller, is identified as responsible for payment of shipping charges.
+    TP,
+    /// Weight condition
+    ///
+    /// Description to be provided.
+    WC,
+    /// Paid by supplier
+    ///
+    /// Transport charges will be paid by the supplier.
+    WD,
+    /// Paid by buyer
+    ///
+    /// Transport charges will be paid by the buyer.
+    WE,
+    /// Mutually defined
+    ZZZ,
+}
+
 /// Transport service priority code
 ///
 /// Code specifying the priority of a transport service.
@@ -10022,6 +10716,217 @@ pub enum _4343 {
     RE,
     UR,
     US,
+}
+
+/// Exchange rate currency market identifier
+///
+/// To identify an exchange rate currency market.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _6341 {
+    /// Paris exchange
+    AAA,
+    /// Colombian official exchange (Central Bank of Colombia)
+    ///
+    /// The currency exchange rate is set by the Central Bank of Colombia.
+    AAB,
+    /// Amsterdam exchange
+    AMS,
+    /// Bolsa de Comercio de Buenos Aires
+    ///
+    /// Argentina exchange.
+    ARG,
+    /// Australian exchange
+    AST,
+    /// Wien exchange
+    ///
+    /// Wiener Boersenkammer.
+    AUS,
+    /// Brussels exchange
+    ///
+    /// Commission de la Bourse Bruxelles.
+    BEL,
+    /// Toronto exchange
+    CAN,
+    /// Contractual agreement exchange rate
+    CAR,
+    /// US Customs Information Exchange
+    ///
+    /// Currency rates published by the US Customs Information Exchange, 6 WTC, New York NY 10048-0945, USA.
+    CIE,
+    /// Copenhagen exchange
+    ///
+    /// Koebenhavns Fondsboers.
+    DEN,
+    /// European Community period exchange rate
+    ///
+    /// Description to be provided.
+    ECR,
+    /// Helsinki exchange
+    FIN,
+    /// Frankfurt exchange
+    FRA,
+    /// International Monetary Fund
+    IMF,
+    /// London exchange, first closing
+    LNF,
+    /// London exchange, second closing
+    LNS,
+    /// Milan exchange
+    MIL,
+    /// Oslo exchange
+    NOR,
+    /// New York exchange
+    NYC,
+    /// Philadelphia exchange
+    PHI,
+    /// Specific railway exchange currency
+    ///
+    /// Specific rate of exchange applied to currency exchanges between rail companies and partners.
+    SRE,
+    /// Stockholm exchange
+    SWE,
+    /// Zurich exchange
+    ZUR,
+}
+
+/// Currency type code qualifier
+///
+/// Code qualifying the type of currency.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum _6343 {
+    /// Customs valuation currency
+    ///
+    /// The name or symbol of the monetary unit involved in the transaction for customs valuation.
+    #[serde(rename = "1")]
+    _1,
+    /// Insurance currency
+    ///
+    /// The name or symbol of the monetary unit involved in the transaction for insurance purposes.
+    #[serde(rename = "2")]
+    _2,
+    /// Home currency
+    ///
+    /// The name or symbol of the local monetary unit.
+    #[serde(rename = "3")]
+    _3,
+    /// Invoicing currency
+    ///
+    /// The name or symbol of the monetary unit used for calculation in an invoice.
+    #[serde(rename = "4")]
+    _4,
+    /// Account currency
+    ///
+    /// The name or symbol of the monetary unit to be converted from.
+    #[serde(rename = "5")]
+    _5,
+    /// Reference currency
+    ///
+    /// The name or symbol of the monetary unit to be converted.
+    #[serde(rename = "6")]
+    _6,
+    /// Target currency
+    ///
+    /// The name or symbol of the monetary unit to be converted into.
+    #[serde(rename = "7")]
+    _7,
+    /// Price list currency
+    ///
+    /// The name or symbol of the monetary unit used in a price list.
+    #[serde(rename = "8")]
+    _8,
+    /// Order currency
+    ///
+    /// The name or symbol of the monetary unit used in an order.
+    #[serde(rename = "9")]
+    _9,
+    /// Pricing currency
+    ///
+    /// The name or symbol of the monetary unit used for pricing purposes.
+    #[serde(rename = "10")]
+    _10,
+    /// Payment currency
+    ///
+    /// The name or symbol of the monetary unit used for payment.
+    #[serde(rename = "11")]
+    _11,
+    /// Quotation currency
+    ///
+    /// The name or symbol of the monetary unit used in a quotation.
+    #[serde(rename = "12")]
+    _12,
+    /// Recipient local currency
+    ///
+    /// The name or symbol of the local monetary unit at recipient's location.
+    #[serde(rename = "13")]
+    _13,
+    /// Supplier currency
+    ///
+    /// The name or symbol of the monetary unit normally used by the supplier.
+    #[serde(rename = "14")]
+    _14,
+    /// Sender local currency
+    ///
+    /// The name or symbol of the local monetary unit at sender's location.
+    #[serde(rename = "15")]
+    _15,
+    /// Tariff currency
+    ///
+    /// The currency as per tariff.
+    #[serde(rename = "16")]
+    _16,
+    /// Charge calculation currency
+    ///
+    /// The currency in which the charges are calculated.
+    #[serde(rename = "17")]
+    _17,
+    /// Tax currency
+    ///
+    /// The currency in which tax amounts are due or have been paid.
+    #[serde(rename = "18")]
+    _18,
+}
+
+/// Currency usage code qualifier
+///
+/// Code qualifying the usage of a currency.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _6347 {
+    /// Charge payment currency
+    ///
+    /// The currency in which charges are to be paid.
+    #[serde(rename = "1")]
+    _1,
+    /// Reference currency
+    ///
+    /// The currency applicable to amounts stated. It may have to be converted.
+    #[serde(rename = "2")]
+    _2,
+    /// Target currency
+    ///
+    /// The currency which should be used to the target destination of the transaction.
+    #[serde(rename = "3")]
+    _3,
+    /// Transport document currency
+    ///
+    /// Currency applicable to amounts stated in a transport document/message.
+    #[serde(rename = "4")]
+    _4,
+    /// Calculation base currency
+    ///
+    /// Currency on which the calculation is based.
+    #[serde(rename = "5")]
+    _5,
+    /// Information Currency
+    ///
+    /// Additional currency the message recipient needs for information purposes. The actual message amount(s) is/are not based upon this currency.
+    #[serde(rename = "6")]
+    _6,
+    /// Currency of the account
+    ///
+    /// Currency in which the account is held.
+    #[serde(rename = "7")]
+    _7,
 }
 
 /// Cargo type classification code
