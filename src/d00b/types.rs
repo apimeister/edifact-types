@@ -10693,7 +10693,30 @@ pub enum _4219 {
     _4,
 }
 
-/// 4343  Response type code
+/// Payment arrangement code
+///
+/// Code specifying the arrangements for a payment.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _4237 {
+    /// Payable elsewhere
+    ///
+    /// Responsibility for payment of transport charges unknown at time of departure.
+    A,
+    /// Third party to pay
+    ///
+    /// A third party to pay the freight bill is known at the time of shipment.
+    B,
+    /// Collect
+    ///
+    /// Charges are (to be) collected from the consignee at the destination.
+    C,
+    /// Prepaid
+    ///
+    /// Charges are (to be) prepaid before the transport actually leaves.
+    P,
+}
+
+/// Response type code
 #[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
 pub enum _4343 {
     AA,
@@ -10716,6 +10739,3347 @@ pub enum _4343 {
     RE,
     UR,
     US,
+}
+
+/// Price code qualifier
+///
+/// Code qualifying a price.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _5125 {
+    /// Calculation net
+    ///
+    /// The price stated is the net price including allowances/ charges. Allowances/charges may be stated for information only.
+    AAA,
+    /// Calculation gross
+    ///
+    /// The price stated is the gross price to which allowances/ charges must be applied.
+    AAB,
+    /// Allowances and charges not included, tax included
+    ///
+    /// The price does not include the allowances and charges, but includes the taxes.
+    AAC,
+    /// Average selling price
+    ///
+    /// Average selling price of a product.
+    AAD,
+    /// Information price, excluding allowances or charges, including taxes
+    ///
+    /// The price stated is for information purposes only and excludes all allowances and charges. Taxes however are included in the price.
+    AAE,
+    /// Information price, excluding allowances or charges, and taxes
+    ///
+    /// The price stated is for information purposes only and excludes all allowances, charges and taxes.
+    AAF,
+    /// Additive unit price component
+    ///
+    /// A code to indicate that the price described is an additive component of the total price.
+    AAG,
+    /// Calculation price
+    ///
+    /// The price stated is the price for the calculation of the line item amount.
+    CAL,
+    /// Information
+    ///
+    /// The price is provided for information.
+    INF,
+    /// Invoice price
+    INV,
+}
+
+/// Sub-line item price change operation code
+///
+/// Code specifying the price change operation for a sub- line item.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _5213 {
+    /// Added to the baseline item unit price
+    A,
+    /// Included in the baseline item unit price
+    I,
+    /// Subtracted from the baseline item unit price
+    S,
+}
+
+/// Charge category code
+///
+/// Code specifying the category of charges.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum _5237 {
+    /// All charges
+    ///
+    /// All amounts calculated by the carrier in accordance with tariffs or in case of special events during the voyage (e.g. Rail - freights costs - additional costs).
+    #[serde(rename = "1")]
+    _1,
+    /// Additional charges
+    ///
+    /// Charges calculated by the carrier for specific events like re-weighting, re-loading, unexpected operations, services required during the voyage, etc.
+    #[serde(rename = "2")]
+    _2,
+    /// Transport charges + additional charges
+    ///
+    /// Transport charges plus Additional charges (e.g. for re- loading, re-weighting or unexpected operations) that must be precised in the payment conditions by the consignor (other charges must be taken in account by the consignee).
+    #[serde(rename = "3")]
+    _3,
+    /// Basic freight
+    ///
+    /// The basic freight payable on the cargo as per tariff.
+    #[serde(rename = "4")]
+    _4,
+    /// Destination haulage charges
+    ///
+    /// Haulage charges for transporting goods to the destination.
+    #[serde(rename = "5")]
+    _5,
+    /// Disbursement
+    ///
+    /// Sums paid out by ship's agent at a port and recovered from the carrier.
+    #[serde(rename = "6")]
+    _6,
+    /// Destination port charges
+    ///
+    /// Charges payable at the port of destination.
+    #[serde(rename = "7")]
+    _7,
+    /// Miscellaneous charges
+    ///
+    /// Miscellaneous charges not otherwise categorized.
+    #[serde(rename = "8")]
+    _8,
+    /// Transport charges up to a specified location
+    ///
+    /// Transport charges to be paid by a specified party for a part of a voyage, i.e. up to a specified location.
+    #[serde(rename = "9")]
+    _9,
+    /// Origin port charges
+    ///
+    /// Charges payable at the port of origin.
+    #[serde(rename = "10")]
+    _10,
+    /// Origin haulage charges
+    ///
+    /// Haulage charges for the pickup of goods at origin.
+    #[serde(rename = "11")]
+    _11,
+    /// Other charges
+    ///
+    ///
+    #[serde(rename = "12")]
+    _12,
+    /// Specific amount payable
+    ///
+    /// Amount that the consignor agrees to be invoiced or to pay. This amount is part of the total charges applied to the consignment.
+    #[serde(rename = "13")]
+    _13,
+    /// Transport costs (carriage charges)
+    ///
+    /// Monetary amount calculated on the basis of the transport tariffs or contract eventually including charges or other costs.
+    #[serde(rename = "14")]
+    _14,
+    /// All costs up to a specified location
+    ///
+    /// All amounts to be paid by the consignor for a part of the voyage, i.e. up to a location that must be precised. (The remaining part of the voyage to be paid by the consignee) The amounts are calculated by the carrier in accordance with tariffs or in case of special events during the voyage (e.g. rail - freight costs - additional costs).
+    #[serde(rename = "15")]
+    _15,
+    /// Weight/valuation charge
+    ///
+    /// Code to indicate weight/valuation charges to be either wholly prepaid or wholly collect.
+    #[serde(rename = "16")]
+    _16,
+    /// All costs
+    ///
+    /// Description to be provided.
+    #[serde(rename = "17")]
+    _17,
+    /// Transport costs and supplementary costs
+    ///
+    /// Description to be provided.
+    #[serde(rename = "18")]
+    _18,
+    /// Supply of certificate of shipment
+    ///
+    /// Charges payable for the supply of a certificate of shipment.
+    #[serde(rename = "19")]
+    _19,
+    /// Supply of consular formalities or certificate of origin
+    ///
+    /// Charges payable for the supply of consular formalities or certificate of origin.
+    #[serde(rename = "20")]
+    _20,
+    /// Supply of non-categorised documentation in paper form
+    ///
+    /// Charges payable for the supply of one or more documents in paper form that are not otherwise categorised.
+    #[serde(rename = "21")]
+    _21,
+    /// Supply of customs formalities, export
+    ///
+    /// Charges payable for the supply of export customs formalities.
+    #[serde(rename = "22")]
+    _22,
+    /// Supply of customs formalities, transit
+    ///
+    /// Charges payable for the supply of transit customs formalities.
+    #[serde(rename = "23")]
+    _23,
+    /// Supply of customs formalities, import
+    ///
+    /// Charges payable for the supply of import customs formalities.
+    #[serde(rename = "24")]
+    _24,
+}
+
+/// Rate or tariff class description code
+///
+/// Code specifying an applicable rate or tariff class.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _5243 {
+    /// Senior person rate
+    ///
+    /// Rate class applies to senior persons.
+    A,
+    /// Basic
+    B,
+    /// Specific commodity rate
+    C,
+    /// Teenager rate
+    ///
+    /// Rate class applies to teenagers.
+    D,
+    /// Child rate
+    /// Rate class applies to children.
+    E,
+    /// Adult rate
+    /// Rate class applies to adults.
+    F,
+    /// Rate per kilogram
+    K,
+    /// Minimum charge rate
+    M,
+    /// Normal rate
+    N,
+    /// Quantity rate
+    Q,
+    /// Class rate (Reduction on normal rate)
+    ///
+    ///  Description to be provided.
+    R,
+    /// Class rate (Surcharge on normal rate)
+    ///
+    /// Description to be provided.
+    S,
+}
+
+/// Price type code
+///
+/// Code specifying the type of price.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _5375 {
+    /// Cancellation price
+    ///
+    /// Price authorized to be charged in the event of an order being cancelled.
+    AA,
+    /// Per ton
+    ///
+    /// To indicate that the price applies per ton.
+    AB,
+    /// Minimum order price
+    ///
+    /// A code to identify the price when the minimum number is purchased.
+    AC,
+    /// Export price
+    ///
+    /// A code to identify a price for the export market.
+    AD,
+    /// Range dependent price
+    ///
+    /// A code identifying the price for a specific range of purchase quantities.
+    AE,
+    /// Active ingredient
+    ///
+    /// The price is referring to the active ingredient.
+    AI,
+    /// As is quantity
+    ///
+    /// The price is referring to the measured quantity.
+    AQ,
+    /// Catalogue
+    CA,
+    /// Contract
+    CT,
+    /// Consumer unit
+    ///
+    /// The price is referring to the consumer unit.
+    CU,
+    /// Distributor
+    DI,
+    /// ECSC price
+    ///
+    /// Price registered at European Commission Steel and Carbon office (DG III).
+    EC,
+    /// Net weight
+    NW,
+    /// Price catalogue
+    PC,
+    /// Per each
+    PE,
+    /// Per kilogram
+    PK,
+    /// Per litre
+    PL,
+    /// Per tonne
+    PT,
+    /// Specified unit
+    PU,
+    /// Provisional price
+    PV,
+    /// Gross weight
+    PW,
+    /// Quoted
+    QT,
+    /// Suggested retail
+    SR,
+    /// To be negotiated
+    TB,
+    /// Traded unit
+    ///
+    /// The price is referring to the traded unit.
+    TU,
+    /// Theoretical weight
+    ///
+    /// Weight calculated on ordered dimension (length, width, thickness) not on final dimension (e.g. steel products).
+    TW,
+    /// Wholesale
+    WH,
+    /// Gross volume
+    ///
+    /// The price is calculated based on gross volume.
+    WI,
+}
+
+/// Price specification code
+///
+/// Code identifying pricing specification.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _5387 {
+    /// Reference price
+    AAA,
+    /// Price includes tax
+    AAB,
+    /// Buyer suggested retail price
+    ///
+    /// The suggested retail price as suggested or determined by the party purchasing the goods.
+    AAC,
+    /// Ocean charges rate
+    ///
+    /// The charges imposed by the ocean transportation industry above and beyond the basic freight.
+    AAD,
+    /// Not subject to fluctuation
+    ///
+    /// Not subject to escalation or adjustment.
+    AAE,
+    /// Subject to escalation
+    ///
+    /// Subject to increase or development by successive stages.
+    AAF,
+    /// Subject to price adjustment
+    AAG,
+    /// Subject to escalation and price adjustment
+    ///
+    /// Subject to increase or development by successive stages and price adjustment.
+    AAH,
+    /// Fluctuation conditions not specified
+    AAI,
+    /// All in price
+    ///
+    /// Firm price for specified work.
+    AAJ,
+    /// New price
+    ///
+    /// A price valid from an effective date/time/period.
+    AAK,
+    /// Old price
+    ///
+    /// A price valid prior to an effective date/time/period of a new price.
+    AAL,
+    /// Per week
+    ///
+    /// To indicate that the given price applies per week.
+    AAM,
+    /// Price on application
+    ///
+    /// Price can be obtained on request from seller.
+    AAN,
+    /// Unpacked price
+    ///
+    /// The price given is the price of the item without packaging.
+    AAO,
+    /// Trade price
+    ///
+    /// Discount price available to all customers except the retail customer.
+    AAP,
+    /// Firm price
+    ///
+    /// Price which will remain unchanged for a given time period.
+    AAQ,
+    /// Material share of item price
+    ///
+    /// The per unit cost of referenced material based on a given quotation for that material.
+    AAR,
+    /// Labour share of item price
+    ///
+    /// The labour component of the per-unit item price.
+    AAS,
+    /// Transport share of item price
+    ///
+    /// The transport component of the per-unit item price.
+    AAT,
+    /// Packing share of item price
+    ///
+    /// The packing component of the per-unit item price.
+    AAU,
+    /// Tooling share of item price
+    ///
+    /// The tooling component of the per-unit item price.
+    AAV,
+    /// Temporary vehicle charge
+    ///
+    /// The component of a price charged for providing a temporary vehicle.
+    AAW,
+    /// Price component due to interest
+    ///
+    /// This is the component of the price which is charged due to interest.
+    AAX,
+    /// Price component due to management services
+    ///
+    /// This is the component of the price which is charged due to management services rendered.
+    AAY,
+    /// Price component due to maintenance
+    ///
+    /// This is the component of the price which is charged due to maintenance.
+    AAZ,
+    /// Individual buyer price
+    ///
+    /// A price which is available to an individual buyer as opposed to an institutional buyer.
+    ABA,
+    /// Group buying price
+    ///
+    /// A price which is available to a buying group.
+    ABB,
+    /// Group member buying price
+    ///
+    /// A special price given to a member of a buying group.
+    ABC,
+    /// Pre-payment price
+    ///
+    /// A special price if pre-payment is made for the article ordered.
+    ABD,
+    /// Retail price - excluding taxes
+    ///
+    /// Retail price not including any applicable taxes.
+    ABE,
+    /// Suggested retail price - excluding taxes
+    ///
+    /// Suggested retail price not including any applicable taxes.
+    ABF,
+    /// Agreed minimum price
+    ///
+    /// The minimum price agreed between trading partners.
+    ABG,
+    /// Statutory minimum retail price
+    ///
+    /// The legal minimum retail price.
+    ABH,
+    /// Cost reimbursement price
+    ///
+    /// A code to indicate that the price represents the reimbursement of the actual costs incurred.
+    ABI,
+    /// Market price
+    ///
+    /// A code to indicate that the given price is applicable under normal competitive conditions.
+    ABJ,
+    /// Open tender price
+    ///
+    /// A code to indicate that the price mentioned has been submitted in the context of an open tender.
+    ABK,
+    /// Base price
+    ///
+    /// The base price of a product or service.
+    ABL,
+    /// Base price difference
+    ///
+    /// The difference in price against a base price.
+    ABM,
+    /// Adjustable price prior to acceptance
+    ///
+    /// A price which can be adjusted due to economic conditions between the date of offer and the date of acceptance.
+    ABN,
+    /// Revisable price after acceptance
+    ///
+    /// A price which can be revised due to economic conditions between the date of acceptance of the order and the date of delivery.
+    ABO,
+    /// Provisional ceiling price
+    ///
+    /// A provisional price which cannot be exceeded.
+    ABP,
+    /// Adjustable provisional ceiling price
+    ///
+    /// A provisional price which cannot be exceeded but which can be adjusted due to economic conditions between the date of offer and the date of acceptance.
+    ABQ,
+    /// Revisable provisional ceiling price
+    ///
+    /// A provisional price which cannot be exceeded but is revisable due to economic conditions between the date of acceptance of the order through to the date of delivery.
+    ABR,
+    /// Revisable provisional price
+    ///
+    /// A provisional price which is revisable due to economic conditions between the date of acceptance of the order and the date of delivery.
+    ABS,
+    /// Adjustable provisional price
+    ///
+    /// A provisional price which is adjustable due to economic conditions between the date of offer and the date of acceptance.
+    ABT,
+    /// Area price
+    ///
+    /// Price connected to a geographical area.
+    ABU,
+    /// Area system price
+    ///
+    /// A basis price applied to a geographic area.
+    ABV,
+    /// Active ingredient
+    AI,
+    /// Alternate price
+    ///
+    /// A substitute cost.
+    ALT,
+    /// Advice price
+    AP,
+    /// Broker price
+    BR,
+    /// Catalogue price
+    ///
+    /// Price per unit of quantity of a product as specified in a catalogue.
+    CAT,
+    /// Current domestic value
+    ///
+    /// The present worth of a thing which comes from one's homeland, in terms of money or goods.
+    CDV,
+    /// Contract price
+    ///
+    /// Price per unit of quantity of a product/service as agreed in a contract between parties.
+    CON,
+    /// Current price
+    ///
+    /// Price at time of transaction, but subject to future change.
+    CP,
+    /// Consumer unit
+    CU,
+    /// Confirmed unit price
+    ///
+    /// The value of a single item that proves to be correct.
+    CUP,
+    /// Declared customs unit value
+    ///
+    /// A clearly known duty on a single item which is imposed by law.
+    CUS,
+    /// Dealer adjusted price
+    ///
+    /// The necessary or desirable changes that the sales agency makes with respect to the value of the product.
+    DAP,
+    /// Distributor price
+    ///
+    /// The cost associated with the agency that markets goods.
+    DIS,
+    /// Discount price
+    ///
+    /// A reduction from the usual list value.
+    DPR,
+    /// Dealer price
+    DR,
+    /// Discount amount allowed
+    ///
+    /// A certain price up to which one is able to make reductions from the usual list value.
+    DSC,
+    /// ECSC price
+    ///
+    /// Price registered at European Commission Steel and Carbon office (DG III).
+    EC,
+    /// Estimated price
+    ES,
+    /// Expected unit price
+    ///
+    /// The anticipated value of a single item.
+    EUP,
+    /// Freight/charge rate
+    ///
+    /// The price that is either a freight rate or a rate on which freight charges are calculated.
+    FCR,
+    /// Gross unit price
+    ///
+    /// Unit price to which allowances and charges apply.
+    GRP,
+    /// Invoice price
+    ///
+    /// Price per unit of quantity of a product as specified on an invoice.
+    INV,
+    /// Labelling price
+    ///
+    /// Retail price of the buyer that should be printed by the producer on the article's label. The labelling price is not necessary the effective retail price.
+    LBL,
+    /// Maximum order quantity price
+    ///
+    /// The greatest amount of goods or services which one can buy to receive a certain value.
+    MAX,
+    /// Minimum order quantity price
+    ///
+    /// The least amount of goods or services that one can buy to receive a certain value.
+    MIN,
+    /// Minimum release quantity price
+    ///
+    /// The least amount of an order one can place in order to receive a certain value.
+    MNR,
+    /// Manufacturer's suggested retail
+    ///
+    /// Price that reflects "Sales to other manufacturers" or "Sales for resale".
+    MSR,
+    /// Maximum release quantity price
+    ///
+    /// The greatest amount of an order that one can place in order to receive a certain value.
+    MXR,
+    /// Not-to-exceed price
+    NE,
+    /// No quote
+    ///
+    /// No price available.
+    NQT,
+    /// Net unit price
+    ///
+    /// Unit price to which no allowances and charges apply.
+    NTP,
+    /// Net weight
+    NW,
+    /// Ocean charges rate
+    ///
+    /// The charges imposed by the ocean transportation industry above and beyond the basic freight.
+    OCR,
+    /// Ocean freight rate
+    ///
+    /// The price per pricing unit of ocean transportation services for moving cargo from one location to another.
+    OFR,
+    /// Price break quantity(s)
+    ///
+    /// Numerical amounts of goods or services which are associated with different sums of money. As the amount goes up, the price per individual item decreases.
+    PAQ,
+    /// Unit price beginning quantity
+    ///
+    /// The starting amount at which you can place a value on a single item.
+    PBQ,
+    /// Prepaid freight charges
+    ///
+    /// The cost of shipping is paid before the goods are shipped.
+    PPD,
+    /// Provisional price
+    ///
+    /// Price per unit of quantity of a product as provisionally agreed.
+    PPR,
+    /// Producer's price
+    ///
+    /// The value that the maker of a good places on an item.
+    PRO,
+    /// Promotional price
+    ///
+    /// The value that is placed on an item that is being developed. The idea is to sell this product for less than one normally would, and make up for it by selling a larger quantity.
+    PRP,
+    /// Gross weight
+    PW,
+    /// Quote price
+    ///
+    /// Price per unit of quantity of a product as specified in a quote.
+    QTE,
+    /// Resale price
+    ///
+    /// Price per unit of quantity of a product to be used for resale.
+    RES,
+    /// Retail price
+    ///
+    /// Price per unit of quantity of a product to be used for retail.
+    RTP,
+    /// Ship and debit
+    ///
+    /// To transport goods and be owed money by the customer for the services performed.
+    SHD,
+    /// Suggested retail price
+    ///
+    /// Price per unit of quantity of a product suggested for retail.
+    SRP,
+    /// Gross weight without wooden pallets
+    ///
+    /// Used in steel industry.
+    SW,
+    /// To be negotiated
+    TB,
+    /// Transfer
+    ///
+    /// To carry or remove from one place, situation, or person to another.
+    TRF,
+    /// Traded unit
+    TU,
+    /// Theoretical weight
+    TW,
+    /// Wholesale price
+    ///
+    /// Description to be provided.
+    WH,
+}
+
+/// Quantity type code qualifier
+///
+/// Code qualifying the type of quantity.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum _6063 {
+    /// Discrete quantity
+    ///
+    ///
+    #[serde(rename = "1")]
+    _1,
+    /// Charge
+    ///
+    /// Quantity relevant for charge.
+    #[serde(rename = "2")]
+    _2,
+
+    /// Cumulative quantity
+    ///
+    ///
+    #[serde(rename = "3")]
+    _3,
+    /// Interest for overdrawn account
+    ///
+    /// Interest for overdrawing the account.
+    #[serde(rename = "4")]
+    _4,
+
+    /// Active ingredient dose per unit
+    ///
+    /// The dosage of active ingredient per unit.
+    #[serde(rename = "5")]
+    _5,
+
+    /// Auditor
+    ///
+    /// The number of entities that audit accounts.
+    #[serde(rename = "6")]
+    _6,
+
+    /// Branch locations, leased
+    ///
+    /// The number of branch locations being leased by an entity.
+    #[serde(rename = "7")]
+    _7,
+
+    /// Inventory quantity at supplier's subject to inspection by customer
+    ///
+    /// Quantity of goods which the customer requires the supplier to have in inventory and which may be inspected by the customer if desired.
+    #[serde(rename = "8")]
+    _8,
+
+    /// Branch locations, owned
+    ///
+    /// The number of branch locations owned by an entity.
+    #[serde(rename = "9")]
+    _9,
+
+    /// Judgements registered
+    ///
+    /// The number of judgements registered against an entity.
+    #[serde(rename = "10")]
+    _10,
+
+    /// Split quantity
+    ///
+    /// Part of the whole quantity.
+    #[serde(rename = "11")]
+    _11,
+
+    /// Despatch quantity
+    ///
+    /// Quantity despatched by the seller.
+    #[serde(rename = "12")]
+    _12,
+
+    /// Liens registered
+    ///
+    /// The number of liens registered against an entity.
+    #[serde(rename = "13")]
+    _13,
+
+    /// Livestock
+    ///
+    /// The number of animals kept for use or profit.
+    #[serde(rename = "14")]
+    _14,
+
+    /// Insufficient funds returned cheques
+    ///
+    /// The number of cheques returned due to insufficient funds.
+    #[serde(rename = "15")]
+    _15,
+
+    /// Stolen cheques
+    ///
+    /// The number of stolen cheques.
+    #[serde(rename = "16")]
+    _16,
+
+    /// Quantity on hand
+    ///
+    /// The total quantity of a product on hand at a location. This includes as well units awaiting return to manufacturer, units unavailable due to inspection procedures and undamaged stock available for despatch, resale or use.
+    #[serde(rename = "17")]
+    _17,
+
+    /// Previous quantity
+    ///
+    /// Quantity previously referenced.
+    #[serde(rename = "18")]
+    _18,
+
+    /// Paid-in security shares
+    ///
+    /// The number of security shares issued and for which full payment has been made.
+    #[serde(rename = "19")]
+    _19,
+
+    /// Unusable quantity
+    ///
+    ///
+    #[serde(rename = "20")]
+    _20,
+    /// Ordered quantity
+    ///
+    /// The quantity which has been ordered.
+    #[serde(rename = "21")]
+    _21,
+
+    /// Quantity at 100%
+    ///
+    /// Equivalent quantity at 100% purity.
+    #[serde(rename = "22")]
+    _22,
+
+    /// Active ingredient
+    ///
+    /// Quantity at 100% active agent content.
+    #[serde(rename = "23")]
+    _23,
+
+    /// Inventory quantity at supplier's not subject to inspection by customer
+    ///
+    /// Quantity of goods which the customer requires the supplier to have in inventory but which will not be checked by the customer.
+    #[serde(rename = "24")]
+    _24,
+
+    /// Retail sales
+    ///
+    /// Quantity of retail point of sale activity.
+    #[serde(rename = "25")]
+    _25,
+
+    /// Promotion quantity
+    ///
+    /// A quantity associated with a promotional event.
+    #[serde(rename = "26")]
+    _26,
+
+    /// On hold for shipment
+    ///
+    /// Article received which cannot be shipped in its present form.
+    #[serde(rename = "27")]
+    _27,
+
+    /// Military sales quantity
+    ///
+    /// Quantity of goods or services sold to a military organization.
+    #[serde(rename = "28")]
+    _28,
+
+    /// On premises sales
+    ///
+    /// Sale of product in restaurants or bars.
+    #[serde(rename = "29")]
+    _29,
+
+    /// Off premises sales
+    ///
+    /// Sale of product directly to a store.
+    #[serde(rename = "30")]
+    _30,
+
+    /// Estimated annual volume
+    ///
+    ///
+    #[serde(rename = "31")]
+    _31,
+    /// Minimum delivery batch
+    ///
+    ///
+    #[serde(rename = "32")]
+    _32,
+    /// Maximum delivery batch
+    ///
+    ///
+    #[serde(rename = "33")]
+    _33,
+    /// Pipes
+    ///
+    /// The number of tubes used to convey a substance.
+    #[serde(rename = "34")]
+    _34,
+
+    /// Price break from
+    ///
+    /// The minimum quantity of a quantity range for a specified (unit) price.
+    #[serde(rename = "35")]
+    _35,
+
+    /// Price break to
+    ///
+    /// Description to be provided.
+    #[serde(rename = "36")]
+    _36,
+
+    /// Poultry
+    ///
+    /// The number of domestic fowl.
+    #[serde(rename = "37")]
+    _37,
+
+    /// Secured charges registered
+    ///
+    /// The number of secured charges registered against an entity.
+    #[serde(rename = "38")]
+    _38,
+
+    /// Total properties owned
+    ///
+    /// The total number of properties owned by an entity.
+    #[serde(rename = "39")]
+    _39,
+
+    /// Normal delivery
+    ///
+    /// Quantity normally delivered by the seller.
+    #[serde(rename = "40")]
+    _40,
+
+    /// Sales quantity not included in the replenishment calculation
+    ///
+    /// Sales which will not be included in the calculation of replenishment requirements.
+    #[serde(rename = "41")]
+    _41,
+
+    /// Maximum supply quantity, supplier endorsed
+    ///
+    /// Maximum supply quantity endorsed by a supplier.
+    #[serde(rename = "42")]
+    _42,
+
+    /// Buyer
+    ///
+    /// The number of buyers.
+    #[serde(rename = "43")]
+    _43,
+
+    /// Debenture bond
+    ///
+    /// The number of fixed-interest bonds of an entity backed by general credit rather than specified assets.
+    #[serde(rename = "44")]
+    _44,
+
+    /// Debentures filed against directors
+    ///
+    /// The number of notices of indebtedness filed against an entity's directors.
+    #[serde(rename = "45")]
+    _45,
+
+    /// Pieces delivered
+    ///
+    /// Number of pieces actually received at the final destination.
+    #[serde(rename = "46")]
+    _46,
+
+    /// Invoiced quantity
+    ///
+    /// The quantity as per invoice.
+    #[serde(rename = "47")]
+    _47,
+
+    /// Received quantity
+    ///
+    /// The quantity which has been received.
+    #[serde(rename = "48")]
+    _48,
+
+    /// Chargeable distance
+    ///
+    /// Distance really charged by tariff appliance.
+    #[serde(rename = "49")]
+    _49,
+
+    /// Disposition undetermined quantity
+    ///
+    /// Product quantity that has not yet had its disposition determined.
+    #[serde(rename = "50")]
+    _50,
+
+    /// Inventory category transfer
+    ///
+    /// Inventory that has been moved from one inventory category to another.
+    #[serde(rename = "51")]
+    _51,
+
+    /// Quantity per pack
+    ///
+    ///
+    #[serde(rename = "52")]
+    _52,
+    /// Minimum order quantity
+    ///
+    ///
+    #[serde(rename = "53")]
+    _53,
+    /// Maximum order quantity
+    ///
+    ///
+    #[serde(rename = "54")]
+    _54,
+    /// Total sales
+    ///
+    /// The summation of total quantity sales.
+    #[serde(rename = "55")]
+    _55,
+
+    /// Wholesaler to wholesaler sales
+    ///
+    /// Sale of product to other wholesalers by a wholesaler.
+    #[serde(rename = "56")]
+    _56,
+
+    /// In transit quantity
+    ///
+    /// A quantity that is en route.
+    #[serde(rename = "57")]
+    _57,
+
+    /// Quantity withdrawn
+    ///
+    /// Quantity withdrawn from a location.
+    #[serde(rename = "58")]
+    _58,
+
+    /// Numbers of consumer units in the traded unit
+    ///
+    ///
+    #[serde(rename = "59")]
+    _59,
+    /// Current inventory quantity available for shipment
+    ///
+    /// Current inventory quantity available for shipment.
+    #[serde(rename = "60")]
+    _60,
+
+    /// Return quantity
+    ///
+    ///
+    #[serde(rename = "61")]
+    _61,
+    /// Sorted quantity
+    ///
+    /// Description to be provided.
+    #[serde(rename = "62")]
+    _62,
+
+    /// Sorted quantity rejected
+    ///
+    /// Description to be provided.
+    #[serde(rename = "63")]
+    _63,
+
+    /// Scrap quantity
+    ///
+    /// Remainder of the total quantity after split deliveries.
+    #[serde(rename = "64")]
+    _64,
+
+    /// Destroyed quantity
+    ///
+    ///
+    #[serde(rename = "65")]
+    _65,
+    /// Committed quantity
+    ///
+    /// Quantity a party is committed to.
+    #[serde(rename = "66")]
+    _66,
+
+    /// Estimated reading quantity
+    ///
+    /// The value that is estimated to be the reading of a measuring device (e.g. meter).
+    #[serde(rename = "67")]
+    _67,
+
+    /// End quantity
+    ///
+    /// The quantity recorded at the end of an agreement or period.
+    #[serde(rename = "68")]
+    _68,
+
+    /// Start quantity
+    ///
+    /// The quantity recorded at the start of an agreement or period.
+    #[serde(rename = "69")]
+    _69,
+
+    /// Cumulative quantity received
+    ///
+    /// Cumulative quantity of all deliveries of this article received by the buyer.
+    #[serde(rename = "70")]
+    _70,
+
+    /// Cumulative quantity ordered
+    ///
+    /// Cumulative quantity of all deliveries, outstanding and scheduled orders.
+    #[serde(rename = "71")]
+    _71,
+
+    /// Cumulative quantity received end of prior year
+    ///
+    /// Cumulative quantity of all deliveries of the product received by the buyer till end of prior year.
+    #[serde(rename = "72")]
+    _72,
+
+    /// Outstanding quantity
+    ///
+    /// Difference between quantity ordered and quantity received.
+    #[serde(rename = "73")]
+    _73,
+
+    /// Latest cumulative quantity
+    ///
+    /// Cumulative quantity after complete delivery of all scheduled quantities of the product.
+    #[serde(rename = "74")]
+    _74,
+
+    /// Previous highest cumulative quantity
+    ///
+    /// Cumulative quantity after complete delivery of all scheduled quantities of the product from a prior schedule period.
+    #[serde(rename = "75")]
+    _75,
+
+    /// Adjusted corrector reading
+    ///
+    /// A corrector reading after it has been adjusted.
+    #[serde(rename = "76")]
+    _76,
+
+    /// Work days
+    ///
+    /// Number of work days, e.g. per respective period.
+    #[serde(rename = "77")]
+    _77,
+
+    /// Cumulative quantity scheduled
+    ///
+    /// Adding the quantity actually scheduled to previous cumulative quantity.
+    #[serde(rename = "78")]
+    _78,
+
+    /// Previous cumulative quantity
+    ///
+    /// Cumulative quantity prior the actual order.
+    #[serde(rename = "79")]
+    _79,
+
+    /// Unadjusted corrector reading
+    ///
+    /// A corrector reading before it has been adjusted.
+    #[serde(rename = "80")]
+    _80,
+
+    /// Extra unplanned delivery
+    ///
+    /// Non scheduled additional quantity.
+    #[serde(rename = "81")]
+    _81,
+
+    /// Quantity requirement for sample inspection
+    ///
+    ///
+    #[serde(rename = "82")]
+    _82,
+    /// Backorder quantity
+    ///
+    ///
+    #[serde(rename = "83")]
+    _83,
+    /// Urgent delivery quantity
+    ///
+    ///
+    #[serde(rename = "84")]
+    _84,
+    /// Previous order quantity to be cancelled
+    ///
+    ///
+    #[serde(rename = "85")]
+    _85,
+    /// Normal reading quantity
+    ///
+    /// The value recorded or read from a measuring device (e.g. meter) in the normal conditions.
+    #[serde(rename = "86")]
+    _86,
+
+    /// Customer reading quantity
+    ///
+    /// The value recorded or read from a measuring device (e.g. meter) by the customer.
+    #[serde(rename = "87")]
+    _87,
+
+    /// Information reading quantity
+    ///
+    /// The value recorded or read from a measuring device (e.g. meter) for information purposes.
+    #[serde(rename = "88")]
+    _88,
+
+    /// Quality control held
+    ///
+    /// Quantity of goods held pending completion of a quality control assessment.
+    #[serde(rename = "89")]
+    _89,
+
+    /// As is quantity
+    ///
+    ///
+    #[serde(rename = "90")]
+    _90,
+    /// Open quantity
+    ///
+    /// Quantity remaining after partial delivery.
+    #[serde(rename = "91")]
+    _91,
+
+    /// Final delivery quantity
+    ///
+    /// Quantity of final delivery to a respective order.
+    #[serde(rename = "92")]
+    _92,
+
+    /// Subsequent delivery quantity
+    ///
+    /// Quantity delivered to a respective order after it's final delivery.
+    #[serde(rename = "93")]
+    _93,
+
+    /// Substitutional quantity
+    ///
+    /// Quantity delivered replacing previous deliveries.
+    #[serde(rename = "94")]
+    _94,
+
+    /// Redelivery after post processing
+    ///
+    ///
+    #[serde(rename = "95")]
+    _95,
+    /// Quality control failed
+    ///
+    /// Quantity of goods which have failed quality control.
+    #[serde(rename = "96")]
+    _96,
+
+    /// Minimum inventory
+    ///
+    /// Minimum stock quantity on which replenishment is based.
+    #[serde(rename = "97")]
+    _97,
+
+    /// Maximum inventory
+    ///
+    /// Maximum stock quantity on which replenishment is based.
+    #[serde(rename = "98")]
+    _98,
+
+    /// Estimated quantity
+    ///
+    ///
+    #[serde(rename = "99")]
+    _99,
+    /// Chargeable weight
+    ///
+    /// The weight on which charges are based.
+    #[serde(rename = "100")]
+    _100,
+
+    /// Chargeable gross weight
+    ///
+    /// The gross weight on which charges are based.
+    #[serde(rename = "101")]
+    _101,
+
+    /// Chargeable tare weight
+    ///
+    /// The tare weight on which charges are based.
+    #[serde(rename = "102")]
+    _102,
+
+    /// Chargeable number of axles
+    ///
+    /// The number of axles on which charges are based.
+    #[serde(rename = "103")]
+    _103,
+
+    /// Chargeable number of containers
+    ///
+    /// The number of containers on which charges are based.
+    #[serde(rename = "104")]
+    _104,
+
+    /// Chargeable number of rail wagons
+    ///
+    /// The number of rail wagons on which charges are based.
+    #[serde(rename = "105")]
+    _105,
+
+    /// Chargeable number of packages
+    ///
+    /// The number of packages on which charges are based.
+    #[serde(rename = "106")]
+    _106,
+
+    /// Chargeable number of units
+    ///
+    /// The number of units on which charges are based.
+    #[serde(rename = "107")]
+    _107,
+
+    /// Chargeable period
+    ///
+    /// The period of time on which charges are based.
+    #[serde(rename = "108")]
+    _108,
+
+    /// Chargeable volume
+    ///
+    /// The volume on which charges are based.
+    #[serde(rename = "109")]
+    _109,
+
+    /// Chargeable cubic measurements
+    ///
+    /// The cubic measurements on which charges are based.
+    #[serde(rename = "110")]
+    _110,
+
+    /// Chargeable surface
+    ///
+    /// The surface area on which charges are based.
+    #[serde(rename = "111")]
+    _111,
+
+    /// Chargeable length
+    ///
+    /// The length on which charges are based.
+    #[serde(rename = "112")]
+    _112,
+
+    /// Quantity to be delivered
+    ///
+    /// The quantity to be delivered.
+    #[serde(rename = "113")]
+    _113,
+
+    /// Number of passengers
+    ///
+    /// Total number of passengers on the conveyance.
+    #[serde(rename = "114")]
+    _114,
+
+    /// Number of crew
+    ///
+    /// Total number of crew members on the conveyance.
+    #[serde(rename = "115")]
+    _115,
+
+    /// Number of transport documents
+    ///
+    /// Total number of air waybills, bills of lading, etc. being reported for a specific conveyance.
+    #[serde(rename = "116")]
+    _116,
+
+    /// Quantity landed
+    ///
+    /// Quantity of goods actually arrived.
+    #[serde(rename = "117")]
+    _117,
+
+    /// Quantity manifested
+    ///
+    /// Quantity of goods contracted for delivery by the carrier.
+    #[serde(rename = "118")]
+    _118,
+
+    /// Short shipped
+    ///
+    /// Indication that part of the consignment was not shipped.
+    #[serde(rename = "119")]
+    _119,
+
+    /// Split shipment
+    ///
+    /// Indication that the consignment has been split into two or more shipments.
+    #[serde(rename = "120")]
+    _120,
+
+    /// Over shipped
+    ///
+    /// Indication that more goods have been shipped than contracted for delivery.
+    #[serde(rename = "121")]
+    _121,
+
+    /// Short-landed goods
+    ///
+    /// If quantity of goods actually landed is less than the quantity which appears in the documentation. This quantity is the difference between these quantities.
+    #[serde(rename = "122")]
+    _122,
+
+    /// Surplus goods
+    ///
+    /// If quantity of goods actually landed is more than the quantity which appears in the documentation. This quantity is the difference between these quantities.
+    #[serde(rename = "123")]
+    _123,
+
+    /// Damaged goods
+    ///
+    /// Quantity of goods which have deteriorated in transport such that they cannot be used for the purpose for which they were originally intended.
+    #[serde(rename = "124")]
+    _124,
+
+    /// Pilferage goods
+    ///
+    /// Quantity of goods stolen during transport.
+    #[serde(rename = "125")]
+    _125,
+
+    /// Lost goods
+    ///
+    /// Quantity of goods that disappeared in transport.
+    #[serde(rename = "126")]
+    _126,
+
+    /// Report difference
+    ///
+    /// The quantity concerning the same transaction differs between two documents/messages and the source of this difference is a typing error.
+    #[serde(rename = "127")]
+    _127,
+
+    /// Quantity loaded
+    ///
+    /// Quantity of goods loaded onto a means of transport.
+    #[serde(rename = "128")]
+    _128,
+
+    /// Units per unit price
+    ///
+    /// Number of units per unit price.
+    #[serde(rename = "129")]
+    _129,
+
+    /// Allowance
+    ///
+    /// Quantity relevant for allowance.
+    #[serde(rename = "130")]
+    _130,
+
+    /// Delivery quantity
+    ///
+    /// Quantity required by buyer to be delivered.
+    #[serde(rename = "131")]
+    _131,
+
+    /// Cumulative quantity, preceding period, planned
+    ///
+    /// Cumulative quantity originally planned for the preceding period.
+    #[serde(rename = "132")]
+    _132,
+
+    /// Cumulative quantity, preceding period, reached
+    ///
+    /// Cumulative quantity reached in the preceding period.
+    #[serde(rename = "133")]
+    _133,
+
+    /// Cumulative quantity, actual planned
+    ///
+    /// Cumulative quantity planned for now.
+    #[serde(rename = "134")]
+    _134,
+
+    /// Period quantity, planned
+    ///
+    /// Quantity planned for this period.
+    #[serde(rename = "135")]
+    _135,
+
+    /// Period quantity, reached
+    ///
+    /// Quantity reached during this period.
+    #[serde(rename = "136")]
+    _136,
+
+    /// Cumulative quantity, preceding period, estimated
+    ///
+    /// Estimated cumulative quantity reached in the preceding period.
+    #[serde(rename = "137")]
+    _137,
+
+    /// Cumulative quantity, actual estimated
+    ///
+    /// Estimated cumulative quantity reached now.
+    #[serde(rename = "138")]
+    _138,
+
+    /// Cumulative quantity, preceding period, measured
+    ///
+    /// Surveyed cumulative quantity reached in the preceding period.
+    #[serde(rename = "139")]
+    _139,
+
+    /// Cumulative quantity, actual measured
+    ///
+    /// Surveyed cumulative quantity reached now.
+    #[serde(rename = "140")]
+    _140,
+
+    /// Period quantity, measured
+    ///
+    /// Surveyed quantity reached during this period.
+    #[serde(rename = "141")]
+    _141,
+
+    /// Total quantity, planned
+    ///
+    /// Total quantity planned.
+    #[serde(rename = "142")]
+    _142,
+
+    /// Quantity, remaining
+    ///
+    /// Quantity remaining.
+    #[serde(rename = "143")]
+    _143,
+
+    /// Tolerance
+    ///
+    /// Plus or minus tolerance expressed as a monetary amount.
+    #[serde(rename = "144")]
+    _144,
+
+    /// Actual stock
+    ///
+    /// The stock on hand, undamaged, and available for despatch, sale or use.
+    #[serde(rename = "145")]
+    _145,
+
+    /// Model or target stock
+    ///
+    /// The stock quantity required or planned to have on hand, undamaged and available for use.
+    #[serde(rename = "146")]
+    _146,
+
+    /// Direct shipment quantity
+    ///
+    /// Quantity to be shipped directly to a customer from a manufacturing site.
+    #[serde(rename = "147")]
+    _147,
+
+    /// Amortization total quantity
+    ///
+    /// Indication of final quantity for amortization.
+    #[serde(rename = "148")]
+    _148,
+
+    /// Amortization order quantity
+    ///
+    /// Indication of actual share of the order quantity for amortization.
+    #[serde(rename = "149")]
+    _149,
+
+    /// Amortization cumulated quantity
+    ///
+    /// Indication of actual cumulated quantity of previous and actual amortization order quantity.
+    #[serde(rename = "150")]
+    _150,
+
+    /// Quantity advised
+    ///
+    /// Quantity advised by supplier or shipper, in contrast to quantity actually received.
+    #[serde(rename = "151")]
+    _151,
+
+    /// Quantity on hand
+    ///
+    /// The total quantity of a product on hand at a location. This includes as well units awaiting return to manufacturer, units unavailable due to inspection procedures and undamaged stock available for despatch, resale or use.
+    #[serde(rename = "152")]
+    _152,
+
+    /// Statistical sales quantity
+    ///
+    /// Quantity of goods sold in a specified period.
+    #[serde(rename = "153")]
+    _153,
+
+    /// Sales quantity planned
+    ///
+    /// Quantity of goods required to meet future demands. - Market intelligence quantity.
+    #[serde(rename = "154")]
+    _154,
+
+    /// Replenishment quantity
+    ///
+    /// Quantity required to maintain the requisite on-hand stock of goods.
+    #[serde(rename = "155")]
+    _155,
+
+    /// Inventory movement quantity
+    ///
+    /// To specify the quantity of an inventory movement.
+    #[serde(rename = "156")]
+    _156,
+
+    /// Opening stock balance quantity
+    ///
+    /// To specify the quantity of an opening stock balance.
+    #[serde(rename = "157")]
+    _157,
+
+    /// Closing stock balance quantity
+    ///
+    /// To specify the quantity of a closing stock balance.
+    #[serde(rename = "158")]
+    _158,
+
+    /// Number of stops
+    ///
+    /// Number of times a means of transport stops before arriving at destination.
+    #[serde(rename = "159")]
+    _159,
+
+    /// Minimum production batch
+    ///
+    /// The quantity specified is the minimum output from a single production run.
+    #[serde(rename = "160")]
+    _160,
+
+    /// Dimensional sample quantity
+    ///
+    /// The quantity defined is a sample for the purpose of validating dimensions.
+    #[serde(rename = "161")]
+    _161,
+
+    /// Functional sample quantity
+    ///
+    /// The quantity defined is a sample for the purpose of validating function and performance.
+    #[serde(rename = "162")]
+    _162,
+
+    /// Pre-production quantity
+    ///
+    /// Quantity of the referenced item required prior to full production.
+    #[serde(rename = "163")]
+    _163,
+
+    /// Delivery batch
+    ///
+    /// Quantity of the referenced item which constitutes a standard batch for deliver purposes.
+    #[serde(rename = "164")]
+    _164,
+
+    /// Delivery batch multiple
+    ///
+    /// The multiples in which delivery batches can be supplied.
+    #[serde(rename = "165")]
+    _165,
+
+    /// All time buy
+    ///
+    /// The total quantity of the referenced covering all future needs. Further orders of the referenced item are not expected.
+    #[serde(rename = "166")]
+    _166,
+
+    /// Total delivery quantity
+    ///
+    /// The total quantity required by the buyer to be delivered.
+    #[serde(rename = "167")]
+    _167,
+
+    /// Single delivery quantity
+    ///
+    /// The quantity required by the buyer to be delivered in a single shipment.
+    #[serde(rename = "168")]
+    _168,
+
+    /// Supplied quantity
+    ///
+    /// Quantity of the referenced item actually shipped.
+    #[serde(rename = "169")]
+    _169,
+
+    /// Allocated quantity
+    ///
+    /// Quantity of the referenced item allocated from available stock for delivery.
+    #[serde(rename = "170")]
+    _170,
+
+    /// Maximum stackability
+    ///
+    /// The number of pallets/handling units which can be safely stacked one on top of another.
+    #[serde(rename = "171")]
+    _171,
+
+    /// Amortisation quantity
+    ///
+    /// The quantity of the referenced item which has a cost for tooling amortisation included in the item price.
+    #[serde(rename = "172")]
+    _172,
+
+    /// Previously amortised quantity
+    ///
+    /// The cumulative quantity of the referenced item which had a cost for tooling amortisation included in the item price.
+    #[serde(rename = "173")]
+    _173,
+
+    /// Total amortisation quantity
+    ///
+    /// The total quantity of the referenced item which has a cost for tooling amortisation included in the item price.
+    #[serde(rename = "174")]
+    _174,
+
+    /// Number of moulds
+    ///
+    /// The number of pressing moulds contained within a single piece of the referenced tooling.
+    #[serde(rename = "175")]
+    _175,
+
+    /// Concurrent item output of tooling
+    ///
+    /// The number of related items which can be produced simultaneously with a single piece of the referenced tooling.
+    #[serde(rename = "176")]
+    _176,
+
+    /// Periodic capacity of tooling
+    ///
+    /// Maximum production output of the referenced tool over a period of time.
+    #[serde(rename = "177")]
+    _177,
+
+    /// Lifetime capacity of tooling
+    ///
+    /// Maximum production output of the referenced tool over its productive lifetime.
+    #[serde(rename = "178")]
+    _178,
+
+    /// Number of deliveries per despatch period
+    ///
+    /// The number of deliveries normally expected to be despatched within each despatch period.
+    #[serde(rename = "179")]
+    _179,
+
+    /// Provided quantity
+    ///
+    /// The quantity of a referenced component supplied by the buyer for manufacturing of an ordered item.
+    #[serde(rename = "180")]
+    _180,
+
+    /// Maximum production batch
+    ///
+    /// The quantity specified is the maximum output from a single production run.
+    #[serde(rename = "181")]
+    _181,
+
+    /// Cancelled quantity
+    ///
+    /// Quantity of the referenced item which has previously been ordered and is now cancelled.
+    #[serde(rename = "182")]
+    _182,
+
+    /// No delivery requirement in this instruction
+    ///
+    /// This delivery instruction does not contain any delivery requirements.
+    #[serde(rename = "183")]
+    _183,
+
+    /// Quantity of material in ordered time
+    ///
+    /// Quantity of the referenced material within the ordered time.
+    #[serde(rename = "184")]
+    _184,
+
+    /// Rejected quantity
+    ///
+    /// The quantity of received goods rejected for quantity reasons.
+    #[serde(rename = "185")]
+    _185,
+
+    /// Cumulative quantity scheduled up to accumulation start date
+    ///
+    /// The cumulative quantity scheduled up to the accumulation start date.
+    #[serde(rename = "186")]
+    _186,
+
+    /// Quantity scheduled
+    ///
+    /// The quantity scheduled for delivery.
+    #[serde(rename = "187")]
+    _187,
+
+    /// Number of identical handling units
+    ///
+    /// Number of identical handling units in terms of type and contents.
+    #[serde(rename = "188")]
+    _188,
+
+    /// Number of packages in handling unit
+    ///
+    /// The number of packages contained in one handling unit.
+    #[serde(rename = "189")]
+    _189,
+
+    /// Despatch note quantity
+    ///
+    /// The item quantity specified on the despatch note.
+    #[serde(rename = "190")]
+    _190,
+
+    /// Adjustment to inventory quantity
+    ///
+    /// An adjustment to inventory quantity.
+    #[serde(rename = "191")]
+    _191,
+
+    /// Free goods quantity
+    ///
+    /// Quantity of goods which are free of charge.
+    #[serde(rename = "192")]
+    _192,
+
+    /// Free quantity included
+    ///
+    /// Quantity included to which no charge is applicable.
+    #[serde(rename = "193")]
+    _193,
+
+    /// Received and accepted
+    ///
+    /// Quantity which has been received and accepted at a given location.
+    #[serde(rename = "194")]
+    _194,
+
+    /// Received, not accepted, to be returned
+    ///
+    /// Quantity which has been received but not accepted at a given location and which will consequently be returned to the relevant party.
+    #[serde(rename = "195")]
+    _195,
+
+    /// Received, not accepted, to be destroyed
+    ///
+    /// Quantity which has been received but not accepted at a given location and which will consequently be destroyed.
+    #[serde(rename = "196")]
+    _196,
+
+    /// Reordering level
+    ///
+    /// Quantity at which an order may be triggered to replenish.
+    #[serde(rename = "197")]
+    _197,
+
+    /// Quantity in transit
+    ///
+    /// Quantity which is currently in transit.
+    #[serde(rename = "198")]
+    _198,
+
+    /// Inventory withdrawal quantity
+    ///
+    /// Quantity which has been withdrawn from inventory since the last inventory report.
+    #[serde(rename = "199")]
+    _199,
+
+    /// Free quantity not included
+    ///
+    /// Free quantity not included in ordered quantity.
+    #[serde(rename = "200")]
+    _200,
+
+    /// Recommended overhaul and repair quantity
+    ///
+    /// To indicate the recommended quantity of an article required to support overhaul and repair activities.
+    #[serde(rename = "201")]
+    _201,
+
+    /// Quantity per next higher assembly
+    ///
+    /// To indicate the quantity required for the next higher assembly.
+    #[serde(rename = "202")]
+    _202,
+
+    /// Quantity per unit of issue
+    ///
+    /// Provides the standard quantity of an article in which one unit can be issued.
+    #[serde(rename = "203")]
+    _203,
+
+    /// Cumulative scrap quantity
+    ///
+    /// Provides the cumulative quantity of an item which has been identified as scrapped.
+    #[serde(rename = "204")]
+    _204,
+
+    /// Publication turn size
+    ///
+    /// The quantity of magazines or newspapers grouped together with the spine facing alternate directions in a bundle.
+    #[serde(rename = "205")]
+    _205,
+
+    /// Recommended maintenance quantity
+    ///
+    /// Recommended quantity of an article which is required to meet an agreed level of maintenance.
+    #[serde(rename = "206")]
+    _206,
+
+    /// Labour hours
+    ///
+    /// Number of labour hours.
+    #[serde(rename = "207")]
+    _207,
+
+    /// Quantity requirement for maintenance and repair of equipment
+    ///
+    /// Quantity of the material needed to maintain and repair equipment.
+    #[serde(rename = "208")]
+    _208,
+
+    /// Additional replenishment demand quantity
+    ///
+    /// Incremental needs over and above normal replenishment calculations, but not intended to permanently change the model parameters.
+    #[serde(rename = "209")]
+    _209,
+
+    /// Returned by consumer quantity
+    ///
+    /// Quantity returned by a consumer.
+    #[serde(rename = "210")]
+    _210,
+
+    /// Replenishment override quantity
+    ///
+    /// Quantity to override the normal replenishment model calculations, but not intended to permanently change the model parameters.
+    #[serde(rename = "211")]
+    _211,
+
+    /// Quantity sold, net
+    ///
+    /// Net quantity sold which includes returns of saleable inventory and other adjustments.
+    #[serde(rename = "212")]
+    _212,
+
+    /// Transferred out quantity
+    ///
+    /// Quantity which was transferred out of this location.
+    #[serde(rename = "213")]
+    _213,
+
+    /// Transferred in quantity
+    ///
+    /// Quantity which was transferred into this location.
+    #[serde(rename = "214")]
+    _214,
+
+    /// Unsaleable quantity
+    ///
+    /// Quantity of inventory received which cannot be sold in its present condition.
+    #[serde(rename = "215")]
+    _215,
+
+    /// Consumer reserved quantity
+    ///
+    /// Quantity reserved for consumer delivery or pickup and not yet withdrawn from inventory.
+    #[serde(rename = "216")]
+    _216,
+
+    /// Out of inventory quantity
+    ///
+    /// Quantity of inventory which was requested but was not available.
+    #[serde(rename = "217")]
+    _217,
+
+    /// Quantity returned, defective or damaged
+    ///
+    /// Quantity returned in a damaged or defective condition.
+    #[serde(rename = "218")]
+    _218,
+
+    /// Taxable quantity
+    ///
+    /// Quantity subject to taxation.
+    #[serde(rename = "219")]
+    _219,
+
+    /// Meter reading
+    ///
+    /// The numeric value of measure units counted by a meter.
+    #[serde(rename = "220")]
+    _220,
+
+    /// Maximum requestable quantity
+    ///
+    /// The maximum quantity which may be requested.
+    #[serde(rename = "221")]
+    _221,
+
+    /// Minimum requestable quantity
+    ///
+    /// The minimum quantity which may be requested.
+    #[serde(rename = "222")]
+    _222,
+
+    /// Daily average quantity
+    ///
+    /// The quantity for a defined period divided by the number of days of the period.
+    #[serde(rename = "223")]
+    _223,
+
+    /// Budgeted hours
+    ///
+    /// The number of budgeted hours.
+    #[serde(rename = "224")]
+    _224,
+
+    /// Actual hours
+    ///
+    /// The number of actual hours.
+    #[serde(rename = "225")]
+    _225,
+
+    /// Earned value hours
+    ///
+    /// The number of earned value hours.
+    #[serde(rename = "226")]
+    _226,
+
+    /// Estimated hours
+    ///
+    /// The number of estimated hours.
+    #[serde(rename = "227")]
+    _227,
+
+    /// Level resource task quantity
+    ///
+    /// Quantity of a resource that is level for the duration of the task.
+    #[serde(rename = "228")]
+    _228,
+
+    /// Available resource task quantity
+    ///
+    /// Quantity of a resource available to complete a task.
+    #[serde(rename = "229")]
+    _229,
+
+    /// Work time units
+    ///
+    /// Quantity of work units of time.
+    #[serde(rename = "230")]
+    _230,
+
+    /// Daily work shifts
+    ///
+    /// Quantity of work shifts per day.
+    #[serde(rename = "231")]
+    _231,
+
+    /// Work time units per shift
+    ///
+    /// Work units of time per work shift.
+    #[serde(rename = "232")]
+    _232,
+
+    /// Work calendar units
+    ///
+    /// Work calendar units of time.
+    #[serde(rename = "233")]
+    _233,
+
+    /// Elapsed duration
+    ///
+    /// Quantity representing the elapsed duration.
+    #[serde(rename = "234")]
+    _234,
+
+    /// Remaining duration
+    ///
+    /// Quantity representing the remaining duration.
+    #[serde(rename = "235")]
+    _235,
+
+    /// Original duration
+    ///
+    /// Quantity representing the original duration.
+    #[serde(rename = "236")]
+    _236,
+
+    /// Current duration
+    ///
+    /// Quantity representing the current duration.
+    #[serde(rename = "237")]
+    _237,
+
+    /// Total float time
+    ///
+    /// Quantity representing the total float time.
+    #[serde(rename = "238")]
+    _238,
+
+    /// Free float time
+    ///
+    /// Quantity representing the free float time.
+    #[serde(rename = "239")]
+    _239,
+
+    /// Lag time
+    ///
+    /// Quantity representing lag time.
+    #[serde(rename = "240")]
+    _240,
+
+    /// Lead time
+    ///
+    /// Quantity representing lead time.
+    #[serde(rename = "241")]
+    _241,
+
+    /// Number of months
+    ///
+    /// The number of months.
+    #[serde(rename = "242")]
+    _242,
+
+    /// Reserved quantity customer direct delivery sales
+    ///
+    /// Quantity of products reserved for sales delivered direct to the customer.
+    #[serde(rename = "243")]
+    _243,
+
+    /// Reserved quantity retail sales
+    ///
+    /// Quantity of products reserved for retail sales.
+    #[serde(rename = "244")]
+    _244,
+
+    /// Consolidated discount inventory
+    ///
+    /// A quantity of inventory supplied at consolidated discount terms.
+    #[serde(rename = "245")]
+    _245,
+
+    /// Returns replacement quantity
+    ///
+    /// A quantity of goods issued as a replacement for a returned quantity.
+    #[serde(rename = "246")]
+    _246,
+
+    /// Additional promotion sales forecast quantity
+    ///
+    /// A forecast of additional quantity which will be sold during a period of promotional activity.
+    #[serde(rename = "247")]
+    _247,
+
+    /// Reserved quantity
+    ///
+    /// Quantity reserved for specific purposes.
+    #[serde(rename = "248")]
+    _248,
+
+    /// Quantity displayed not available for sale
+    ///
+    /// Quantity displayed within a retail outlet but not available for sale.
+    #[serde(rename = "249")]
+    _249,
+
+    /// Inventory discrepancy
+    ///
+    /// The difference recorded between theoretical and physical inventory.
+    #[serde(rename = "250")]
+    _250,
+
+    /// Incremental order quantity
+    ///
+    /// The incremental quantity by which ordering is carried out.
+    #[serde(rename = "251")]
+    _251,
+
+    /// Quantity requiring manipulation before despatch
+    ///
+    /// A quantity of goods which needs manipulation before despatch.
+    #[serde(rename = "252")]
+    _252,
+
+    /// Quantity in quarantine
+    ///
+    /// A quantity of goods which are held in a restricted area for quarantine purposes.
+    #[serde(rename = "253")]
+    _253,
+
+    /// Quantity withheld by owner of goods
+    ///
+    /// A quantity of goods which has been withheld by the owner of the goods.
+    #[serde(rename = "254")]
+    _254,
+
+    /// Quantity not available for despatch
+    ///
+    /// A quantity of goods not available for despatch.
+    #[serde(rename = "255")]
+    _255,
+
+    /// Quantity awaiting delivery
+    ///
+    /// Quantity of goods which are awaiting delivery.
+    #[serde(rename = "256")]
+    _256,
+
+    /// Quantity in physical inventory
+    ///
+    /// A quantity of goods held in physical inventory.
+    #[serde(rename = "257")]
+    _257,
+
+    /// Quantity held by logistic service provider
+    ///
+    /// Quantity of goods under the control of a logistic service provider.
+    #[serde(rename = "258")]
+    _258,
+
+    /// Optimal quantity
+    ///
+    /// The optimal quantity for a given purpose.
+    #[serde(rename = "259")]
+    _259,
+
+    /// Delivery quantity balance
+    ///
+    /// The difference between the scheduled quantity and the quantity delivered to the consignee at a given date.
+    #[serde(rename = "260")]
+    _260,
+
+    /// Cumulative quantity shipped
+    ///
+    /// Cumulative quantity of all shipments.
+    #[serde(rename = "261")]
+    _261,
+
+    /// Quantity suspended
+    ///
+    /// The quantity of something which is suspended.
+    #[serde(rename = "262")]
+    _262,
+
+    /// Control quantity
+    ///
+    /// The quantity designated for control purposes.
+    #[serde(rename = "263")]
+    _263,
+
+    /// Equipment quantity
+    ///
+    /// A count of a quantity of equipment.
+    #[serde(rename = "264")]
+    _264,
+
+    /// Factor
+    ///
+    /// Number by which the measured unit has to be multiplied to calculate the units used.
+    #[serde(rename = "265")]
+    _265,
+
+    /// Unsold quantity held by wholesaler
+    ///
+    /// Unsold quantity held by the wholesaler.
+    #[serde(rename = "266")]
+    _266,
+
+    /// Quantity held by delivery vehicle
+    ///
+    /// Quantity of goods held by the delivery vehicle.
+    #[serde(rename = "267")]
+    _267,
+
+    /// Quantity held by retail outlet
+    ///
+    /// Quantity held by the retail outlet.
+    #[serde(rename = "268")]
+    _268,
+
+    /// Rejected return quantity
+    ///
+    /// A quantity for return which has been rejected.
+    #[serde(rename = "269")]
+    _269,
+
+    /// Accounts
+    ///
+    /// The number of accounts.
+    #[serde(rename = "270")]
+    _270,
+
+    /// Accounts placed for collection
+    ///
+    /// The number of accounts placed for collection.
+    #[serde(rename = "271")]
+    _271,
+
+    /// Activity codes
+    ///
+    /// The number of activity codes.
+    #[serde(rename = "272")]
+    _272,
+
+    /// Agents
+    ///
+    /// The number of agents.
+    #[serde(rename = "273")]
+    _273,
+
+    /// Airline attendants
+    ///
+    /// The number of airline attendants.
+    #[serde(rename = "274")]
+    _274,
+
+    /// Authorised shares
+    ///
+    /// The number of shares authorised for issue.
+    #[serde(rename = "275")]
+    _275,
+
+    /// Employee average
+    ///
+    /// The average number of employees.
+    #[serde(rename = "276")]
+    _276,
+
+    /// Branch locations
+    ///
+    /// The number of branch locations.
+    #[serde(rename = "277")]
+    _277,
+
+    /// Capital changes
+    ///
+    /// The number of capital changes made.
+    #[serde(rename = "278")]
+    _278,
+
+    /// Clerks
+    ///
+    /// The number of clerks.
+    #[serde(rename = "279")]
+    _279,
+
+    /// Companies in same activity
+    ///
+    /// The number of companies doing business in the same activity category.
+    #[serde(rename = "280")]
+    _280,
+
+    /// Companies included in consolidated financial statement
+    ///
+    /// The number of companies included in a consolidated financial statement.
+    #[serde(rename = "281")]
+    _281,
+
+    /// Cooperative shares
+    ///
+    /// The number of cooperative shares.
+    #[serde(rename = "282")]
+    _282,
+
+    /// Creditors
+    ///
+    /// The number of creditors.
+    #[serde(rename = "283")]
+    _283,
+
+    /// Departments
+    ///
+    /// The number of departments.
+    #[serde(rename = "284")]
+    _284,
+
+    /// Design employees
+    ///
+    /// The number of employees involved in the design process.
+    #[serde(rename = "285")]
+    _285,
+
+    /// Physicians
+    ///
+    /// The number of medical doctors.
+    #[serde(rename = "286")]
+    _286,
+
+    /// Domestic affiliated companies
+    ///
+    /// The number of affiliated companies located within the country.
+    #[serde(rename = "287")]
+    _287,
+
+    /// Drivers
+    ///
+    /// The number of drivers.
+    #[serde(rename = "288")]
+    _288,
+
+    /// Employed at location
+    ///
+    /// The number of employees at the specified location.
+    #[serde(rename = "289")]
+    _289,
+
+    /// Employed by this company
+    ///
+    /// The number of employees at the specified company.
+    #[serde(rename = "290")]
+    _290,
+
+    /// Total employees
+    ///
+    /// The total number of employees.
+    #[serde(rename = "291")]
+    _291,
+
+    /// Employees shared
+    ///
+    /// The number of employees shared among entities.
+    #[serde(rename = "292")]
+    _292,
+
+    /// Engineers
+    ///
+    /// The number of engineers.
+    #[serde(rename = "293")]
+    _293,
+
+    /// Estimated accounts
+    ///
+    /// The estimated number of accounts.
+    #[serde(rename = "294")]
+    _294,
+
+    /// Estimated employees at location
+    ///
+    /// The estimated number of employees at the specified location.
+    #[serde(rename = "295")]
+    _295,
+
+    /// Estimated total employees
+    ///
+    /// The total estimated number of employees.
+    #[serde(rename = "296")]
+    _296,
+
+    /// Executives
+    ///
+    /// The number of executives.
+    #[serde(rename = "297")]
+    _297,
+
+    /// Agricultural workers
+    ///
+    /// The number of agricultural workers.
+    #[serde(rename = "298")]
+    _298,
+
+    /// Financial institutions
+    ///
+    /// The number of financial institutions.
+    #[serde(rename = "299")]
+    _299,
+
+    /// Floors occupied
+    ///
+    /// The number of floors occupied.
+    #[serde(rename = "300")]
+    _300,
+
+    /// Foreign related entities
+    ///
+    /// The number of related entities located outside the country.
+    #[serde(rename = "301")]
+    _301,
+
+    /// Group employees
+    ///
+    /// The number of employees within the group.
+    #[serde(rename = "302")]
+    _302,
+
+    /// Indirect employees
+    ///
+    /// The number of employees not associated with direct production.
+    #[serde(rename = "303")]
+    _303,
+
+    /// Installers
+    ///
+    /// The number of employees involved with the installation process.
+    #[serde(rename = "304")]
+    _304,
+
+    /// Invoices
+    ///
+    /// The number of invoices.
+    #[serde(rename = "305")]
+    _305,
+
+    /// Issued shares
+    ///
+    /// The number of shares actually issued.
+    #[serde(rename = "306")]
+    _306,
+
+    /// Labourers
+    ///
+    /// The number of labourers.
+    #[serde(rename = "307")]
+    _307,
+
+    /// Manufactured units
+    ///
+    /// The number of units manufactured.
+    #[serde(rename = "308")]
+    _308,
+
+    /// Maximum number of employees
+    ///
+    /// The maximum number of people employed.
+    #[serde(rename = "309")]
+    _309,
+
+    /// Maximum number of employees at location
+    ///
+    /// The maximum number of people employed at a location.
+    #[serde(rename = "310")]
+    _310,
+
+    /// Members in group
+    ///
+    /// The number of members within a group.
+    #[serde(rename = "311")]
+    _311,
+
+    /// Minimum number of employees at location
+    ///
+    /// The minimum number of people employed at a location.
+    #[serde(rename = "312")]
+    _312,
+
+    /// Minimum number of employees
+    ///
+    /// The minimum number of people employed.
+    #[serde(rename = "313")]
+    _313,
+
+    /// Non-union employees
+    ///
+    /// The number of employees not belonging to a labour union.
+    #[serde(rename = "314")]
+    _314,
+
+    /// Floors
+    ///
+    /// The number of floors in a building.
+    #[serde(rename = "315")]
+    _315,
+
+    /// Nurses
+    ///
+    /// The number of nurses.
+    #[serde(rename = "316")]
+    _316,
+
+    /// Office workers
+    ///
+    /// The number of workers in an office.
+    #[serde(rename = "317")]
+    _317,
+
+    /// Other employees
+    ///
+    /// The number of employees otherwise categorised.
+    #[serde(rename = "318")]
+    _318,
+
+    /// Part time employees
+    ///
+    /// The number of employees working on a part time basis.
+    #[serde(rename = "319")]
+    _319,
+
+    /// Accounts payable average overdue days
+    ///
+    /// The average number of days accounts payable are overdue.
+    #[serde(rename = "320")]
+    _320,
+
+    /// Pilots
+    ///
+    /// The number of pilots.
+    #[serde(rename = "321")]
+    _321,
+
+    /// Plant workers
+    ///
+    /// The number of workers within a plant.
+    #[serde(rename = "322")]
+    _322,
+
+    /// Previous number of accounts
+    ///
+    /// The number of accounts which preceded the current count.
+    #[serde(rename = "323")]
+    _323,
+
+    /// Previous number of branch locations
+    ///
+    /// The number of branch locations which preceded the current count.
+    #[serde(rename = "324")]
+    _324,
+
+    /// Principals included as employees
+    ///
+    /// The number of principals which are included in the count of employees.
+    #[serde(rename = "325")]
+    _325,
+
+    /// Protested bills
+    ///
+    /// The number of bills which are protested.
+    #[serde(rename = "326")]
+    _326,
+
+    /// Registered brands distributed
+    ///
+    /// The number of registered brands which are being distributed.
+    #[serde(rename = "327")]
+    _327,
+
+    /// Registered brands manufactured
+    ///
+    /// The number of registered brands which are being manufactured.
+    #[serde(rename = "328")]
+    _328,
+
+    /// Related business entities
+    ///
+    /// The number of related business entities.
+    #[serde(rename = "329")]
+    _329,
+
+    /// Relatives employed
+    ///
+    /// The number of relatives which are counted as employees.
+    #[serde(rename = "330")]
+    _330,
+
+    /// Rooms
+    ///
+    /// The number of rooms.
+    #[serde(rename = "331")]
+    _331,
+
+    /// Salespersons
+    ///
+    /// The number of salespersons.
+    #[serde(rename = "332")]
+    _332,
+
+    /// Seats
+    ///
+    /// The number of seats.
+    #[serde(rename = "333")]
+    _333,
+
+    /// Shareholders
+    ///
+    /// The number of shareholders.
+    #[serde(rename = "334")]
+    _334,
+
+    /// Shares of common stock
+    ///
+    /// The number of shares of common stock.
+    #[serde(rename = "335")]
+    _335,
+
+    /// Shares of preferred stock
+    ///
+    /// The number of shares of preferred stock.
+    #[serde(rename = "336")]
+    _336,
+
+    /// Silent partners
+    ///
+    /// The number of silent partners.
+    #[serde(rename = "337")]
+    _337,
+
+    /// Subcontractors
+    ///
+    /// The number of subcontractors.
+    #[serde(rename = "338")]
+    _338,
+
+    /// Subsidiaries
+    ///
+    /// The number of subsidiaries.
+    #[serde(rename = "339")]
+    _339,
+
+    /// Law suits
+    ///
+    /// The number of law suits.
+    #[serde(rename = "340")]
+    _340,
+
+    /// Suppliers
+    ///
+    /// The number of suppliers.
+    #[serde(rename = "341")]
+    _341,
+
+    /// Teachers
+    ///
+    /// The number of teachers.
+    #[serde(rename = "342")]
+    _342,
+
+    /// Technicians
+    ///
+    /// The number of technicians.
+    #[serde(rename = "343")]
+    _343,
+
+    /// Trainees
+    ///
+    /// The number of trainees.
+    #[serde(rename = "344")]
+    _344,
+
+    /// Union employees
+    ///
+    /// The number of employees who are members of a labour union.
+    #[serde(rename = "345")]
+    _345,
+
+    /// Number of units
+    ///
+    /// The quantity of units.
+    #[serde(rename = "346")]
+    _346,
+
+    /// Warehouse employees
+    ///
+    /// The number of employees who work in a warehouse setting.
+    #[serde(rename = "347")]
+    _347,
+
+    /// Shareholders holding remainder of shares
+    ///
+    /// Number of shareholders owning the remainder of shares.
+    #[serde(rename = "348")]
+    _348,
+
+    /// Payment orders filed
+    ///
+    /// Number of payment orders filed.
+    #[serde(rename = "349")]
+    _349,
+
+    /// Uncovered cheques
+    ///
+    /// Number of uncovered cheques.
+    #[serde(rename = "350")]
+    _350,
+
+    /// Auctions
+    ///
+    /// Number of auctions.
+    #[serde(rename = "351")]
+    _351,
+
+    /// Units produced
+    ///
+    /// The number of units produced.
+    #[serde(rename = "352")]
+    _352,
+
+    /// Added employees
+    ///
+    /// Number of employees that were added to the workforce.
+    #[serde(rename = "353")]
+    _353,
+
+    /// Number of added locations
+    ///
+    /// Number of locations that were added.
+    #[serde(rename = "354")]
+    _354,
+
+    /// Total number of foreign subsidiaries not included in financial statement
+    ///
+    /// The total number of foreign subsidiaries not included in the financial statement.
+    #[serde(rename = "355")]
+    _355,
+
+    /// Number of closed locations
+    ///
+    /// Number of locations that were closed.
+    #[serde(rename = "356")]
+    _356,
+
+    /// Counter clerks
+    ///
+    /// The number of clerks that work behind a flat-topped fitment.
+    #[serde(rename = "357")]
+    _357,
+
+    /// Payment experiences in the last 3 months
+    ///
+    /// The number of payment experiences received for an entity over the last 3 months.
+    #[serde(rename = "358")]
+    _358,
+
+    /// Payment experiences in the last 12 months
+    ///
+    /// The number of payment experiences received for an entity over the last 12 months.
+    #[serde(rename = "359")]
+    _359,
+
+    /// Total number of subsidiaries not included in the financial statement
+    ///
+    /// The total number of subsidiaries not included in the financial statement.
+    #[serde(rename = "360")]
+    _360,
+
+    /// Paid-in common shares
+    ///
+    /// The number of paid-in common shares.
+    #[serde(rename = "361")]
+    _361,
+
+    /// Total number of domestic subsidiaries not included in financial statement
+    ///
+    /// The total number of domestic subsidiaries not included in the financial statement.
+    #[serde(rename = "362")]
+    _362,
+
+    /// Total number of foreign subsidiaries included in financial statement
+    ///
+    /// The total number of foreign subsidiaries included in the financial statement.
+    #[serde(rename = "363")]
+    _363,
+
+    /// Total number of domestic subsidiaries included in financial statement
+    ///
+    /// The total number of domestic subsidiaries included in the financial statement.
+    #[serde(rename = "364")]
+    _364,
+
+    /// Total transactions
+    ///
+    /// The total number of transactions.
+    #[serde(rename = "365")]
+    _365,
+
+    /// Paid-in preferred shares
+    ///
+    /// The number of paid-in preferred shares.
+    #[serde(rename = "366")]
+    _366,
+
+    /// Employees
+    ///
+    /// Code specifying the quantity of persons working for a company, whose services are used for pay.
+    #[serde(rename = "367")]
+    _367,
+
+    /// Active ingredient dose per unit, dispensed
+    ///
+    /// The dosage of active ingredient per dispensed unit.
+    #[serde(rename = "368")]
+    _368,
+
+    /// Budget
+    ///
+    /// Budget quantity.
+    #[serde(rename = "369")]
+    _369,
+
+    /// Budget, cumulative to date
+    ///
+    /// Budget quantity, cumulative to date.
+    #[serde(rename = "370")]
+    _370,
+
+    /// Actual units
+    ///
+    /// The number of actual units.
+    #[serde(rename = "371")]
+    _371,
+
+    /// Actual units, cumulative to date
+    ///
+    /// The number of cumulative to date actual units.
+    #[serde(rename = "372")]
+    _372,
+
+    /// Earned value
+    ///
+    /// Earned value quantity.
+    #[serde(rename = "373")]
+    _373,
+
+    /// Earned value, cumulative to date
+    ///
+    /// Earned value quantity accumulated to date.
+    #[serde(rename = "374")]
+    _374,
+
+    /// At completion quantity, estimated
+    ///
+    /// The estimated quantity when a project is complete.
+    #[serde(rename = "375")]
+    _375,
+
+    /// To complete quantity, estimated
+    ///
+    /// The estimated quantity required to complete a project.
+    #[serde(rename = "376")]
+    _376,
+
+    /// Adjusted units
+    ///
+    /// The number of adjusted units.
+    #[serde(rename = "377")]
+    _377,
+
+    /// Number of limited partnership shares
+    ///
+    /// Number of shares held in a limited partnership.
+    #[serde(rename = "378")]
+    _378,
+
+    /// National business failure incidences
+    ///
+    /// Number of firms in a country that discontinued with a loss to creditors.
+    #[serde(rename = "379")]
+    _379,
+
+    /// Industry business failure incidences
+    ///
+    /// Number of firms in a specific industry that discontinued with a loss to creditors.
+    #[serde(rename = "380")]
+    _380,
+
+    /// Business class failure incidences
+    ///
+    /// Number of firms in a specific class that discontinued with a loss to creditors.
+    #[serde(rename = "381")]
+    _381,
+
+    /// Mechanics
+    ///
+    /// Number of mechanics.
+    #[serde(rename = "382")]
+    _382,
+
+    /// Messengers
+    ///
+    /// Number of messengers.
+    #[serde(rename = "383")]
+    _383,
+
+    /// Primary managers
+    ///
+    /// Number of primary managers.
+    #[serde(rename = "384")]
+    _384,
+
+    /// Secretaries
+    ///
+    /// Number of secretaries.
+    #[serde(rename = "385")]
+    _385,
+
+    /// Detrimental legal filings
+    ///
+    /// Number of detrimental legal filings.
+    #[serde(rename = "386")]
+    _386,
+
+    /// Branch office locations, estimated
+    ///
+    /// Estimated number of branch office locations.
+    #[serde(rename = "387")]
+    _387,
+
+    /// Previous number of employees
+    ///
+    /// The number of employees for a previous period.
+    #[serde(rename = "388")]
+    _388,
+
+    /// Asset seizers
+    ///
+    /// Number of entities that seize assets of another entity.
+    #[serde(rename = "389")]
+    _389,
+
+    /// Out-turned quantity
+    ///
+    /// The quantity discharged.
+    #[serde(rename = "390")]
+    _390,
+
+    /// Material on-board quantity, prior to loading
+    ///
+    /// The material in vessel tanks, void spaces, and pipelines prior to loading.
+    #[serde(rename = "391")]
+    _391,
+
+    /// Supplier estimated previous meter reading
+    ///
+    /// Previous meter reading estimated by the supplier.
+    #[serde(rename = "392")]
+    _392,
+
+    /// Supplier estimated latest meter reading
+    ///
+    /// Latest meter reading estimated by the supplier.
+    #[serde(rename = "393")]
+    _393,
+
+    /// Customer estimated previous meter reading
+    ///
+    /// Previous meter reading estimated by the customer.
+    #[serde(rename = "394")]
+    _394,
+
+    /// Customer estimated latest meter reading
+    ///
+    /// Latest meter reading estimated by the customer.
+    #[serde(rename = "395")]
+    _395,
+
+    /// Supplier previous meter reading
+    ///
+    /// Previous meter reading done by the supplier.
+    #[serde(rename = "396")]
+    _396,
+
+    /// Supplier latest meter reading
+    ///
+    /// Latest meter reading recorded by the supplier.
+    #[serde(rename = "397")]
+    _397,
+
+    /// Maximum number of purchase orders allowed
+    ///
+    /// Maximum number of purchase orders that are allowed.
+    #[serde(rename = "398")]
+    _398,
+
+    /// File size before compression
+    ///
+    /// The size of a file before compression.
+    #[serde(rename = "399")]
+    _399,
+
+    /// File size after compression
+    ///
+    /// The size of a file after compression.
+    #[serde(rename = "400")]
+    _400,
+
+    /// Securities shares
+    ///
+    /// Number of shares of securities.
+    #[serde(rename = "401")]
+    _401,
+
+    /// Patients
+    ///
+    /// Number of patients.
+    #[serde(rename = "402")]
+    _402,
+
+    /// Completed projects
+    ///
+    /// Number of completed projects.
+    #[serde(rename = "403")]
+    _403,
+
+    /// Promoters
+    ///
+    /// Number of entities who finance or organize an event or a production.
+    #[serde(rename = "404")]
+    _404,
+
+    /// Administrators
+    ///
+    /// Number of administrators.
+    #[serde(rename = "405")]
+    _405,
+
+    /// Supervisors
+    ///
+    /// Number of supervisors.
+    #[serde(rename = "406")]
+    _406,
+
+    /// Professionals
+    ///
+    /// Number of professionals.
+    #[serde(rename = "407")]
+    _407,
+
+    /// Debt collectors
+    ///
+    /// Number of debt collectors.
+    #[serde(rename = "408")]
+    _408,
+
+    /// Inspectors
+    ///
+    /// Number of individuals who perform inspections.
+    #[serde(rename = "409")]
+    _409,
+
+    /// Operators
+    ///
+    /// Number of operators.
+    #[serde(rename = "410")]
+    _410,
+
+    /// Trainers
+    ///
+    /// Number of trainers.
+    #[serde(rename = "411")]
+    _411,
+
+    /// Active accounts
+    ///
+    /// Number of accounts in a current or active status.
+    #[serde(rename = "412")]
+    _412,
+
+    /// Trademarks used
+    ///
+    /// Number of trademarks used.
+    #[serde(rename = "413")]
+    _413,
+
+    /// Machines
+    ///
+    /// Number of machines.
+    #[serde(rename = "414")]
+    _414,
+
+    /// Fuel pumps
+    ///
+    /// Number of fuel pumps.
+    #[serde(rename = "415")]
+    _415,
+
+    /// Tables available
+    ///
+    /// Number of tables available for use.
+    #[serde(rename = "416")]
+    _416,
+
+    /// Directors
+    ///
+    /// Number of directors.
+    #[serde(rename = "417")]
+    _417,
+
+    /// Freelance debt collectors
+    ///
+    /// Number of debt collectors who work on a freelance basis.
+    #[serde(rename = "418")]
+    _418,
+
+    /// Freelance salespersons
+    ///
+    /// Number of salespersons who work on a freelance basis.
+    #[serde(rename = "419")]
+    _419,
+
+    /// Travelling employees
+    ///
+    /// Number of travelling employees.
+    #[serde(rename = "420")]
+    _420,
+
+    /// Foremen
+    ///
+    /// Number of workers with limited supervisory responsibilities.
+    #[serde(rename = "421")]
+    _421,
+
+    /// Production workers
+    ///
+    /// Number of employees engaged in production.
+    #[serde(rename = "422")]
+    _422,
+
+    /// Employees not including owners
+    ///
+    /// Number of employees excluding business owners.
+    #[serde(rename = "423")]
+    _423,
+
+    /// Beds
+    ///
+    /// Number of beds.
+    #[serde(rename = "424")]
+    _424,
+
+    /// Resting quantity
+    ///
+    /// A quantity of product that is at rest before it can be used.
+    #[serde(rename = "425")]
+    _425,
+
+    /// Production requirements
+    ///
+    /// Quantity needed to meet production requirements.
+    #[serde(rename = "426")]
+    _426,
+
+    /// Corrected quantity
+    ///
+    /// The quantity has been corrected.
+    #[serde(rename = "427")]
+    _427,
+
+    /// Operating divisions
+    ///
+    /// Number of divisions operating.
+    #[serde(rename = "428")]
+    _428,
+
+    /// Quantitative incentive scheme base
+    ///
+    /// Quantity constituting the base for the quantitative incentive scheme.
+    #[serde(rename = "429")]
+    _429,
+
+    /// Petitions filed
+    ///
+    /// Number of petitions that have been filed.
+    #[serde(rename = "430")]
+    _430,
+
+    /// Bankruptcy petitions filed
+    ///
+    /// Number of bankruptcy petitions that have been filed.
+    #[serde(rename = "431")]
+    _431,
+
+    /// Projects in process
+    ///
+    /// Number of projects in process.
+    #[serde(rename = "432")]
+    _432,
+
+    /// Changes in capital structure
+    ///
+    /// Number of modifications made to the capital structure of an entity.
+    #[serde(rename = "433")]
+    _433,
+
+    /// Detrimental legal filings against directors
+    ///
+    /// The number of legal filings that are of a detrimental nature that have been filed against the directors.
+    #[serde(rename = "434")]
+    _434,
+
+    /// Number of failed businesses of directors
+    ///
+    /// The number of failed businesses with which the directors have been associated.
+    #[serde(rename = "435")]
+    _435,
+
+    /// Professor
+    ///
+    /// The number of professors.
+    #[serde(rename = "436")]
+    _436,
+
+    /// Seller
+    ///
+    /// The number of sellers.
+    #[serde(rename = "437")]
+    _437,
+
+    /// Skilled worker
+    ///
+    /// The number of skilled workers.
+    #[serde(rename = "438")]
+    _438,
+
+    /// Trademark represented
+    ///
+    /// The number of trademarks represented.
+    #[serde(rename = "439")]
+    _439,
+
+    /// Number of quantitative incentive scheme units
+    ///
+    /// Number of units allocated to a quantitative incentive scheme.
+    #[serde(rename = "440")]
+    _440,
+
+    /// Quantity in manufacturing process
+    ///
+    /// Quantity currently in the manufacturing process.
+    #[serde(rename = "441")]
+    _441,
+
+    /// Number of units in the width of a layer
+    ///
+    /// Number of units which make up the width of a layer.
+    #[serde(rename = "442")]
+    _442,
+
+    /// Number of units in the depth of a layer
+    ///
+    /// Number of units which make up the depth of a layer.
+    #[serde(rename = "443")]
+    _443,
+
+    /// Mutually defined
+    ///
+    /// As agreed by the trading partners.
+    #[strum(ascii_case_insensitive)]
+    ZZZ,
 }
 
 /// Exchange rate currency market identifier
@@ -10891,6 +14255,7 @@ pub enum _6343 {
 ///
 /// Code qualifying the usage of a currency.
 #[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
 pub enum _6347 {
     /// Charge payment currency
     ///

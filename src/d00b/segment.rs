@@ -121,6 +121,34 @@ impl<'a> Parser<&'a str, COM, nom::error::Error<&'a str>> for COM {
     }
 }
 
+/// CPI Charge payment instructions
+///
+/// To identify a charge.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct CPI {
+    /// CONTACT FUNCTION CODE
+    ///
+    /// Code specifying the function of a contact (e.g. department or person).
+    pub _010: Option<C229>,
+    /// C056 - DEPARTMENT OR EMPLOYEE DETAILS
+    ///
+    /// Code and/or name of a department or employee. Code preferred.
+    pub _020: Option<C231>,
+    pub _030: Option<_4237>,
+}
+
+impl<'a> Parser<&'a str, CPI, nom::error::Error<&'a str>> for CPI {
+    fn parse(input: &'a str) -> IResult<&'a str, CPI> {
+        let (output_rest, vars) = crate::util::parse_line(input, "CPI")?;
+        let output = CPI {
+            _010: vars.first().map(|x| C229::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| C231::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| _4237::from_str(x).unwrap()),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// CTA - CONTACT INFORMATION
 ///
 /// A segment to specify a contact name associated with the party.
@@ -961,6 +989,53 @@ impl<'a> Parser<&'a str, PCI, nom::error::Error<&'a str>> for PCI {
     }
 }
 
+/// PRI Price details
+///
+/// To specify price information.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct PRI {
+    /// C509 Price information
+    ///
+    /// Identification of price type, price and related details.
+    pub _010: Option<C509>,
+    /// Sub-line item price change operation code
+    ///
+    /// Code specifying the price change operation for a sub- line item.
+    pub _020: Option<_5213>,
+}
+
+impl<'a> Parser<&'a str, PRI, nom::error::Error<&'a str>> for PRI {
+    fn parse(input: &'a str) -> IResult<&'a str, PRI> {
+        let (output_rest, vars) = crate::util::parse_line(input, "PRI")?;
+        let output = PRI {
+            _010: vars.first().map(|x| C509::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| _5213::from_str(x).unwrap()),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// QTY Quantity
+///
+/// To specify a pertinent quantity.
+#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment)]
+pub struct QTY {
+    /// C186 Quantity details
+    ///
+    /// Quantity information in a transaction, qualified when relevant.
+    pub _010: C186,
+}
+
+impl<'a> Parser<&'a str, QTY, nom::error::Error<&'a str>> for QTY {
+    fn parse(input: &'a str) -> IResult<&'a str, QTY> {
+        let (output_rest, vars) = crate::util::parse_line(input, "QTY")?;
+        let output = QTY {
+            _010: vars.first().map(|x| C186::parse(x).unwrap().1).unwrap(),
+        };
+        Ok((output_rest, output))
+    }
+}
+
 /// RFF - REFERENCE
 ///
 /// A segment to specify a reference number to equipment.
@@ -1079,27 +1154,27 @@ pub struct STS {
     ///
     /// To specify the category of the status.
     pub _010: Option<C601>,
-    /// C555STATUS
+    /// C555 - STATUS
     ///
     /// To specify a status.
     pub _020: Option<C555>,
-    /// C556 -STATUS REASON
+    /// C556 - STATUS REASON
     ///
     /// To specify the reason for a status.
     pub _030: Option<C556>,
-    /// C556 -STATUS REASON
+    /// C556 - STATUS REASON
     ///
     /// To specify the reason for a status.
     pub _040: Option<C556>,
-    /// C556 -STATUS REASON
+    /// C556 - STATUS REASON
     ///
     /// To specify the reason for a status.
     pub _050: Option<C556>,
-    /// C556 -STATUS REASON
+    /// C556 - STATUS REASON
     ///
     /// To specify the reason for a status.
     pub _060: Option<C556>,
-    /// C556 -STATUS REASON
+    /// C556 - STATUS REASON
     ///
     /// To specify the reason for a status.
     pub _070: Option<C556>,
@@ -1116,6 +1191,42 @@ impl<'a> Parser<&'a str, STS, nom::error::Error<&'a str>> for STS {
             _050: vars.get(4).map(|x| C556::parse(x).unwrap().1),
             _060: vars.get(5).map(|x| C556::parse(x).unwrap().1),
             _070: vars.get(6).map(|x| C556::parse(x).unwrap().1),
+        };
+        Ok((output_rest, output))
+    }
+}
+
+/// TCC Transport charge/rate calculations
+///
+/// To specify charges.
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+pub struct TCC {
+    /// C200 Charge
+    ///
+    /// Identification of a charge by code and/or by name.
+    pub _010: Option<C200>,
+    /// C203 Rate/tariff class
+    ///
+    /// Identification of the applicable rate/tariff class.
+    pub _020: Option<C203>,
+    /// C528 Commodity/rate detail
+    ///
+    /// Identification of commodity/rates.
+    pub _030: Option<C528>,
+    /// C554 Rate/tariff class detail
+    ///
+    /// Identification of the applicable rate/tariff class.
+    pub _040: Option<C554>,
+}
+
+impl<'a> Parser<&'a str, TCC, nom::error::Error<&'a str>> for TCC {
+    fn parse(input: &'a str) -> IResult<&'a str, TCC> {
+        let (output_rest, vars) = crate::util::parse_line(input, "TCC")?;
+        let output = TCC {
+            _010: vars.first().map(|x| C200::parse(x).unwrap().1),
+            _020: vars.get(1).map(|x| C203::parse(x).unwrap().1),
+            _030: vars.get(2).map(|x| C528::parse(x).unwrap().1),
+            _040: vars.get(3).map(|x| C554::parse(x).unwrap().1),
         };
         Ok((output_rest, output))
     }

@@ -366,6 +366,155 @@ impl<'a> Parser<&'a str, C174, nom::error::Error<&'a str>> for C174 {
     }
 }
 
+/// C186 Quantity details
+///
+/// Quantity information in a transaction, qualified when relevant.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment)]
+pub struct C186 {
+    /// Quantity type code qualifier
+    ///
+    /// Code qualifying the type of quantity.
+    pub _010: _6063,
+    /// Quantity
+    ///
+    /// Alphanumeric representation of a quantity.
+    pub _020: String,
+    /// Measurement unit code
+    ///
+    /// Code specifying the unit of measurement.
+    /// 1 See UN/ECE Recommendation 20, common code.
+    pub _030: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C186, nom::error::Error<&'a str>> for C186 {
+    fn parse(input: &'a str) -> IResult<&'a str, C186> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C186 {
+            _010: vars.first().map(|x| _6063::from_str(x).unwrap()).unwrap(),
+            _020: vars.get(1).map(|x| x.to_string()).unwrap(),
+            _030: vars.get(2).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C200 Charge
+///
+/// Identification of a charge by code and/or by name.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C200 {
+    /// Freight and other charges description identifier
+    ///
+    /// Code identifying freight and other charges.
+    /// 1 Use UN/ECE Recommendation No. 2
+    /// Freight costs and charges. If not applicable, use appropriate code in combination with 1131/3055.
+    pub _010: Option<String>,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _020: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _030: Option<_3055>,
+    /// Freight and other charges description
+    ///
+    /// Free form description of freight and other charges.
+    pub _040: Option<String>,
+    /// Payment arrangement code
+    ///
+    /// Code specifying the arrangements for a payment.
+    pub _050: Option<_4237>,
+    /// Item identifier
+    ///
+    /// To identify an item.
+    pub _060: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C200, nom::error::Error<&'a str>> for C200 {
+    fn parse(input: &'a str) -> IResult<&'a str, C200> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C200 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| _1131::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _3055::from_str(x).unwrap()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| _4237::from_str(x).unwrap()),
+            _060: vars.get(5).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C203 Rate/tariff class
+///
+/// Identification of the applicable rate/tariff class.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment)]
+pub struct C203 {
+    /// Rate or tariff class description code
+    ///
+    /// Code specifying an applicable rate or tariff class.
+    /// 1 User or association defined code. May be used in combination with 1131/3055.
+    pub _010: _5243,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _020: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _030: Option<_3055>,
+    /// Rate or tariff class description
+    ///
+    /// Free form description of an applicable rate or tariff class.
+    pub _040: Option<String>,
+    /// Supplementary rate or tariff code
+    ///
+    /// Code specifying a supplementary rate or tariff.
+    /// 1 User or association defined code. May be used in combination with 1131/3055.
+    pub _050: Option<String>,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _060: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _070: Option<_3055>,
+    /// Supplementary rate or tariff code
+    ///
+    /// Code specifying a supplementary rate or tariff.
+    /// 1 User or association defined code. May be used in combination with 1131/3055.
+    pub _080: Option<String>,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _090: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _100: Option<_3055>,
+}
+
+impl<'a> Parser<&'a str, C203, nom::error::Error<&'a str>> for C203 {
+    fn parse(input: &'a str) -> IResult<&'a str, C203> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C203 {
+            _010: vars.first().map(|x| _5243::from_str(x).unwrap()).unwrap(),
+            _020: vars.get(1).map(|x| _1131::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _3055::from_str(x).unwrap()),
+            _040: vars.get(3).map(|x| x.to_string()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| _1131::from_str(x).unwrap()),
+            _070: vars.get(6).map(|x| _3055::from_str(x).unwrap()),
+            _080: vars.get(7).map(|x| x.to_string()),
+            _090: vars.get(8).map(|x| _1131::from_str(x).unwrap()),
+            _100: vars.get(9).map(|x| _3055::from_str(x).unwrap()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C205 HAZARD CODE
 ///
 /// The identification of the dangerous goods in code.
@@ -768,6 +917,69 @@ impl<'a> Parser<&'a str, C228, nom::error::Error<&'a str>> for C228 {
         let output = C228 {
             _010: vars.first().map(|x| x.to_string()),
             _020: vars.get(1).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C229 Charge category
+///
+/// Identification of a category or a zone of charges.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment)]
+pub struct C229 {
+    /// Charge category code
+    ///
+    /// Code specifying the category of charges.
+    /// 1 User or association defined code. May be used in combination with 1131/3055.   
+    pub _010: _5237,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _020: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _030: Option<_3055>,
+}
+
+impl<'a> Parser<&'a str, C229, nom::error::Error<&'a str>> for C229 {
+    fn parse(input: &'a str) -> IResult<&'a str, C229> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C229 {
+            _010: vars.first().map(|x| _5237::from_str(x).unwrap()).unwrap(),
+            _020: vars.get(1).map(|x| _1131::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _3055::from_str(x).unwrap()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C231 Method of payment
+///
+/// Code identifying the method of payment.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment)]
+pub struct C231 {
+    /// Transport charges payment method code
+    ///
+    /// Code specifying the payment method for transport charges.  
+    pub _010: _4215,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _020: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _030: Option<_3055>,
+}
+
+impl<'a> Parser<&'a str, C231, nom::error::Error<&'a str>> for C231 {
+    fn parse(input: &'a str) -> IResult<&'a str, C231> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C231 {
+            _010: vars.first().map(|x| _4215::from_str(x).unwrap()).unwrap(),
+            _020: vars.get(1).map(|x| _1131::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _3055::from_str(x).unwrap()),
         };
         Ok(("", output))
     }
@@ -1248,6 +1460,54 @@ impl<'a> Parser<&'a str, C507, nom::error::Error<&'a str>> for C507 {
     }
 }
 
+/// C509 Price information
+///
+/// Identification of price type, price and related details.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment)]
+pub struct C509 {
+    /// Price code qualifier
+    ///
+    /// Code qualifying a price.
+    /// 1 Code set of 5387 may be used also.
+    pub _010: _5125,
+    /// Price amount
+    ///
+    /// To specify a price.
+    pub _020: Option<String>,
+    /// Price type code
+    ///
+    /// Code specifying the type of price.
+    pub _030: Option<_5375>,
+    /// Price specification code
+    ///
+    /// Code identifying pricing specification.
+    pub _040: Option<_5387>,
+    /// Unit price basis value
+    ///
+    /// To specify the basis for a unit price.
+    pub _050: Option<String>,
+    /// Measurement unit code
+    ///
+    /// Code specifying the unit of measurement.
+    /// 1 See UN/ECE Recommendation 20, common code.
+    pub _060: Option<String>,
+}
+
+impl<'a> Parser<&'a str, C509, nom::error::Error<&'a str>> for C509 {
+    fn parse(input: &'a str) -> IResult<&'a str, C509> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C509 {
+            _010: vars.first().map(|x| _5125::from_str(x).unwrap()).unwrap(),
+            _020: vars.get(1).map(|x| x.to_string()),
+            _030: vars.get(2).map(|x| _5375::from_str(x).unwrap()),
+            _040: vars.get(3).map(|x| _5387::from_str(x).unwrap()),
+            _050: vars.get(4).map(|x| x.to_string()),
+            _060: vars.get(5).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C516 Monetary amount
 ///
 /// Amount of goods or services stated as a
@@ -1396,6 +1656,38 @@ impl<'a> Parser<&'a str, C524, nom::error::Error<&'a str>> for C524 {
     }
 }
 
+/// C528 Commodity/rate detail
+///
+/// Identification of commodity/rates.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment)]
+pub struct C528 {
+    /// Commodity identification code
+    ///
+    /// Code identifying a commodity for Customs, transport or statistical purposes (generic term).
+    /// 1 User or association defined code. May be used in combination with 1131/3055.
+    pub _010: Option<String>,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _020: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _030: Option<_3055>,
+}
+
+impl<'a> Parser<&'a str, C528, nom::error::Error<&'a str>> for C528 {
+    fn parse(input: &'a str) -> IResult<&'a str, C528> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C528 {
+            _010: vars.first().map(|x| x.to_string()),
+            _020: vars.get(1).map(|x| _1131::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _3055::from_str(x).unwrap()),
+        };
+        Ok(("", output))
+    }
+}
+
 /// C536 - CONTRACT AND CARRIAGE CONDITION
 ///
 /// To identify a contract and carriage condition.
@@ -1462,6 +1754,38 @@ impl<'a> Parser<&'a str, C553, nom::error::Error<&'a str>> for C553 {
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| x.to_string()),
             _040: vars.get(3).map(|x| x.to_string()),
+        };
+        Ok(("", output))
+    }
+}
+
+/// C554 Rate/tariff class detail
+///
+/// Identification of the applicable rate/tariff class.
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment)]
+pub struct C554 {
+    /// Rate or tariff class description code
+    ///
+    /// Code specifying an applicable rate or tariff class.
+    /// 1 User or association defined code. May be used in combination with 1131/3055.
+    pub _010: Option<_5243>,
+    /// Code list identification code
+    ///
+    /// Code identifying a code list.
+    pub _020: Option<_1131>,
+    /// Code list responsible agency code
+    ///
+    /// Code specifying the agency responsible for a code list.
+    pub _030: Option<_3055>,
+}
+
+impl<'a> Parser<&'a str, C554, nom::error::Error<&'a str>> for C554 {
+    fn parse(input: &'a str) -> IResult<&'a str, C554> {
+        let (_, vars) = crate::util::parse_colon_section(input)?;
+        let output = C554 {
+            _010: vars.first().map(|x| _5243::from_str(x).unwrap()),
+            _020: vars.get(1).map(|x| _1131::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _3055::from_str(x).unwrap()),
         };
         Ok(("", output))
     }
