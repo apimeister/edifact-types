@@ -1439,7 +1439,7 @@ impl<'a> Parser<&'a str, TSR, nom::error::Error<&'a str>> for TSR {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment)]
 pub struct UNA {
     _010: String,
 }
@@ -1457,7 +1457,7 @@ impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
 /// UNB Interchange header
 ///
 /// To start, identify and specify an interchange.
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Default, DisplayOuterSegment)]
 pub struct UNB {
     _010: S001,
     _020: S002,
@@ -1526,7 +1526,7 @@ impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment)]
 pub struct UNZ {
     _010: String,
 }
