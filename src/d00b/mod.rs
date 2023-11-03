@@ -24,15 +24,18 @@ mod test_iftsta;
 #[cfg(test)]
 mod test_segment;
 
-#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq)]
-pub struct Interchange<T> {
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayEdifact)]
+pub struct Interchange<T>
+where
+    T: std::fmt::Display,
+{
     pub una: Option<UNA>,
     pub unb: UNB,
     pub segment: T,
     pub unz: UNZ,
 }
 
-impl<'a, T: Default + Parser<&'a str, T, nom::error::Error<&'a str>>>
+impl<'a, T: Default + Parser<&'a str, T, nom::error::Error<&'a str>> + std::fmt::Display>
     Parser<&'a str, Interchange<T>, nom::error::Error<&'a str>> for Interchange<T>
 {
     fn parse(input: &'a str) -> IResult<&'a str, Interchange<T>> {
