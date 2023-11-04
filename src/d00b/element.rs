@@ -2161,10 +2161,7 @@ impl<'a> Parser<&'a str, S002, nom::error::Error<&'a str>> for S002 {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S002 {
             _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| {
-                println!("{x:?}");
-                _0007::from_str(x).unwrap()
-            }),
+            _020: vars.get(1).map(|x| _0007::from_str(x).unwrap()),
             _030: vars.get(2).map(|x| x.to_string()),
         };
         Ok(("", output))
