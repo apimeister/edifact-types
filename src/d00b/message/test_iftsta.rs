@@ -1,6 +1,5 @@
+use crate::d00b::*;
 use std::vec;
-
-use super::*;
 
 #[test]
 fn build_dtm() {
@@ -8,7 +7,7 @@ fn build_dtm() {
         _010: C507 {
             _010: _2005::_137,
             _020: Some("202201010021".to_string()),
-            _030: Some(super::_2379::_203),
+            _030: Some(_2379::_203),
         },
     };
     println!("{dtm:?}");
