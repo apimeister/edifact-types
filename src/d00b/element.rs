@@ -158,7 +158,10 @@ impl<'a> Parser<&'a str, C076, nom::error::Error<&'a str>> for C076 {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C076 {
             _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| _3155::from_str(clean_num(x)).unwrap()).unwrap(),
+            _020: vars
+                .get(1)
+                .map(|x| _3155::from_str(clean_num(x)).unwrap())
+                .unwrap(),
         };
         Ok(("", output))
     }
@@ -390,7 +393,10 @@ impl<'a> Parser<&'a str, C186, nom::error::Error<&'a str>> for C186 {
     fn parse(input: &'a str) -> IResult<&'a str, C186> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C186 {
-            _010: vars.first().map(|x| _6063::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _6063::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| x.to_string()).unwrap(),
             _030: vars.get(2).map(|x| x.to_string()),
         };
@@ -500,7 +506,10 @@ impl<'a> Parser<&'a str, C203, nom::error::Error<&'a str>> for C203 {
     fn parse(input: &'a str) -> IResult<&'a str, C203> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C203 {
-            _010: vars.first().map(|x| _5243::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _5243::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| _1131::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| _3055::from_str(clean_num(x)).unwrap()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -946,7 +955,10 @@ impl<'a> Parser<&'a str, C229, nom::error::Error<&'a str>> for C229 {
     fn parse(input: &'a str) -> IResult<&'a str, C229> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C229 {
-            _010: vars.first().map(|x| _5237::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _5237::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| _1131::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| _3055::from_str(clean_num(x)).unwrap()),
         };
@@ -977,7 +989,10 @@ impl<'a> Parser<&'a str, C231, nom::error::Error<&'a str>> for C231 {
     fn parse(input: &'a str) -> IResult<&'a str, C231> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C231 {
-            _010: vars.first().map(|x| _4215::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _4215::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| _1131::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| _3055::from_str(clean_num(x)).unwrap()),
         };
@@ -1039,7 +1054,10 @@ impl<'a> Parser<&'a str, C233, nom::error::Error<&'a str>> for C233 {
     fn parse(input: &'a str) -> IResult<&'a str, C233> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C233 {
-            _010: vars.first().map(|x| _7273::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _7273::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| _1131::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| _3055::from_str(clean_num(x)).unwrap()),
             _040: vars.get(3).map(|x| _7273::from_str(clean_num(x)).unwrap()),
@@ -1400,7 +1418,10 @@ impl<'a> Parser<&'a str, C504, nom::error::Error<&'a str>> for C504 {
     fn parse(input: &'a str) -> IResult<&'a str, C504> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C504 {
-            _010: vars.first().map(|x| _6347::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _6347::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| _6343::from_str(clean_num(x)).unwrap()),
             _040: vars.get(3).map(|x| x.to_string()),
@@ -1452,7 +1473,10 @@ impl<'a> Parser<&'a str, C507, nom::error::Error<&'a str>> for C507 {
     fn parse(input: &'a str) -> IResult<&'a str, C507> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C507 {
-            _010: vars.first().map(|x| _2005::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _2005::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| _2379::from_str(clean_num(x)).unwrap()),
         };
@@ -1497,7 +1521,10 @@ impl<'a> Parser<&'a str, C509, nom::error::Error<&'a str>> for C509 {
     fn parse(input: &'a str) -> IResult<&'a str, C509> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C509 {
-            _010: vars.first().map(|x| _5125::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _5125::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| x.to_string()),
             _030: vars.get(2).map(|x| _5375::from_str(clean_num(x)).unwrap()),
             _040: vars.get(3).map(|x| _5387::from_str(clean_num(x)).unwrap()),
@@ -1702,7 +1729,10 @@ impl<'a> Parser<&'a str, C536, nom::error::Error<&'a str>> for C536 {
     fn parse(input: &'a str) -> IResult<&'a str, C536> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C536 {
-            _010: vars.first().map(|x| _4065::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _4065::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| _1131::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| _3055::from_str(clean_num(x)).unwrap()),
         };
@@ -1885,7 +1915,10 @@ impl<'a> Parser<&'a str, C703, nom::error::Error<&'a str>> for C703 {
     fn parse(input: &'a str) -> IResult<&'a str, C703> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = C703 {
-            _010: vars.first().map(|x| _7085::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _7085::from_str(clean_num(x)).unwrap())
+                .unwrap(),
             _020: vars.get(1).map(|x| _1131::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| _3055::from_str(clean_num(x)).unwrap()),
         };
@@ -2133,8 +2166,14 @@ impl<'a> Parser<&'a str, S001, nom::error::Error<&'a str>> for S001 {
     fn parse(input: &'a str) -> IResult<&'a str, S001> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
         let output = S001 {
-            _010: vars.first().map(|x| _0001::from_str(clean_num(x)).unwrap()).unwrap(),
-            _020: vars.get(1).map(|x| _0002::from_str(clean_num(x)).unwrap()).unwrap(),
+            _010: vars
+                .first()
+                .map(|x| _0001::from_str(clean_num(x)).unwrap())
+                .unwrap(),
+            _020: vars
+                .get(1)
+                .map(|x| _0002::from_str(clean_num(x)).unwrap())
+                .unwrap(),
         };
         Ok(("", output))
     }
