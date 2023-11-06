@@ -1,7 +1,7 @@
 use super::*;
 use crate::util::Parser;
 use edifact_types_macros::DisplayOuterSegment;
-use nom::IResult;
+use nom::{bytes::complete::take_until, character::complete::newline, IResult};
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{self, Debug},
@@ -1439,18 +1439,70 @@ impl<'a> Parser<&'a str, TSR, nom::error::Error<&'a str>> for TSR {
     }
 }
 
+/// UNA, Service String advice
+///
+/// Function: To define the characters selected for use
+/// as delimiters and indicators in the rest of the
+/// interchange that follows:
+///
+/// The specifications in the Service string advice take
+/// precedence over the specifications for delimiters etc. in
+/// segment UNB.  See clause 4.
+///
+/// When transmitted, the Service string advice must appear
+/// immediately before the Interchange Header (UNB) segment and
+/// begin with the upper case characters UNA immediately followed
+/// by the six characters selected by the sender to indicate, in
+/// sequence, the following functions:
+/// Repr. | Req. | Name | Remarks
+/// --- | --- | --- | ---
+/// an1 | M | COMPONENT DATA ELEMENT SEPARATOR |
+/// an1 | M | DATA ELEMENT SEPARATOR |
+/// an1 | M | DECIMAL NOTATION | Comma or full stop
+/// an1 | M | RELEASE INDICATOR | If not used, insert space character
+/// an1 | M | Reserved for future use | Insert space character
+/// an1 | M | SEGMENT TERMINATOR |
 #[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment)]
 pub struct UNA {
-    _010: String,
+    /// an1    M     COMPONENT DATA ELEMENT SEPARATOR
+    pub component_data_element_seperator: char,
+    /// an1    M     DATA ELEMENT SEPARATOR
+    pub data_element_seperator: char,
+    /// an1    M     DECIMAL NOTATION       Comma or full stop
+    pub decimal_notation: char,
+    /// an1    M     RELEASE INDICATOR      If not used, insert space character
+    pub release_indicator: char,
+    /// an1    M     Reserved for future use    Insert space character
+    pub reserved_for_future_use: char,
+    /// an1    M     SEGMENT TERMINATOR
+    pub segment_terminator: char,
 }
 
 impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
     fn parse(input: &'a str) -> IResult<&'a str, UNA> {
-        let (output_rest, vars) = crate::util::parse_line(input, "UNA")?;
-        let output = UNA {
-            _010: vars.first().unwrap().to_string(),
+        let (rest, vars) = take_until("UNB")(input)?;
+        if vars.is_empty() {
+            return Err(nom::Err::Error(nom::error::Error::new(
+                rest,
+                nom::error::ErrorKind::TakeUntil,
+            )));
+        }
+        // look for trailing newline
+        let (rest, _) = opt(newline)(rest)?;
+        if vars.len() != 9 {
+            panic!("UNA Segment malformed, needs to be exactly 6 characters")
+        }
+        let vars = vars.strip_prefix("UNA").unwrap();
+        let mut vars = vars.chars();
+        let una = UNA {
+            component_data_element_seperator: vars.next().unwrap(),
+            data_element_seperator: vars.next().unwrap(),
+            decimal_notation: vars.next().unwrap(),
+            release_indicator: vars.next().unwrap(),
+            reserved_for_future_use: vars.next().unwrap(),
+            segment_terminator: vars.next().unwrap(),
         };
-        Ok((output_rest, output))
+        Ok((rest, una))
     }
 }
 
