@@ -25,8 +25,8 @@ impl<'a> Parser<&'a str, BGM, nom::error::Error<&'a str>> for BGM {
         let output = BGM {
             _010: vars.first().map(|x| C002::parse(x).unwrap().1),
             _020: vars.get(1).map(|x| C106::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| _1225::from_str(x).unwrap()),
-            _040: vars.get(3).map(|x| _4343::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _1225::from_str(clean_num(x)).unwrap()),
+            _040: vars.get(3).map(|x| _4343::from_str(clean_num(x)).unwrap()),
         };
         Ok((output_rest, output))
     }
@@ -143,7 +143,7 @@ impl<'a> Parser<&'a str, CPI, nom::error::Error<&'a str>> for CPI {
         let output = CPI {
             _010: vars.first().map(|x| C229::parse(x).unwrap().1),
             _020: vars.get(1).map(|x| C231::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| _4237::from_str(x).unwrap()),
+            _030: vars.get(2).map(|x| _4237::from_str(clean_num(x)).unwrap()),
         };
         Ok((output_rest, output))
     }
@@ -168,7 +168,7 @@ impl<'a> Parser<&'a str, CTA, nom::error::Error<&'a str>> for CTA {
     fn parse(input: &'a str) -> IResult<&'a str, CTA> {
         let (output_rest, vars) = crate::util::parse_line(input, "CTA")?;
         let output = CTA {
-            _010: vars.first().map(|x| _3139::from_str(x).unwrap()),
+            _010: vars.first().map(|x| _3139::from_str(clean_num(x)).unwrap()),
             _020: vars.get(1).map(|x| C056::parse(x).unwrap().1),
         };
         Ok((output_rest, output))
@@ -205,7 +205,7 @@ impl<'a> Parser<&'a str, CUX, nom::error::Error<&'a str>> for CUX {
             _010: vars.first().map(|x| C504::parse(x).unwrap().1),
             _020: vars.get(1).map(|x| C504::parse(x).unwrap().1),
             _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(3).map(|x| _6341::from_str(x).unwrap()),
+            _040: vars.get(3).map(|x| _6341::from_str(clean_num(x)).unwrap()),
         };
         Ok((output_rest, output))
     }
@@ -1009,7 +1009,7 @@ impl<'a> Parser<&'a str, PRI, nom::error::Error<&'a str>> for PRI {
         let (output_rest, vars) = crate::util::parse_line(input, "PRI")?;
         let output = PRI {
             _010: vars.first().map(|x| C509::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| _5213::from_str(x).unwrap()),
+            _020: vars.get(1).map(|x| _5213::from_str(clean_num(x)).unwrap()),
         };
         Ok((output_rest, output))
     }
@@ -1374,8 +1374,8 @@ impl<'a> Parser<&'a str, TOD, nom::error::Error<&'a str>> for TOD {
     fn parse(input: &'a str) -> IResult<&'a str, TOD> {
         let (output_rest, vars) = crate::util::parse_line(input, "TOD")?;
         let output = TOD {
-            _010: vars.first().map(|x| _4055::from_str(x).unwrap()),
-            _020: vars.get(1).map(|x| _4215::from_str(x).unwrap()),
+            _010: vars.first().map(|x| _4055::from_str(clean_num(x)).unwrap()),
+            _020: vars.get(1).map(|x| _4215::from_str(clean_num(x)).unwrap()),
             _030: vars.get(2).map(|x| C100::parse(x).unwrap().1),
         };
         Ok((output_rest, output))
@@ -1487,10 +1487,10 @@ impl<'a> Parser<&'a str, UNB, nom::error::Error<&'a str>> for UNB {
             _050: vars.get(4).map(|x| x.to_string()).unwrap(),
             _060: vars.get(5).map(|x| S005::parse(x).unwrap().1),
             _070: vars.get(6).map(|x| x.to_string()),
-            _080: vars.get(7).map(|x| _0029::from_str(x).unwrap()),
-            _090: vars.get(8).map(|x| _0031::from_str(x).unwrap()),
+            _080: vars.get(7).map(|x| _0029::from_str(clean_num(x)).unwrap()),
+            _090: vars.get(8).map(|x| _0031::from_str(clean_num(x)).unwrap()),
             _100: vars.get(9).map(|x| x.to_string()),
-            _110: vars.get(10).map(|x| _0035::from_str(x).unwrap()),
+            _110: vars.get(10).map(|x| _0035::from_str(clean_num(x)).unwrap()),
         };
         Ok((output_rest, output))
     }

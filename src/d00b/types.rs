@@ -1,6 +1,17 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumString};
 
+pub fn clean_num(mut input: &str) -> &str {
+    // make sure whitespace is removed
+    input = input.trim();
+    // make sure leading zeros are removed, up to 1 digit
+    while input.starts_with('0') && input.len() > 1 {
+        input = input.strip_prefix('0').unwrap();
+    }
+
+    input
+}
+
 /// Syntax identifier
 ///
 /// Coded identification of the agency controlling a syntax and syntax level used in an interchange.
@@ -296,7 +307,7 @@ pub enum _0035 {
 /// Document name code
 ///
 /// Code specifying the document name.
-#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq)]
 #[strum(serialize_all = "snake_case")]
 pub enum _1001 {
     /// Certificate of analysis
@@ -14718,4 +14729,21 @@ pub enum _7273 {
     ///
     /// An escort is not required.
     _60,
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::str::FromStr;
+    #[test]
+    fn test_1001() {
+        let vars = ["705", "706", "01"];
+        let res = vars.first().map(|x| _1001::from_str(clean_num(x)).unwrap());
+        assert_eq!(res, Some(_1001::_705));
+        let res = vars.get(1).map(|x| _1001::from_str(clean_num(x)).unwrap());
+        assert_eq!(res, Some(_1001::_706));
+        let res = vars.get(2).map(|x| _1001::from_str(clean_num(x)).unwrap());
+        assert_eq!(res, Some(_1001::_1));
+        println!("{}", res.unwrap());
+    }
 }
