@@ -2329,10 +2329,18 @@ pub struct S009 {
 impl<'a> Parser<&'a str, S009, nom::error::Error<&'a str>> for S009 {
     fn parse(input: &'a str) -> IResult<&'a str, S009> {
         let (_, vars) = crate::util::parse_colon_section(input)?;
+        let v = vars.get(1).unwrap().to_string();
+        let r = vars.get(2).unwrap().to_string();
+        if format!("{v}{r}") != VERSION {
+            return Err(nom::Err::Error(nom::error::Error::new(
+                "File supplied EDIFACT Version/Release in UNH segment. Please use the correct parsing feature",
+                nom::error::ErrorKind::Verify,
+            )));
+        }
         let output = S009 {
             _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).unwrap().to_string(),
-            _030: vars.get(2).unwrap().to_string(),
+            _020: v,
+            _030: r,
             _040: vars.get(3).unwrap().to_string(),
             _050: vars.get(4).map(|x| x.to_string()),
             _060: vars.get(5).map(|x| x.to_string()),

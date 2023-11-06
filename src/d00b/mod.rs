@@ -4,6 +4,8 @@ use nom::{combinator::opt, IResult};
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
+const VERSION: &str = "D00B";
+
 mod element;
 mod message;
 mod segment;
