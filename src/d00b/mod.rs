@@ -4,29 +4,28 @@ use nom::{combinator::opt, IResult};
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
-mod types;
-mod segment;
 mod element;
 mod message;
+mod segment;
+mod types;
 
 // Re-Export on root level to keep compatibility
-pub use segment::*;
 pub use element::*;
-pub use types::*;
 pub use message::coparn::*;
 pub use message::coprar::*;
 pub use message::coreor::*;
 pub use message::iftmbf::*;
 pub use message::iftmin::*;
 pub use message::iftsta::*;
+pub use segment::*;
+pub use types::*;
 
 #[cfg(test)]
 mod test_segment;
 
-
 /// from: [official info](https://unece.org/fileadmin/DAM/trade/edifact/untdid/d422_s.htm)
 /// 6.1 Interchange structure
-/// 
+///
 /// The Service String Advice, UNA, and the service segments UNB
 /// to UNZ shall appear in the below stated order in an
 /// interchange. There may be several functional groups or
@@ -35,9 +34,9 @@ mod test_segment;
 /// structures for segments and for data elements therein are
 /// shown in 6.2 and 6.3. The contents of the service segments
 /// are shown annex B. See also figure 1.
-/// 
+///
 /// An interchange consists of:
-/// 
+///
 /// x | x | x | x | Name | Abbr. | Req.
 /// --- | --- | --- | --- | --- | --- | ---
 /// o | o | o | o | Service String Advice | UNA | Conditional
@@ -48,7 +47,7 @@ mod test_segment;
 /// \| | \| | \| | _ | Message Trailer | UNT | Mandatory
 /// \| | \| | _ | _ | Functional Group Trailer | UNE | Conditional
 /// \| | _ | _ | _ | Interchange Trailer | UNZ | Mandatory
-/// 
+///
 /// In addition to the above service segments, the service
 /// segment UNS can, when required, be used to divide a message
 /// into sections. See annex B (NOT IMPLEMENTED).
