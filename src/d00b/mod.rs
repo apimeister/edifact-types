@@ -15,6 +15,7 @@ pub use message::coparn::*;
 pub use message::coprar::*;
 pub use message::coreor::*;
 pub use message::iftmbf::*;
+pub use message::iftmcs::*;
 pub use message::iftmin::*;
 pub use message::iftsta::*;
 pub use segment::*;
