@@ -1,6 +1,6 @@
 use super::*;
 use crate::util::{clean_num, Parser};
-use edifact_types_macros::DisplayOuterSegment;
+use edifact_types_macros::{DisplayOuterSegment, ParseSegment};
 use nom::{bytes::complete::take_until, character::complete::newline, IResult};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -11,7 +11,7 @@ use std::{
 /// BGM - BEGINNING OF MESSAGE
 ///
 /// A segment indicating the beginning of a message and identifying the consignment for which status is being reported.
-#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayOuterSegment, ParseSegment)]
 pub struct BGM {
     pub _010: Option<C002>,
     pub _020: Option<C106>,
@@ -19,23 +19,10 @@ pub struct BGM {
     pub _040: Option<_4343>,
 }
 
-impl<'a> Parser<&'a str, BGM, nom::error::Error<&'a str>> for BGM {
-    fn parse(input: &'a str) -> IResult<&'a str, BGM> {
-        let (output_rest, vars) = crate::util::parse_line(input, "BGM")?;
-        let output = BGM {
-            _010: vars.first().map(|x| C002::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C106::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| _1225::from_str(clean_num(x)).unwrap()),
-            _040: vars.get(3).map(|x| _4343::from_str(clean_num(x)).unwrap()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// CNI - CONSIGNMENT INFORMATION
 ///
 /// A segment to identify a consignment for which status details are given.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct CNI {
     /// CONSOLIDATION ITEM NUMBER
     ///
@@ -51,19 +38,7 @@ pub struct CNI {
     pub _030: Option<String>,
 }
 
-impl<'a> Parser<&'a str, CNI, nom::error::Error<&'a str>> for CNI {
-    fn parse(input: &'a str) -> IResult<&'a str, CNI> {
-        let (output_rest, vars) = crate::util::parse_line(input, "CNI")?;
-        let output = CNI {
-            _010: vars.first().map(|x| x.to_string()),
-            _020: vars.get(1).map(|x| C503::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct CNT {
     /// CONTROL
     ///
@@ -71,39 +46,19 @@ pub struct CNT {
     pub _010: C270,
 }
 
-impl<'a> Parser<&'a str, CNT, nom::error::Error<&'a str>> for CNT {
-    fn parse(input: &'a str) -> IResult<&'a str, CNT> {
-        let (output_rest, vars) = crate::util::parse_line(input, "CNT")?;
-        let (_, obj) = C270::parse(vars.first().unwrap())?;
-        let output = CNT { _010: obj };
-        Ok((output_rest, output))
-    }
-}
-
 /// COD - Component details
 ///
 /// To provide component details of an object (e.g. product, container) such as its type and the material of which it is composed.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct COD {
     pub _010: Option<C823>,
     pub _020: Option<C824>,
 }
 
-impl<'a> Parser<&'a str, COD, nom::error::Error<&'a str>> for COD {
-    fn parse(input: &'a str) -> IResult<&'a str, COD> {
-        let (output_rest, vars) = crate::util::parse_line(input, "COD")?;
-        let output = COD {
-            _010: vars.first().map(|x| C823::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C824::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// COM - COMMUNICATION CONTACT
 ///
 /// A segment to specify a communication number related to the contact.
-#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment, ParseSegment)]
 pub struct COM {
     /// C076 - COMMUNICATION CONTACT
     ///
@@ -111,20 +66,10 @@ pub struct COM {
     pub _010: C076,
 }
 
-impl<'a> Parser<&'a str, COM, nom::error::Error<&'a str>> for COM {
-    fn parse(input: &'a str) -> IResult<&'a str, COM> {
-        let (output_rest, vars) = crate::util::parse_line(input, "COM")?;
-        let output = COM {
-            _010: vars.first().map(|x| C076::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// CPI Charge payment instructions
 ///
 /// To identify a charge.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct CPI {
     /// CONTACT FUNCTION CODE
     ///
@@ -137,22 +82,10 @@ pub struct CPI {
     pub _030: Option<_4237>,
 }
 
-impl<'a> Parser<&'a str, CPI, nom::error::Error<&'a str>> for CPI {
-    fn parse(input: &'a str) -> IResult<&'a str, CPI> {
-        let (output_rest, vars) = crate::util::parse_line(input, "CPI")?;
-        let output = CPI {
-            _010: vars.first().map(|x| C229::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C231::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| _4237::from_str(clean_num(x)).unwrap()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// CTA - CONTACT INFORMATION
 ///
 /// A segment to specify a contact name associated with the party.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct CTA {
     /// CONTACT FUNCTION CODE
     ///
@@ -164,21 +97,10 @@ pub struct CTA {
     pub _020: Option<C056>,
 }
 
-impl<'a> Parser<&'a str, CTA, nom::error::Error<&'a str>> for CTA {
-    fn parse(input: &'a str) -> IResult<&'a str, CTA> {
-        let (output_rest, vars) = crate::util::parse_line(input, "CTA")?;
-        let output = CTA {
-            _010: vars.first().map(|x| _3139::from_str(clean_num(x)).unwrap()),
-            _020: vars.get(1).map(|x| C056::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// Currencies
 ///
 /// A segment to specify a contact name associated with the party.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct CUX {
     /// Currency details
     ///
@@ -198,23 +120,10 @@ pub struct CUX {
     pub _040: Option<_6341>,
 }
 
-impl<'a> Parser<&'a str, CUX, nom::error::Error<&'a str>> for CUX {
-    fn parse(input: &'a str) -> IResult<&'a str, CUX> {
-        let (output_rest, vars) = crate::util::parse_line(input, "CUX")?;
-        let output = CUX {
-            _010: vars.first().map(|x| C504::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C504::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(3).map(|x| _6341::from_str(clean_num(x)).unwrap()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// DAM - Damage
 ///
 /// To specify damage including action taken.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct DAM {
     pub _010: String,
     pub _020: Option<C821>,
@@ -223,24 +132,10 @@ pub struct DAM {
     pub _050: Option<C826>,
 }
 
-impl<'a> Parser<&'a str, DAM, nom::error::Error<&'a str>> for DAM {
-    fn parse(input: &'a str) -> IResult<&'a str, DAM> {
-        let (output_rest, vars) = crate::util::parse_line(input, "DAM")?;
-        let output = DAM {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C821::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C822::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C825::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C826::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// DGS - DANGEROUS GOODS
 ///
 /// A segment to specify dangerous goods details related to the goods item.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct DGS {
     /// DANGEROUS GOODS REGULATIONS CODE
     ///
@@ -296,32 +191,10 @@ pub struct DGS {
     pub _130: Option<String>,
 }
 
-impl<'a> Parser<&'a str, DGS, nom::error::Error<&'a str>> for DGS {
-    fn parse(input: &'a str) -> IResult<&'a str, DGS> {
-        let (output_rest, vars) = crate::util::parse_line(input, "DGS")?;
-        let output = DGS {
-            _010: vars.first().map(|x| x.to_string()),
-            _020: vars.get(1).map(|x| C205::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C234::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C223::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| x.to_string()),
-            _060: vars.get(5).map(|x| x.to_string()),
-            _070: vars.get(6).map(|x| x.to_string()),
-            _080: vars.get(7).map(|x| x.to_string()),
-            _090: vars.get(8).map(|x| C235::parse(x).unwrap().1),
-            _100: vars.get(9).map(|x| C236::parse(x).unwrap().1),
-            _110: vars.get(10).map(|x| x.to_string()),
-            _120: vars.get(11).map(|x| x.to_string()),
-            _130: vars.get(12).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// DIM - DIMENSIONS
 ///
 /// A segment specifying dimensions of a goods item.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct DIM {
     /// DIMENSION TYPE CODE QUALIFIER
     ///
@@ -333,21 +206,10 @@ pub struct DIM {
     pub _020: C211,
 }
 
-impl<'a> Parser<&'a str, DIM, nom::error::Error<&'a str>> for DIM {
-    fn parse(input: &'a str) -> IResult<&'a str, DIM> {
-        let (output_rest, vars) = crate::util::parse_line(input, "DIM")?;
-        let output = DIM {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C211::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// DOC - DOCUMENT/MESSAGE DETAILS
 ///
 /// A segment to specify document details related to the status code, such as indication which document is missing (status code: document missing).
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct DOC {
     /// C002 - DOCUMENT/MESSAGE NAME
     ///
@@ -371,39 +233,15 @@ pub struct DOC {
     pub _050: Option<String>,
 }
 
-impl<'a> Parser<&'a str, DOC, nom::error::Error<&'a str>> for DOC {
-    fn parse(input: &'a str) -> IResult<&'a str, DOC> {
-        let (output_rest, vars) = crate::util::parse_line(input, "DOC")?;
-        let output = DOC {
-            _010: vars.first().map(|x| C002::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C503::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(3).map(|x| x.to_string()),
-            _050: vars.get(4).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct DTM {
     pub _010: C507,
-}
-
-impl<'a> Parser<&'a str, DTM, nom::error::Error<&'a str>> for DTM {
-    fn parse(input: &'a str) -> IResult<&'a str, DTM> {
-        let (output_rest, vars) = crate::util::parse_line(input, "DTM")?;
-        let output = DTM {
-            _010: vars.first().map(|x| C507::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
 }
 
 /// EQA - ATTACHED EQUIPMENT
 ///
 /// A segment identifying attached equipment or related equipment such as a chassis attached to a container.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct EQA {
     /// EQUIPMENT TYPE CODE QUALIFIER
     ///
@@ -415,21 +253,10 @@ pub struct EQA {
     pub _020: Option<C237>,
 }
 
-impl<'a> Parser<&'a str, EQA, nom::error::Error<&'a str>> for EQA {
-    fn parse(input: &'a str) -> IResult<&'a str, EQA> {
-        let (output_rest, vars) = crate::util::parse_line(input, "EQA")?;
-        let output = EQA {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C237::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// EQD - EQUIPMENT DETAILS
 ///
 /// A segment identifying equipment related to status or event such as a container of a multi-container consignment.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct EQD {
     /// EQUIPMENT TYPE CODE QUALIFIER
     ///
@@ -457,25 +284,10 @@ pub struct EQD {
     pub _060: Option<String>,
 }
 
-impl<'a> Parser<&'a str, EQD, nom::error::Error<&'a str>> for EQD {
-    fn parse(input: &'a str) -> IResult<&'a str, EQD> {
-        let (output_rest, vars) = crate::util::parse_line(input, "EQD")?;
-        let output = EQD {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C237::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C224::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| x.to_string()),
-            _050: vars.get(4).map(|x| x.to_string()),
-            _060: vars.get(5).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// EQN - NUMBER OF UNITS
 ///
 /// A segment specifying the number of units to which the given measurement is applicable.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct EQN {
     /// C523 - NUMBER OF UNIT DETAILS
     ///
@@ -483,20 +295,10 @@ pub struct EQN {
     pub _010: C523,
 }
 
-impl<'a> Parser<&'a str, EQN, nom::error::Error<&'a str>> for EQN {
-    fn parse(input: &'a str) -> IResult<&'a str, EQN> {
-        let (output_rest, vars) = crate::util::parse_line(input, "EQN")?;
-        let output = EQN {
-            _010: vars.first().map(|x| C523::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// FTX - FREE TEXT
 ///
 /// A segment specifying free form or processable supplementary or other information.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct FTX {
     /// TEXT SUBJECT CODE QUALIFIER
     ///
@@ -524,25 +326,10 @@ pub struct FTX {
     pub _060: Option<String>,
 }
 
-impl<'a> Parser<&'a str, FTX, nom::error::Error<&'a str>> for FTX {
-    fn parse(input: &'a str) -> IResult<&'a str, FTX> {
-        let (output_rest, vars) = crate::util::parse_line(input, "FTX")?;
-        let output = FTX {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| x.to_string()),
-            _030: vars.get(2).map(|x| C107::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C108::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| x.to_string()),
-            _060: vars.get(5).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// GDS Nature of cargo
 ///
 /// To indicate the type of cargo as a general classification.
-#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct GDS {
     /// C703 Nature of cargo
     ///
@@ -550,20 +337,10 @@ pub struct GDS {
     pub _010: C703,
 }
 
-impl<'a> Parser<&'a str, GDS, nom::error::Error<&'a str>> for GDS {
-    fn parse(input: &'a str) -> IResult<&'a str, GDS> {
-        let (output_rest, vars) = crate::util::parse_line(input, "GDS")?;
-        let output = GDS {
-            _010: vars.first().map(|x| C703::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// GID - GOODS ITEM DETAILS
 ///
 /// A segment identifying a goods item.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct GID {
     /// GOODS ITEM NUMBER
     ///
@@ -591,25 +368,10 @@ pub struct GID {
     pub _060: Option<C213>,
 }
 
-impl<'a> Parser<&'a str, GID, nom::error::Error<&'a str>> for GID {
-    fn parse(input: &'a str) -> IResult<&'a str, GID> {
-        let (output_rest, vars) = crate::util::parse_line(input, "GID")?;
-        let output = GID {
-            _010: vars.first().map(|x| x.to_string()),
-            _020: vars.get(1).map(|x| C213::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C213::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C213::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C213::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| C213::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// GIN - GOODS IDENTITY NUMBER
 ///
 /// A segment specifying identity numbers related to the transport line items.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct GIN {
     /// OBJECT IDENTIFICATION CODE QUALIFIER
     ///
@@ -637,26 +399,11 @@ pub struct GIN {
     pub _060: Option<C208>,
 }
 
-impl<'a> Parser<&'a str, GIN, nom::error::Error<&'a str>> for GIN {
-    fn parse(input: &'a str) -> IResult<&'a str, GIN> {
-        let (output_rest, vars) = crate::util::parse_line(input, "GIN")?;
-        let output = GIN {
-            _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| C208::parse(x).unwrap().1).unwrap(),
-            _030: vars.get(2).map(|x| C208::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C208::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C208::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| C208::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// GOR Governmental requirements
 ///
 /// To indicate the requirement for a specific governmental action and/or
 /// procedure or which specific procedure is valid for a specific part of the transport.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct GOR {
     /// Transport movement code
     ///
@@ -680,24 +427,10 @@ pub struct GOR {
     pub _050: Option<C232>,
 }
 
-impl<'a> Parser<&'a str, GOR, nom::error::Error<&'a str>> for GOR {
-    fn parse(input: &'a str) -> IResult<&'a str, GOR> {
-        let (output_rest, vars) = crate::util::parse_line(input, "GOR")?;
-        let output = GOR {
-            _010: vars.first().map(|x| x.to_string()),
-            _020: vars.get(1).map(|x| C232::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C232::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C232::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C232::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// HAN - HANDLING INSTRUCTIONS
 ///
 /// A segment identifying handling instructions.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct HAN {
     /// C524 - HANDLING INSTRUCTIONS
     ///
@@ -709,21 +442,10 @@ pub struct HAN {
     pub _020: Option<C218>,
 }
 
-impl<'a> Parser<&'a str, HAN, nom::error::Error<&'a str>> for HAN {
-    fn parse(input: &'a str) -> IResult<&'a str, HAN> {
-        let (output_rest, vars) = crate::util::parse_line(input, "HAN")?;
-        let output = HAN {
-            _010: vars.first().map(|x| C524::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C218::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// LOC - PLACE/LOCATION IDENTIFICATION
 ///
 /// A segment identifying a place/location which applies to the consignment such as consignment origin and destination.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct LOC {
     /// LOCATION FUNCTION CODE QUALIFIER
     ///
@@ -747,24 +469,10 @@ pub struct LOC {
     pub _050: Option<String>,
 }
 
-impl<'a> Parser<&'a str, LOC, nom::error::Error<&'a str>> for LOC {
-    fn parse(input: &'a str) -> IResult<&'a str, LOC> {
-        let (output_rest, vars) = crate::util::parse_line(input, "LOC")?;
-        let output = LOC {
-            _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| C517::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C519::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C553::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// MEA - MEASUREMENTS
 ///
 /// A segment specifying measurements, other than dimension, of a goods item.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct MEA {
     /// MEASUREMENT PURPOSE CODE QUALIFIER
     ///
@@ -784,23 +492,10 @@ pub struct MEA {
     pub _040: Option<String>,
 }
 
-impl<'a> Parser<&'a str, MEA, nom::error::Error<&'a str>> for MEA {
-    fn parse(input: &'a str) -> IResult<&'a str, MEA> {
-        let (output_rest, vars) = crate::util::parse_line(input, "MEA")?;
-        let output = MEA {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C502::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C174::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// MOA Monetary amount
 ///
 /// To specify a monetary amount.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct MOA {
     /// C516 Monetary amount
     ///
@@ -808,20 +503,10 @@ pub struct MOA {
     pub _010: C516,
 }
 
-impl<'a> Parser<&'a str, MOA, nom::error::Error<&'a str>> for MOA {
-    fn parse(input: &'a str) -> IResult<&'a str, MOA> {
-        let (output_rest, vars) = crate::util::parse_line(input, "MOA")?;
-        let output = MOA {
-            _010: vars.first().map(|x| C516::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// NAD - NAME AND ADDRESS
 ///
 /// A segment specifying the name and/or address associated with the event such as notify party, terminal address, trucking company for gate move.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct NAD {
     /// PARTY FUNCTION CODE QUALIFIER
     ///
@@ -861,28 +546,10 @@ pub struct NAD {
     pub _090: Option<String>,
 }
 
-impl<'a> Parser<&'a str, NAD, nom::error::Error<&'a str>> for NAD {
-    fn parse(input: &'a str) -> IResult<&'a str, NAD> {
-        let (output_rest, vars) = crate::util::parse_line(input, "NAD")?;
-        let output = NAD {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C082::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C058::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C080::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C059::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| x.to_string()),
-            _070: vars.get(6).map(|x| C819::parse(x).unwrap().1),
-            _080: vars.get(7).map(|x| x.to_string()),
-            _090: vars.get(8).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// PIA Additional product id
 ///
 /// To specify additional or substitutional item identification codes.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct PIA {
     /// Product identifier code qualifier
     ///
@@ -910,25 +577,10 @@ pub struct PIA {
     pub _060: Option<C212>,
 }
 
-impl<'a> Parser<&'a str, PIA, nom::error::Error<&'a str>> for PIA {
-    fn parse(input: &'a str) -> IResult<&'a str, PIA> {
-        let (output_rest, vars) = crate::util::parse_line(input, "PIA")?;
-        let output = PIA {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C212::parse(x).unwrap().1).unwrap(),
-            _030: vars.get(2).map(|x| C212::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C212::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C212::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| C212::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// PCD Percentage details
 ///
 /// To specify percentage information.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct PCD {
     /// Product identifier code qualifier
     ///
@@ -942,21 +594,10 @@ pub struct PCD {
     pub _020: Option<String>,
 }
 
-impl<'a> Parser<&'a str, PCD, nom::error::Error<&'a str>> for PCD {
-    fn parse(input: &'a str) -> IResult<&'a str, PCD> {
-        let (output_rest, vars) = crate::util::parse_line(input, "PCD")?;
-        let output = PCD {
-            _010: vars.first().map(|x| C501::parse(x).unwrap().1).unwrap(),
-            _020: vars.get(1).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// PCI - PACKAGE IDENTIFICATION
 ///
 /// A segment specifying marks related to the transport line items.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct PCI {
     /// MARKING INSTRUCTIONS CODE
     ///
@@ -976,23 +617,10 @@ pub struct PCI {
     pub _040: Option<C827>,
 }
 
-impl<'a> Parser<&'a str, PCI, nom::error::Error<&'a str>> for PCI {
-    fn parse(input: &'a str) -> IResult<&'a str, PCI> {
-        let (output_rest, vars) = crate::util::parse_line(input, "PCI")?;
-        let output = PCI {
-            _010: vars.first().map(|x| x.to_string()),
-            _020: vars.get(1).map(|x| C210::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(3).map(|x| C827::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// PRI Price details
 ///
 /// To specify price information.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct PRI {
     /// C509 Price information
     ///
@@ -1004,21 +632,10 @@ pub struct PRI {
     pub _020: Option<_5213>,
 }
 
-impl<'a> Parser<&'a str, PRI, nom::error::Error<&'a str>> for PRI {
-    fn parse(input: &'a str) -> IResult<&'a str, PRI> {
-        let (output_rest, vars) = crate::util::parse_line(input, "PRI")?;
-        let output = PRI {
-            _010: vars.first().map(|x| C509::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| _5213::from_str(clean_num(x)).unwrap()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// QTY Quantity
 ///
 /// To specify a pertinent quantity.
-#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment, ParseSegment)]
 pub struct QTY {
     /// C186 Quantity details
     ///
@@ -1026,20 +643,10 @@ pub struct QTY {
     pub _010: C186,
 }
 
-impl<'a> Parser<&'a str, QTY, nom::error::Error<&'a str>> for QTY {
-    fn parse(input: &'a str) -> IResult<&'a str, QTY> {
-        let (output_rest, vars) = crate::util::parse_line(input, "QTY")?;
-        let output = QTY {
-            _010: vars.first().map(|x| C186::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// RFF - REFERENCE
 ///
 /// A segment to specify a reference number to equipment.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct RFF {
     /// C506 - REFERENCE
     ///
@@ -1047,20 +654,10 @@ pub struct RFF {
     pub _010: C506,
 }
 
-impl<'a> Parser<&'a str, RFF, nom::error::Error<&'a str>> for RFF {
-    fn parse(input: &'a str) -> IResult<&'a str, RFF> {
-        let (output_rest, vars) = crate::util::parse_line(input, "RFF")?;
-        let output = RFF {
-            _010: vars.first().map(|x| C506::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// RNG Range details
 ///
 /// To identify a range.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct RNG {
     /// Range type code qualifier
     ///
@@ -1072,21 +669,10 @@ pub struct RNG {
     pub _020: Option<C280>,
 }
 
-impl<'a> Parser<&'a str, RNG, nom::error::Error<&'a str>> for RNG {
-    fn parse(input: &'a str) -> IResult<&'a str, RNG> {
-        let (output_rest, vars) = crate::util::parse_line(input, "RNG")?;
-        let output = RNG {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C280::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// SEL - SEAL NUMBER
 ///
 /// A segment identifying seal and seal issuer associated with the equipment.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct SEL {
     /// SEAL IDENTIFIER
     ///
@@ -1106,23 +692,10 @@ pub struct SEL {
     pub _040: Option<C208>,
 }
 
-impl<'a> Parser<&'a str, SEL, nom::error::Error<&'a str>> for SEL {
-    fn parse(input: &'a str) -> IResult<&'a str, SEL> {
-        let (output_rest, vars) = crate::util::parse_line(input, "SEL")?;
-        let output = SEL {
-            _010: vars.first().map(|x| x.to_string()),
-            _020: vars.get(1).map(|x| C215::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(3).map(|x| C208::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// SGP - SPLIT GOODS PLACEMENT
 ///
 /// A segment to identify equipment in which (part of) a goods item is transported.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct SGP {
     /// C237 - EQUIPMENT IDENTIFICATION
     ///
@@ -1134,21 +707,10 @@ pub struct SGP {
     pub _020: Option<String>,
 }
 
-impl<'a> Parser<&'a str, SGP, nom::error::Error<&'a str>> for SGP {
-    fn parse(input: &'a str) -> IResult<&'a str, SGP> {
-        let (output_rest, vars) = crate::util::parse_line(input, "SGP")?;
-        let output = SGP {
-            _010: vars.first().map(|x| C237::parse(x).unwrap().1).unwrap(),
-            _020: vars.get(1).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// STS - STATUS
 ///
 /// A segment specifying the status relating to a consignment (e.g. loaded).
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct STS {
     /// C601 - STATUS CATEGORY
     ///
@@ -1180,26 +742,10 @@ pub struct STS {
     pub _070: Option<C556>,
 }
 
-impl<'a> Parser<&'a str, STS, nom::error::Error<&'a str>> for STS {
-    fn parse(input: &'a str) -> IResult<&'a str, STS> {
-        let (output_rest, vars) = crate::util::parse_line(input, "STS")?;
-        let output = STS {
-            _010: vars.first().map(|x| C601::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C555::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C556::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C556::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C556::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| C556::parse(x).unwrap().1),
-            _070: vars.get(6).map(|x| C556::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TCC Transport charge/rate calculations
 ///
 /// To specify charges.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TCC {
     /// C200 Charge
     ///
@@ -1219,23 +765,10 @@ pub struct TCC {
     pub _040: Option<C554>,
 }
 
-impl<'a> Parser<&'a str, TCC, nom::error::Error<&'a str>> for TCC {
-    fn parse(input: &'a str) -> IResult<&'a str, TCC> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TCC")?;
-        let output = TCC {
-            _010: vars.first().map(|x| C200::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C203::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C528::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C554::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TDT - DETAILS OF TRANSPORT
 ///
 /// A segment identifying conveyance related to the status or event such as flight, vessel/voyage.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TDT {
     /// TRANSPORT STAGE CODE QUALIFIER
     ///
@@ -1275,31 +808,10 @@ pub struct TDT {
     pub _090: Option<String>,
 }
 
-impl<'a> Parser<&'a str, TDT, nom::error::Error<&'a str>> for TDT {
-    fn parse(input: &'a str) -> IResult<&'a str, TDT> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TDT")?;
-        let output = TDT {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| x.to_string()),
-            _030: vars.get(2).map(|x| C220::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C228::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| C040::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| x.to_string()),
-            _070: vars
-                .get(6)
-                .filter(|x| !x.is_empty())
-                .map(|x| C401::parse(x).unwrap().1),
-            _080: vars.get(7).map(|x| C222::parse(x).unwrap().1),
-            _090: vars.get(8).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TMD - TRANSPORT MOVEMENT DETAILS
 ///
 /// A segment to specify transport movement details related to the equipment.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TMD {
     /// C219 - MOVEMENT TYPE
     ///
@@ -1315,22 +827,10 @@ pub struct TMD {
     pub _030: Option<String>,
 }
 
-impl<'a> Parser<&'a str, TMD, nom::error::Error<&'a str>> for TMD {
-    fn parse(input: &'a str) -> IResult<&'a str, TMD> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TMD")?;
-        let output = TMD {
-            _010: vars.first().map(|x| C219::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| x.to_string()),
-            _030: vars.get(2).map(|x| x.to_string()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TMP Temperature
 ///
 /// To specify the temperature setting.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TMP {
     /// Temperature type code qualifier
     ///
@@ -1340,21 +840,10 @@ pub struct TMP {
     pub _020: Option<C239>,
 }
 
-impl<'a> Parser<&'a str, TMP, nom::error::Error<&'a str>> for TMP {
-    fn parse(input: &'a str) -> IResult<&'a str, TMP> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TMP")?;
-        let output = TMP {
-            _010: vars.first().unwrap().to_string(),
-            _020: vars.get(1).map(|x| C239::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TOD Terms of delivery or transport
 ///
 /// To specify terms of delivery or transport.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TOD {
     /// Delivery or transport terms function code
     ///
@@ -1370,22 +859,10 @@ pub struct TOD {
     pub _030: Option<C100>,
 }
 
-impl<'a> Parser<&'a str, TOD, nom::error::Error<&'a str>> for TOD {
-    fn parse(input: &'a str) -> IResult<&'a str, TOD> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TOD")?;
-        let output = TOD {
-            _010: vars.first().map(|x| _4055::from_str(clean_num(x)).unwrap()),
-            _020: vars.get(1).map(|x| _4215::from_str(clean_num(x)).unwrap()),
-            _030: vars.get(2).map(|x| C100::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TPL - TRANSPORT PLACEMENT
 ///
 /// A segment to identify the means of transport to which the equipment is linked, necessary in cases where this forms the key to retrieve relevant information.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TPL {
     /// C222 - TRANSPORT IDENTIFICATION
     ///
@@ -1393,20 +870,10 @@ pub struct TPL {
     pub _010: C222,
 }
 
-impl<'a> Parser<&'a str, TPL, nom::error::Error<&'a str>> for TPL {
-    fn parse(input: &'a str) -> IResult<&'a str, TPL> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TPL")?;
-        let output = TPL {
-            _010: vars.first().map(|x| C222::parse(x).unwrap().1).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// TSR - TRANSPORT SERVICE REQUIREMENTS
 ///
 /// A segment identifying the transport service relating to the consignment.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct TSR {
     /// CONTRACT AND CARRIAGE CONDITION
     ///
@@ -1424,19 +891,6 @@ pub struct TSR {
     ///
     /// Rough classification of a type of cargo.
     pub _040: Option<C703>,
-}
-
-impl<'a> Parser<&'a str, TSR, nom::error::Error<&'a str>> for TSR {
-    fn parse(input: &'a str) -> IResult<&'a str, TSR> {
-        let (output_rest, vars) = crate::util::parse_line(input, "TSR")?;
-        let output = TSR {
-            _010: vars.first().map(|x| C536::parse(x).unwrap().1),
-            _020: vars.get(1).map(|x| C233::parse(x).unwrap().1),
-            _030: vars.get(2).map(|x| C537::parse(x).unwrap().1),
-            _040: vars.get(3).map(|x| C703::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
 }
 
 /// UNA, Service String advice
@@ -1509,7 +963,9 @@ impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
 /// UNB Interchange header
 ///
 /// To start, identify and specify an interchange.
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Default, DisplayOuterSegment)]
+#[derive(
+    Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Default, DisplayOuterSegment, ParseSegment,
+)]
 pub struct UNB {
     _010: S001,
     _020: S002,
@@ -1528,30 +984,10 @@ pub struct UNB {
     _110: Option<_0035>,
 }
 
-impl<'a> Parser<&'a str, UNB, nom::error::Error<&'a str>> for UNB {
-    fn parse(input: &'a str) -> IResult<&'a str, UNB> {
-        let (output_rest, vars) = crate::util::parse_line(input, "UNB")?;
-        let output = UNB {
-            _010: vars.first().map(|x| S001::parse(x).unwrap().1).unwrap(),
-            _020: vars.get(1).map(|x| S002::parse(x).unwrap().1).unwrap(),
-            _030: vars.get(2).map(|x| S003::parse(x).unwrap().1).unwrap(),
-            _040: vars.get(3).map(|x| S004::parse(x).unwrap().1).unwrap(),
-            _050: vars.get(4).map(|x| x.to_string()).unwrap(),
-            _060: vars.get(5).map(|x| S005::parse(x).unwrap().1),
-            _070: vars.get(6).map(|x| x.to_string()),
-            _080: vars.get(7).map(|x| _0029::from_str(clean_num(x)).unwrap()),
-            _090: vars.get(8).map(|x| _0031::from_str(clean_num(x)).unwrap()),
-            _100: vars.get(9).map(|x| x.to_string()),
-            _110: vars.get(10).map(|x| _0035::from_str(clean_num(x)).unwrap()),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// UNH - MESSAGE HEADER
 ///
 /// To head, identify and specify a message.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct UNH {
     pub _010: String,
     pub _020: S009,
@@ -1562,26 +998,12 @@ pub struct UNH {
     pub _070: Option<S018>,
 }
 
-impl<'a> Parser<&'a str, UNH, nom::error::Error<&'a str>> for UNH {
-    fn parse(input: &'a str) -> IResult<&'a str, UNH> {
-        let (output_rest, vars) = crate::util::parse_line(input, "UNH")?;
-        let output = UNH {
-            _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| S009::parse(x).unwrap().1).unwrap(),
-            _030: vars.get(2).map(|x| x.to_string()),
-            _040: vars.get(3).map(|x| S010::parse(x).unwrap().1),
-            _050: vars.get(4).map(|x| S016::parse(x).unwrap().1),
-            _060: vars.get(5).map(|x| S017::parse(x).unwrap().1),
-            _070: vars.get(6).map(|x| S018::parse(x).unwrap().1),
-        };
-        Ok((output_rest, output))
-    }
-}
-
 /// UNZ Interchange trailer
 ///
 /// To end and check the completeness of an interchange.
-#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment)]
+#[derive(
+    Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment, ParseSegment,
+)]
 pub struct UNZ {
     /// Interchange control count
     ///
@@ -1594,18 +1016,7 @@ pub struct UNZ {
     _020: String,
 }
 
-impl<'a> Parser<&'a str, UNZ, nom::error::Error<&'a str>> for UNZ {
-    fn parse(input: &'a str) -> IResult<&'a str, UNZ> {
-        let (output_rest, vars) = crate::util::parse_line(input, "UNZ")?;
-        let output = UNZ {
-            _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| x.to_string()).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment)]
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
 pub struct UNT {
     /// NUMBER OF SEGMENTS IN A MESSAGE
     ///
@@ -1615,15 +1026,4 @@ pub struct UNT {
     ///
     /// Unique message reference assigned by the sender.
     pub _020: String,
-}
-
-impl<'a> Parser<&'a str, UNT, nom::error::Error<&'a str>> for UNT {
-    fn parse(input: &'a str) -> IResult<&'a str, UNT> {
-        let (output_rest, vars) = crate::util::parse_line(input, "UNT")?;
-        let output = UNT {
-            _010: vars.first().map(|x| x.to_string()).unwrap(),
-            _020: vars.get(1).map(|x| x.to_string()).unwrap(),
-        };
-        Ok((output_rest, output))
-    }
 }
