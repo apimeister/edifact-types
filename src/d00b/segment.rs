@@ -1,7 +1,7 @@
 use super::*;
 use crate::util::{clean_num, Parser};
 use edifact_types_macros::{DisplayOuterSegment, ParseSegment};
-use nom::{bytes::complete::take_until, character::complete::newline, IResult};
+use nom::{bytes::complete::take_until, character::complete::not_line_ending, IResult};
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{self, Debug},
@@ -942,8 +942,9 @@ impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
             )));
         }
         // look for trailing newline
-        let (rest, _) = opt(newline)(rest)?;
+        let vars = not_line_ending(vars)?.1;
         if vars.len() != 9 {
+            println!("UNA Segment found, but malformed:\n{vars:?}");
             panic!("UNA Segment malformed, needs to be exactly 6 characters")
         }
         let vars = vars.strip_prefix("UNA").unwrap();
