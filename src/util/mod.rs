@@ -7,6 +7,17 @@ use nom::{
     IResult,
 };
 
+pub fn clean_num(mut input: &str) -> &str {
+    // make sure whitespace is removed
+    input = input.trim();
+    // make sure leading zeros are removed, up to 1 digit
+    while input.starts_with('0') && input.len() > 1 {
+        input = input.strip_prefix('0').unwrap();
+    }
+
+    input
+}
+
 pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Vec<&'a str>> {
     let tag_name = format!("{segment_name}+");
     let (rest, vars) = delimited(

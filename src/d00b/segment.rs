@@ -1,5 +1,5 @@
 use super::*;
-use crate::util::Parser;
+use crate::util::{clean_num, Parser};
 use edifact_types_macros::DisplayOuterSegment;
 use nom::{bytes::complete::take_until, character::complete::newline, IResult};
 use serde::{Deserialize, Serialize};

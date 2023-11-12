@@ -1,5 +1,5 @@
 use super::*;
-use crate::util::Parser;
+use crate::util::{clean_num, Parser};
 use edifact_types_macros::DisplayInnerSegment;
 use nom::IResult;
 use serde::{Deserialize, Serialize};

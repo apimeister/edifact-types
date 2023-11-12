@@ -1,17 +1,6 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumString};
 
-pub fn clean_num(mut input: &str) -> &str {
-    // make sure whitespace is removed
-    input = input.trim();
-    // make sure leading zeros are removed, up to 1 digit
-    while input.starts_with('0') && input.len() > 1 {
-        input = input.strip_prefix('0').unwrap();
-    }
-
-    input
-}
-
 /// Syntax identifier
 ///
 /// Coded identification of the agency controlling a syntax and syntax level used in an interchange.
@@ -14825,6 +14814,7 @@ pub enum _7273 {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::util::clean_num;
     use std::str::FromStr;
     #[test]
     fn test_1001() {
