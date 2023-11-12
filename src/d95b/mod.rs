@@ -17,56 +17,56 @@ mod test_segment;
 /// https://service.unece.org/trade/untdid/d95b/trmd/coprar_d.htm#MESDEF
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifact)]
 pub struct Coprar {
-    pub unh: Unh,
-    pub bgm: Bgm,
-    pub ftx: Vec<Ftx>,
-    pub rff: Vec<Rff>,
+    pub unh: UNH,
+    pub bgm: BGM,
+    pub ftx: Vec<FTX>,
+    pub rff: Vec<RFF>,
     pub sg1: CoprarSg1,
     pub sg2: Vec<CoprarSg2>,
     pub sg3: Vec<CoprarSg3>,
-    pub cnt: Cnt,
-    pub unt: Unt,
+    pub cnt: CNT,
+    pub unt: UNT,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg1 {
-    pub tdt: Tdt,
-    pub rff: Vec<Rff>,
-    pub loc: Vec<Loc>,
-    pub dtm: Vec<Dtm>,
-    pub ftx: Vec<Ftx>,
+    pub tdt: TDT,
+    pub rff: Vec<RFF>,
+    pub loc: Vec<LOC>,
+    pub dtm: Vec<DTM>,
+    pub ftx: Vec<FTX>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg2 {
-    pub nad: Nad,
-    pub cta: Cta,
+    pub nad: NAD,
+    pub cta: CTA,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg3 {
-    pub eqd: Eqd,
-    pub rff: Vec<Rff>,
-    pub eqn: Vec<Eqn>,
-    pub tmd: Vec<Tmd>,
-    pub dtm: Vec<Dtm>,
-    pub loc: Vec<Loc>,
-    pub mea: Vec<Mea>,
-    pub dim: Vec<Dim>,
-    pub tmp: Vec<Tmp>,
-    pub rng: Vec<Rng>,
-    pub sel: Vec<Sel>,
-    pub ftx: Vec<Ftx>,
-    pub dgs: Vec<Dgs>,
-    pub eqa: Vec<Eqa>,
+    pub eqd: EQD,
+    pub rff: Vec<RFF>,
+    pub eqn: Vec<EQN>,
+    pub tmd: Vec<TMD>,
+    pub dtm: Vec<DTM>,
+    pub loc: Vec<LOC>,
+    pub mea: Vec<MEA>,
+    pub dim: Vec<DIM>,
+    pub tmp: Vec<TMP>,
+    pub rng: Vec<RNG>,
+    pub sel: Vec<SEL>,
+    pub ftx: Vec<FTX>,
+    pub dgs: Vec<DGS>,
+    pub eqa: Vec<EQA>,
     pub sg4: Option<CoprarSg3Sg4>,
-    pub nad: Option<Nad>,
+    pub nad: Option<NAD>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayEdifactSg)]
 pub struct CoprarSg3Sg4 {
-    pub tdt: Tdt,
-    pub rff: Option<Rff>,
-    pub loc: Option<Loc>,
-    pub dtm: Option<Dtm>,
+    pub tdt: TDT,
+    pub rff: Option<RFF>,
+    pub loc: Option<LOC>,
+    pub dtm: Option<DTM>,
 }

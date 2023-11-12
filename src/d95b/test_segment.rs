@@ -1,25 +1,27 @@
-use crate::d95b::{Bgm, Rff, Tdt, Unh, C002, C220, _1225, _4343};
+use crate::d95b::*;
+use crate::util::Parser;
 
 #[test]
 #[should_panic]
 fn bgm_parse_1() {
     let str = "ABC+abc123";
-    let obj: Bgm = str.parse().unwrap();
-    println!("{obj:?}");
+    let res = BGM::parse(str);
+    assert!(res.is_err());
 }
 
 #[test]
 #[should_panic]
 fn bgm_parse_2() {
     let str = "BGM++++++";
-    let obj: Bgm = str.parse().unwrap();
-    println!("{obj:?}");
+    let (rest, _) = BGM::parse(str).unwrap();
+    assert!(rest.is_empty());
 }
 
 #[test]
 fn bgm_parse_3() {
     let str = "BGM+45+20121121084145+9+AB'";
-    let obj: Bgm = str.parse().unwrap();
+    let (rest, obj) = BGM::parse(str).unwrap();
+    assert!(rest.is_empty());
     let expect_01 = Some(C002 {
         _010: Some("45".to_string()),
         ..Default::default()
@@ -37,29 +39,30 @@ fn bgm_parse_3() {
 #[test]
 fn unh_parse_1() {
     let str = "UNH+111505+COPRAR:D:95B:UN";
-    let obj: Unh = str.parse().unwrap();
-    println!("{obj:?}");
+    let (rest, _) = UNH::parse(str).unwrap();
+    assert!(rest.is_empty());
 }
 
 #[test]
 #[should_panic]
 fn rff_parse_1() {
     let str = "UNH+111505+COPRAR:D:95B:UN";
-    let obj: Rff = str.parse().unwrap();
-    println!("{obj:?}");
+    let res = UNH::parse(str);
+    assert!(res.is_err());
 }
 
 #[test]
 fn rff_parse_2() {
     let str = "RFF+XX:1";
-    let obj: Rff = str.parse().unwrap();
-    println!("{obj:?}");
+    let (rest, _) = RFF::parse(str).unwrap();
+    assert!(rest.is_empty());
 }
 
 #[test]
 fn tdt_parse_1() {
     let str = "TDT+20+111N+1++ABC:172:20+++9283227:146:11:MONTE SARMIENTO'";
-    let obj: Tdt = str.parse().unwrap();
+    let (rest, obj) = TDT::parse(str).unwrap();
+    assert!(rest.is_empty());
     assert_eq!(obj._010, "20");
     assert_eq!(
         obj._030,

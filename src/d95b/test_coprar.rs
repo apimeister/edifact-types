@@ -29,7 +29,7 @@ fn test_str() {
 
 #[test]
 fn render_bgm() {
-    let x = Bgm {
+    let x = BGM {
         _010: Some(C002 {
             _010: Some("45".to_string()),
             ..Default::default()
@@ -46,7 +46,7 @@ fn render_bgm() {
 
 #[test]
 fn render_eqd() {
-    let x = Eqd {
+    let x = EQD {
         _010: "CN".to_string(),
         _020: Some(C237 {
             _010: Some("MSTI6415664".to_string()),
@@ -70,7 +70,7 @@ fn render_eqd() {
 #[test]
 fn render_coprar() {
     let obj = Coprar {
-        unh: Unh {
+        unh: UNH {
             _010: "638".to_string(),
             _020: Some(S009 {
                 _010: "COPRAR".to_string(),
@@ -81,7 +81,7 @@ fn render_coprar() {
             }),
             ..Default::default()
         },
-        bgm: Bgm {
+        bgm: BGM {
             _010: Some(C002 {
                 _010: Some("45".to_string()),
                 ..Default::default()
@@ -90,7 +90,7 @@ fn render_coprar() {
             _030: Some(_1225::_9),
             _040: Some(_4343::AB),
         },
-        ftx: vec![Ftx {
+        ftx: vec![FTX {
             _010: "OSI".to_string(),
             _030: Some(C107 {
                 _010: "L".to_string(),
@@ -98,7 +98,7 @@ fn render_coprar() {
             }),
             ..Default::default()
         }],
-        rff: vec![Rff {
+        rff: vec![RFF {
             _010: C506 {
                 _010: "XXX".to_string(),
                 _020: Some("1".to_string()),
@@ -106,7 +106,7 @@ fn render_coprar() {
             },
         }],
         sg1: CoprarSg1 {
-            tdt: Tdt {
+            tdt: TDT {
                 _010: "20".to_string(),
                 _020: "123W".to_string(),
                 _030: C220 {
@@ -127,7 +127,7 @@ fn render_coprar() {
                 },
                 ..Default::default()
             },
-            loc: vec![Loc {
+            loc: vec![LOC {
                 _010: "9".to_string(),
                 _020: C517 {
                     _010: Some("AEJEA".to_string()),
@@ -138,14 +138,14 @@ fn render_coprar() {
                 ..Default::default()
             }],
             dtm: vec![
-                Dtm {
+                DTM {
                     _010: C507 {
                         _010: "132".to_string(),
                         _020: Some("20121124".to_string()),
                         _030: Some("203".to_string()),
                     },
                 },
-                Dtm {
+                DTM {
                     _010: C507 {
                         _010: "133".to_string(),
                         _020: Some("20121125".to_string()),
@@ -156,7 +156,7 @@ fn render_coprar() {
             ..Default::default()
         },
         sg2: vec![CoprarSg2 {
-            nad: Nad {
+            nad: NAD {
                 _010: "CA".to_string(),
                 _020: Some(C082 {
                     _010: "MSK".to_string(),
@@ -169,7 +169,7 @@ fn render_coprar() {
         }],
         sg3: vec![
             CoprarSg3 {
-                eqd: Eqd {
+                eqd: EQD {
                     _010: "CN".to_string(),
                     _020: Some(C237 {
                         _010: Some("MSTI6415664".to_string()),
@@ -185,7 +185,7 @@ fn render_coprar() {
                     _060: Some("5".to_string()),
                     ..Default::default()
                 },
-                rff: vec![Rff {
+                rff: vec![RFF {
                     _010: C506 {
                         _010: "BN".to_string(),
                         _020: Some("2GO2005174".to_string()),
@@ -193,7 +193,7 @@ fn render_coprar() {
                     },
                 }],
                 loc: vec![
-                    Loc {
+                    LOC {
                         _010: "11".to_string(),
                         _020: C517 {
                             _010: Some("INNSA".to_string()),
@@ -203,7 +203,7 @@ fn render_coprar() {
                         },
                         ..Default::default()
                     },
-                    Loc {
+                    LOC {
                         _010: "7".to_string(),
                         _020: C517 {
                             _010: Some("INNSA".to_string()),
@@ -215,7 +215,7 @@ fn render_coprar() {
                     },
                 ],
                 mea: vec![
-                    Mea {
+                    MEA {
                         _010: "AAE".to_string(),
                         _020: Some(C502 {
                             _010: Some("G".to_string()),
@@ -228,7 +228,7 @@ fn render_coprar() {
                         }),
                         ..Default::default()
                     },
-                    Mea {
+                    MEA {
                         _010: "AAE".to_string(),
                         _020: Some(C502 {
                             _010: Some("VGM".to_string()),
@@ -242,7 +242,7 @@ fn render_coprar() {
                         ..Default::default()
                     },
                 ],
-                ftx: vec![Ftx {
+                ftx: vec![FTX {
                     _010: "AAA".to_string(),
                     _040: Some(C108 {
                         _010: "PLASTICS?".to_string(),
@@ -252,7 +252,7 @@ fn render_coprar() {
                     ..Default::default()
                 }],
                 sg4: Some(CoprarSg3Sg4 {
-                    tdt: Tdt {
+                    tdt: TDT {
                         _010: "10".to_string(),
                         _020: "142E".to_string(),
                         _030: C220 {
@@ -271,7 +271,7 @@ fn render_coprar() {
                     },
                     ..Default::default()
                 }),
-                nad: Some(Nad {
+                nad: Some(NAD {
                     _010: "CF".to_string(),
                     _020: Some(C082 {
                         _010: "MSK".to_string(),
@@ -283,7 +283,7 @@ fn render_coprar() {
                 ..Default::default()
             },
             CoprarSg3 {
-                eqd: Eqd {
+                eqd: EQD {
                     _010: "CN".to_string(),
                     _020: Some(C237 {
                         _010: Some("MSTI6415664".to_string()),
@@ -299,7 +299,7 @@ fn render_coprar() {
                     _060: Some("5".to_string()),
                     ..Default::default()
                 },
-                rff: vec![Rff {
+                rff: vec![RFF {
                     _010: C506 {
                         _010: "BN".to_string(),
                         _020: Some("2GO2005174".to_string()),
@@ -307,7 +307,7 @@ fn render_coprar() {
                     },
                 }],
                 loc: vec![
-                    Loc {
+                    LOC {
                         _010: "11".to_string(),
                         _020: C517 {
                             _010: Some("INNSA".to_string()),
@@ -317,7 +317,7 @@ fn render_coprar() {
                         },
                         ..Default::default()
                     },
-                    Loc {
+                    LOC {
                         _010: "7".to_string(),
                         _020: C517 {
                             _010: Some("INNSA".to_string()),
@@ -329,7 +329,7 @@ fn render_coprar() {
                     },
                 ],
                 mea: vec![
-                    Mea {
+                    MEA {
                         _010: "AAE".to_string(),
                         _020: Some(C502 {
                             _010: Some("G".to_string()),
@@ -342,7 +342,7 @@ fn render_coprar() {
                         }),
                         ..Default::default()
                     },
-                    Mea {
+                    MEA {
                         _010: "AAE".to_string(),
                         _020: Some(C502 {
                             _010: Some("VGM".to_string()),
@@ -356,7 +356,7 @@ fn render_coprar() {
                         ..Default::default()
                     },
                 ],
-                ftx: vec![Ftx {
+                ftx: vec![FTX {
                     _010: "AAA".to_string(),
                     _040: Some(C108 {
                         _010: "PLASTICS?".to_string(),
@@ -366,7 +366,7 @@ fn render_coprar() {
                     ..Default::default()
                 }],
                 sg4: Some(CoprarSg3Sg4 {
-                    tdt: Tdt {
+                    tdt: TDT {
                         _010: "10".to_string(),
                         _020: "142E".to_string(),
                         _030: C220 {
@@ -385,7 +385,7 @@ fn render_coprar() {
                     },
                     ..Default::default()
                 }),
-                nad: Some(Nad {
+                nad: Some(NAD {
                     _010: "CF".to_string(),
                     _020: Some(C082 {
                         _010: "MSK".to_string(),
@@ -397,14 +397,14 @@ fn render_coprar() {
                 ..Default::default()
             },
         ],
-        cnt: Cnt {
+        cnt: CNT {
             _010: C270 {
                 _010: "16".to_string(),
                 _020: "5".to_string(),
                 ..Default::default()
             },
         },
-        unt: Unt {
+        unt: UNT {
             _010: "56".to_string(),
             _020: "638".to_string(),
         },
