@@ -20,3 +20,6 @@ nom = "7"
 default = ["d00b","d95b"]
 d00b = []
 d95b = []
+
+[dev-dependencies]
+regex = "1.10.2"
