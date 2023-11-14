@@ -100,7 +100,7 @@ mod test {
 
     fn internal_line(i: &str, re: Regex) -> Option<String> {
         let mut new_lines = vec![];
-        println!("internal_line: {i}");
+        // println!("internal_line: {i}");
         for (_, [tag, _name, req, repeat]) in re.captures_iter(i).map(|c| c.extract()) {
             let right_side = if repeat == "1" {
                 if req == "M" {
@@ -111,25 +111,25 @@ mod test {
             } else {
                 format!("Vec<{tag}>")
             };
-            new_lines.push(format!("{tag}: {right_side}"));
+            new_lines.push(format!("{tag}: {right_side},"));
         }
         new_lines.first().cloned()
     }
 
     fn internal_group(i: &str, re: Regex) -> Option<(String, String)> {
         let mut new_group = vec![];
-        println!("internal_group: {i}");
+        // println!("internal_group: {i}");
         for (_, [name, req, repeat]) in re.captures_iter(i).map(|c| c.extract()) {
             let struct_name = name.replace(' ', "");
             let handle = name.replace(' ', "_").to_lowercase();
             let group_open = if repeat == "1" {
                 if req == "M" {
-                    format!("{handle}: {struct_name}")
+                    format!("{handle}: {struct_name},")
                 } else {
-                    format!("{handle}: Option<{struct_name}>")
+                    format!("{handle}: Option<{struct_name}>,")
                 }
             } else {
-                format!("{handle}: Vec<{struct_name}>")
+                format!("{handle}: Vec<{struct_name}>,")
             };
             new_group.push((group_open, struct_name))
         }
@@ -149,7 +149,7 @@ mod test {
         let re_line =
             Regex::new(r"^\d{4}.+([A-Z]{3})\s+(\S+ ?\S+ ?\S+?)\s+(M|C)\s+(\d{1,4})").unwrap();
         let re_group = Regex::new(r".*-+ (\S+ ?\S+ ?\S+?)\s+-+ (C|M)\s+(\d{1,4}).*").unwrap();
-
+        println!("Input:\n\n");
         let mut final_string: String = format!("#[derive(Debug, Serialize, Deserialize, Default, DisplayEdifact)]\npub struct {MSG_TYPE} {{");
 
         let mut lines: Vec<&str> = vec![];
@@ -162,49 +162,106 @@ mod test {
         }
 
         let mut groups: HashMap<String, String> = HashMap::new();
-        let mut inside_group = false;
-        let mut current_group = String::from("");
+        let mut group_level: Vec<bool> = vec![];
+        let mut current_group: Vec<String> = vec![];
         for line in &lines {
-            if line.strip_suffix('+').is_some() {
-                if !inside_group {
-                    // start group recording
-                    println!("group start: {line}");
-                    if let Some((group_handle, name)) = internal_group(line, re_group.clone()) {
-                        final_string = format!("{final_string}\n    {group_handle}");
-                        groups.insert(name.clone(), format!("pub struct {name} {{"));
-                        current_group = name;
-                    };
-                    inside_group = true;
-                } else {
-                    // end group recording
-                    println!("group end: {line}");
-                    if let Some(res) = internal_line(line, re_line.clone()) {
-                        if let Some(g) = groups.get_mut(&current_group) {
-                            *g = format!("{g}\n    {res}\n}}\n");
-                        };
-                    };
-                    inside_group = false;
-                }
-                continue;
-            } else if line.strip_suffix('|').is_some() {
-                // inside group
-                if let Some(res) = internal_line(line, re_line.clone()) {
-                    if let Some(g) = groups.get_mut(&current_group) {
-                        *g = format!("{g}\n    {res}");
-                    };
-                };
+            // println!("line: {line}");
+
+            // kick out non-parsable lines
+            let parsed_line = internal_line(line, re_line.clone());
+            let parsed_group = internal_group(line, re_group.clone());
+            if parsed_line.is_none() && parsed_group.is_none() {
                 continue;
             }
-            // outside group
-            let res = internal_line(line, re_line.clone());
-            println!("normal: {res:?}");
-            if res.is_some() {
-                final_string = format!("{final_string}\n    {},", res.unwrap());
+            // figure out how deeply nested we are
+            // println!("group_level: {group_level:?} // current_group: {current_group:?}");
+            let outer = if group_level.is_empty() {
+                0
+            } else {
+                group_level.len() - 1
+            };
+            let (outer_line, _ol_rest) = line.split_at(line.len() - outer);
+            let (inner_line, il_rest) = line.split_at(line.len() - group_level.len());
+            // println!("line_stripped_outer_{outer}: {outer_line}");
+            // println!("line_stripped_outer_{outer}: {ol_rest}");
+            // println!("line_stripped_inner_{}: {inner_line}", group_level.len());
+            // println!("line_stripped_inner_{}: {il_rest}", group_level.len());
+
+            if let Some(inside_group) = group_level.last() {
+                if *inside_group {
+                    // we are in a group and are starting another
+                    if inner_line.ends_with('+') {
+                        // start group recording
+                        println!("group _start: {inner_line}");
+                        if let Some((group_handle, name)) = parsed_group {
+                            let cg = current_group.last().unwrap();
+                            if let Some(g) = groups.get_mut(cg) {
+                                *g = format!("{g}\n    pub {group_handle}");
+                            };
+                            groups.insert(name.clone(), format!("#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]\npub struct {name} {{"));
+                            current_group.push(name);
+                        };
+                        group_level.push(true);
+                    } else if outer_line.ends_with('+') {
+                        if let Some(res) = parsed_line {
+                            println!("group ___end: {line}");
+                            let cg = current_group.last().unwrap();
+                            if let Some(g) = groups.get_mut(cg) {
+                                *g = format!("{g}\n    pub {res}");
+                            };
+                        };
+                        // end group recording, can be more than one group
+                        let mut loopy = il_rest;
+                        // println!("loopy_start: {loopy}");
+                        while loopy.starts_with('+') {
+                            let cg = current_group.last().unwrap();
+                            if let Some(g) = groups.get_mut(cg) {
+                                *g = format!("{g}\n}}\n");
+                            };
+                            group_level.pop();
+                            current_group.pop();
+                            loopy = loopy.strip_prefix('+').unwrap_or(loopy);
+
+                            // println!("loopy: {loopy}");
+                            // println!("loopy group_level: {group_level:?} // current_group: {current_group:?}");
+                        }
+                    } else {
+                        // inside group
+                        println!("group middle: {line}");
+                        if let Some(res) = parsed_line {
+                            if let Some(cg) = current_group.last() {
+                                if let Some(g) = groups.get_mut(cg) {
+                                    *g = format!("{g}\n    pub {res}");
+                                };
+                            } else {
+                                println!("{line} -> this is inside a group, but not parsed")
+                            };
+                        };
+                    }
+                }
+            } else {
+                // we are starting off with a new group
+                if outer_line.ends_with('+') {
+                    // start group recording
+                    println!("group ___new: {outer_line}");
+                    if let Some((group_handle, name)) = parsed_group {
+                        final_string = format!("{final_string}\n    pub {group_handle}");
+                        groups.insert(name.clone(), format!("pub struct {name} {{"));
+                        current_group.push(name);
+                    };
+                    group_level.push(true);
+                    continue;
+                }
+                // outside group
+                if let Some(res) = parsed_line {
+                    println!("normal _____: {line}");
+                    final_string = format!("{final_string}\n    pub {res}");
+                }
             }
         }
         final_string = format!("{final_string}\n}}\n");
 
-        println!("Output:\n\n\n{final_string}");
+        println!("Output:\n\n{final_string}");
         let mut sorted: Vec<_> = groups.iter().collect();
         sorted.sort_by_key(|a| a.0);
         sorted.iter().for_each(|g| println!("{}", g.1));
