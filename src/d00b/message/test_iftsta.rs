@@ -42,7 +42,7 @@ fn build_bgm() {
 #[test]
 fn build_iftsta() {
     // TODO complete test case
-    let ifsta = Iftsta {
+    let ifsta = IFTSTA {
         unh: UNH {
             _010: "2805567".to_string(),
             _020: S009 {
@@ -77,7 +77,7 @@ fn build_iftsta() {
             },
         }],
         tsr: None,
-        segment_group_1: vec![IftstaSg1 {
+        segment_group_1: vec![IFTSTASegmentgroup1 {
             nad: NAD {
                 _010: "CA".to_string(),
                 _020: Some(C082 {
@@ -101,7 +101,7 @@ fn build_iftsta() {
             segment_group_2: vec![],
         }],
         segment_group_3: vec![
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "4F".to_string(),
@@ -111,7 +111,7 @@ fn build_iftsta() {
                 },
                 dtm: None,
             },
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "AAZ".to_string(),
@@ -121,7 +121,7 @@ fn build_iftsta() {
                 },
                 dtm: None,
             },
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "BN".to_string(),
@@ -131,7 +131,7 @@ fn build_iftsta() {
                 },
                 dtm: None,
             },
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "BM".to_string(),
@@ -141,7 +141,7 @@ fn build_iftsta() {
                 },
                 dtm: None,
             },
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "EQ".to_string(),
@@ -151,7 +151,7 @@ fn build_iftsta() {
                 },
                 dtm: None,
             },
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "CO".to_string(),
@@ -161,7 +161,7 @@ fn build_iftsta() {
                 },
                 dtm: None,
             },
-            IftstaSg3 {
+            IFTSTASegmentgroup3 {
                 rff: RFF {
                     _010: C506 {
                         _010: "FF".to_string(),
@@ -175,7 +175,7 @@ fn build_iftsta() {
         loc: vec![],
         ftx: vec![],
         cnt: vec![],
-        segment_group_4: vec![IftstaSg4 {
+        segment_group_4: vec![IFTSTASegmentgroup4 {
             cni: CNI {
                 _010: Some("1".to_string()),
                 ..Default::default()
@@ -183,7 +183,7 @@ fn build_iftsta() {
             loc: vec![],
             cnt: vec![],
             // STS+1+P::HS:Rail Departed from In-Transit Locat'
-            segment_group_5: vec![IftstaSg5 {
+            segment_group_5: vec![IFTSTASegmentgroup5 {
                 sts: STS {
                     _010: Some(C601 {
                         _010: "1".to_string(),
@@ -253,7 +253,7 @@ fn build_iftsta() {
                     _050: None,
                 }),
                 pci: vec![],
-                segment_group_6: vec![IftstaSg6 {
+                segment_group_6: vec![IFTSTASegmentgroup6 {
                     // TDT+1++2+25+ABCD:172::SENDER-COMP+++:::CSX TRANSPORTATION'
                     tdt: TDT {
                         _010: "1".to_string(),
@@ -286,7 +286,7 @@ fn build_iftsta() {
                     dtm: vec![],
                     rff: vec![],
                     segment_group_7: vec![
-                        IftstaSg7 {
+                        IFTSTASegmentgroup7 {
                             // LOC+9+COCTG:139::SOCIEDAD PORTUARIA DE CARTAGEN, , CO'
                             loc: LOC {
                                 _010: "9".to_string(),
@@ -309,7 +309,7 @@ fn build_iftsta() {
                                 },
                             }],
                         },
-                        IftstaSg7 {
+                        IFTSTASegmentgroup7 {
                             // LOC+11+USNYC:139::APM TERMINALS ELIZABETH, , US'
                             loc: LOC {
                                 _010: "11".to_string(),
@@ -342,7 +342,7 @@ fn build_iftsta() {
                                 },
                             ],
                         },
-                        IftstaSg7 {
+                        IFTSTASegmentgroup7 {
                             // LOC+29+USCHI:139::CSX 59TH STREET RAMP, , US'
                             loc: LOC {
                                 _010: "29".to_string(),
@@ -375,7 +375,7 @@ fn build_iftsta() {
                                 },
                             ],
                         },
-                        IftstaSg7 {
+                        IFTSTASegmentgroup7 {
                             // LOC+7+USWOQ:139::WOODRIDGE, IL, US'
                             loc: LOC {
                                 _010: "7".to_string(),
@@ -400,7 +400,7 @@ fn build_iftsta() {
                         },
                     ],
                 }],
-                segment_group_8: vec![IftstaSg8 {
+                segment_group_8: vec![IFTSTASegmentgroup8 {
                     // EQD+CN+TRHU4561222+45G1:102:5+++5'
                     eqd: EQD {
                         _010: "CN".to_string(),
@@ -507,7 +507,7 @@ LOC+7+USWOQ:139::WOODRIDGE, IL, US'
 DTM+132:202211210700:203'
 EQD+CN+TRHU4561222+45G1:102:5+++5'
 UNT+31+2805567'"#;
-    let (rest, obj) = Iftsta::parse(input_str).unwrap();
+    let (rest, obj) = IFTSTA::parse(input_str).unwrap();
     println!("{obj:?}");
     assert!(rest.is_empty());
 }
@@ -515,7 +515,7 @@ UNT+31+2805567'"#;
 #[test]
 fn parse_iftsta_with_unb() {
     let input_str = r#"UNB+UNOC:2+TEST:ZZZ+TEST:ZZZ+230522:0044+3724322'UNH+2805567+IFTSTA:D:00B:UN'BGM+23+2BOG129382+9'DTM+137:202201010021:203'NAD+CA+ABCD:160++SENDER-COMP+STREET 1+CITY1++99999+DE'RFF+4F:100113938'RFF+AAZ:ABCD'RFF+BN:24O4023815'RFF+BM:ABCD224O4023815X'RFF+EQ:TRHU4307252'RFF+CO:2023521591'RFF+FF:31075687'CNI+1'STS+1+P::HS:Rail Departed from In-Transit Locat'RFF+BM:ABCD224O4023815X'RFF+BN:24O4023815'RFF+EQ:TRHU4561222'DTM+334:202211190710:203'LOC+175+USSYR:227::SYRACUSE+US:162'TDT+1++2+25+ABCD:172::SENDER-COMP+++:::CSX TRANSPORTATION'LOC+9+COCTG:139::SOCIEDAD PORTUARIA DE CARTAGEN, , CO'DTM+186:202211091415:203'LOC+11+USNYC:139::APM TERMINALS ELIZABETH, , US'DTM+178:202211170505:203'DTM+133:202211181630:203'LOC+29+USCHI:139::CSX 59TH STREET RAMP, , US'DTM+132:202211210600:203'DTM+133:202211210600:203'LOC+7+USWOQ:139::WOODRIDGE, IL, US'DTM+132:202211210700:203'EQD+CN+TRHU4561222+45G1:102:5+++5'UNT+31+2805567'UNZ+1+3724322'"#;
-    let (rest, obj): (&str, Interchange<Iftsta>) = Interchange::parse(input_str).unwrap();
+    let (rest, obj): (&str, Interchange<IFTSTA>) = Interchange::parse(input_str).unwrap();
     println!("{obj:?}");
     assert!(rest.is_empty());
 }
