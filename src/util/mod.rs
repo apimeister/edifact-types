@@ -111,7 +111,7 @@ mod test {
             } else {
                 format!("Vec<{tag}>")
             };
-            new_lines.push(format!("{tag}: {right_side},"));
+            new_lines.push(format!("{}: {right_side},", tag.to_lowercase()));
         }
         new_lines.first().cloned()
     }
@@ -140,7 +140,7 @@ mod test {
     /// Change this for your messagetype
     /// ////////////
     const VERSION: &str = "d00b";
-    const MSG_TYPE: &str = "COPARN";
+    const MSG_TYPE: &str = "IFTMIN";
     #[test]
     fn parse_edifact_descr_from_file() {
         let contents = fs::read_to_string(format!("edi_desc/{VERSION}/{MSG_TYPE}"))
@@ -150,7 +150,9 @@ mod test {
             Regex::new(r"^\d{4}.+([A-Z]{3})\s+(\S+ ?\S+ ?\S+?)\s+(M|C)\s+(\d{1,4})").unwrap();
         let re_group = Regex::new(r".*-+ (\S+ ?\S+ ?\S+?)\s+-+ (C|M)\s+(\d{1,4}).*").unwrap();
         println!("Input:\n\n");
-        let mut final_string: String = format!("#[derive(Debug, Serialize, Deserialize, Default, DisplayEdifact)]\npub struct {MSG_TYPE} {{");
+        let mut final_string: String = format!(
+            "#[derive(Debug, Serialize, Deserialize, DisplayEdifact, ParseSg)]\npub struct {MSG_TYPE} {{"
+        );
 
         let mut lines: Vec<&str> = vec![];
         while !i.is_empty() {
@@ -198,7 +200,7 @@ mod test {
                             if let Some(g) = groups.get_mut(cg) {
                                 *g = format!("{g}\n    pub {group_handle}");
                             };
-                            groups.insert(name.clone(), format!("#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg)]\npub struct {name} {{"));
+                            groups.insert(name.clone(), format!("#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]\npub struct {name} {{"));
                             current_group.push(name);
                         };
                         group_level.push(true);
@@ -243,10 +245,10 @@ mod test {
                 // we are starting off with a new group
                 if outer_line.ends_with('+') {
                     // start group recording
-                    println!("group ___new: {outer_line}");
+                    println!("group ___new: {outer_line}"); 
                     if let Some((group_handle, name)) = parsed_group {
                         final_string = format!("{final_string}\n    pub {group_handle}");
-                        groups.insert(name.clone(), format!("pub struct {name} {{"));
+                        groups.insert(name.clone(), format!("#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]\npub struct {name} {{"));
                         current_group.push(name);
                     };
                     group_level.push(true);
@@ -259,11 +261,29 @@ mod test {
                 }
             }
         }
-        final_string = format!("{final_string}\n}}\n");
-
-        println!("Output:\n\n{final_string}");
+        let u = format!(
+            "use crate::{VERSION}::*;
+use crate::util::Parser;
+use edifact_types_macros::{{DisplayEdifact, DisplayEdifactSg}};
+use nom::{{
+    combinator::{{opt, peek}},
+    multi::many0,
+    IResult,
+}};
+use serde::{{Deserialize, Serialize}};
+use std::fmt;"
+        );
+        final_string = format!("{u}\n\n{final_string}\n}}\n");
         let mut sorted: Vec<_> = groups.iter().collect();
         sorted.sort_by_key(|a| a.0);
-        sorted.iter().for_each(|g| println!("{}", g.1));
+        sorted
+            .iter()
+            .for_each(|g| final_string = format!("{final_string}\n{}", g.1));
+        // fs::write(
+        //     format!("src/{VERSION}/message/{}.rs", MSG_TYPE.to_lowercase()),
+        //     final_string.clone(),
+        // )
+        // .unwrap();
+        println!("Output:\n\n{final_string}");
     }
 }
