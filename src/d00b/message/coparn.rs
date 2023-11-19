@@ -1,5 +1,5 @@
 use crate::d00b::*;
-use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg, ParseSg, ParseMsg};
+use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg, ParseMsg, ParseSg};
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
