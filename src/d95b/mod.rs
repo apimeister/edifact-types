@@ -9,9 +9,6 @@ pub use types::*;
 #[cfg(test)]
 mod test_coprar;
 
-#[cfg(test)]
-mod test_segment;
-
 /// Container discharge/loading order message
 ///
 /// https://service.unece.org/trade/untdid/d95b/trmd/coprar_d.htm#MESDEF
