@@ -120,7 +120,7 @@ mod test {
         let mut new_group = vec![];
         // println!("internal_group: {i}");
         for (_, [name, req, repeat]) in re.captures_iter(i).map(|c| c.extract()) {
-            let struct_name = name.replace(' ', "");
+            let struct_name = format!("{}{}", MSG_TYPE, name.replace(' ', ""));
             let handle = name.replace(' ', "_").to_lowercase();
             let group_open = if repeat == "1" {
                 if req == "M" {
@@ -140,7 +140,7 @@ mod test {
     /// Change this for your messagetype
     /// ////////////
     const VERSION: &str = "d00b";
-    const MSG_TYPE: &str = "IFTMIN";
+    const MSG_TYPE: &str = "COPARN";
     #[test]
     fn parse_edifact_descr_from_file() {
         let contents = fs::read_to_string(format!("edi_desc/{VERSION}/{MSG_TYPE}"))
@@ -151,7 +151,7 @@ mod test {
         let re_group = Regex::new(r".*-+ (\S+ ?\S+ ?\S+?)\s+-+ (C|M)\s+(\d{1,4}).*").unwrap();
         println!("Input:\n\n");
         let mut final_string: String = format!(
-            "#[derive(Default, Debug, Serialize, Deserialize, DisplayEdifact, ParseSg)]\npub struct {MSG_TYPE} {{"
+            "#[derive(Default, Debug, Serialize, Deserialize, DisplayEdifact, ParseMsg)]\npub struct {MSG_TYPE} {{"
         );
 
         let mut lines: Vec<&str> = vec![];
@@ -263,7 +263,7 @@ mod test {
         }
         let u = format!(
             "use crate::{VERSION}::*;
-use edifact_types_macros::{{DisplayEdifact, DisplayEdifactSg, ParseSg}};
+use edifact_types_macros::{{DisplayEdifact, DisplayEdifactSg, ParseSg, ParseMsg}};
 use serde::{{Deserialize, Serialize}};
 use std::fmt;"
         );
