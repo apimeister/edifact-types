@@ -1,9 +1,9 @@
 use crate::d00b::*;
-use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg, ParseSg};
+use edifact_types_macros::{DisplayEdifact, DisplayEdifactSg, ParseSg, ParseMsg};
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
-#[derive(Default, Debug, Serialize, Deserialize, DisplayEdifact, ParseSg)]
+#[derive(Default, Debug, Serialize, Deserialize, DisplayEdifact, ParseMsg)]
 pub struct IFTMIN {
     pub unh: UNH,
     pub bgm: BGM,
@@ -17,58 +17,58 @@ pub struct IFTMIN {
     pub cnt: Vec<CNT>,
     pub doc: Vec<DOC>,
     pub gds: Vec<GDS>,
-    pub segment_group_1: Vec<Segmentgroup1>,
-    pub segment_group_2: Vec<Segmentgroup2>,
-    pub segment_group_3: Vec<Segmentgroup3>,
-    pub segment_group_4: Vec<Segmentgroup4>,
-    pub segment_group_6: Vec<Segmentgroup6>,
-    pub segment_group_7: Vec<Segmentgroup7>,
-    pub segment_group_8: Vec<Segmentgroup8>,
-    pub segment_group_11: Vec<Segmentgroup11>,
-    pub segment_group_18: Vec<Segmentgroup18>,
-    pub segment_group_37: Vec<Segmentgroup37>,
+    pub segment_group_1: Vec<IFTMINSegmentgroup1>,
+    pub segment_group_2: Vec<IFTMINSegmentgroup2>,
+    pub segment_group_3: Vec<IFTMINSegmentgroup3>,
+    pub segment_group_4: Vec<IFTMINSegmentgroup4>,
+    pub segment_group_6: Vec<IFTMINSegmentgroup6>,
+    pub segment_group_7: Vec<IFTMINSegmentgroup7>,
+    pub segment_group_8: Vec<IFTMINSegmentgroup8>,
+    pub segment_group_11: Vec<IFTMINSegmentgroup11>,
+    pub segment_group_18: Vec<IFTMINSegmentgroup18>,
+    pub segment_group_37: Vec<IFTMINSegmentgroup37>,
     pub unt: UNT,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup1 {
+pub struct IFTMINSegmentgroup1 {
     pub loc: LOC,
     pub dtm: Vec<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup10 {
+pub struct IFTMINSegmentgroup10 {
     pub rff: RFF,
     pub dtm: Option<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup11 {
+pub struct IFTMINSegmentgroup11 {
     pub nad: NAD,
     pub loc: Vec<LOC>,
     pub moa: Vec<MOA>,
-    pub segment_group_12: Vec<Segmentgroup12>,
-    pub segment_group_13: Vec<Segmentgroup13>,
-    pub segment_group_14: Vec<Segmentgroup14>,
-    pub segment_group_15: Vec<Segmentgroup15>,
-    pub segment_group_16: Vec<Segmentgroup16>,
-    pub segment_group_17: Vec<Segmentgroup17>,
+    pub segment_group_12: Vec<IFTMINSegmentgroup12>,
+    pub segment_group_13: Vec<IFTMINSegmentgroup13>,
+    pub segment_group_14: Vec<IFTMINSegmentgroup14>,
+    pub segment_group_15: Vec<IFTMINSegmentgroup15>,
+    pub segment_group_16: Vec<IFTMINSegmentgroup16>,
+    pub segment_group_17: Vec<IFTMINSegmentgroup17>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup12 {
+pub struct IFTMINSegmentgroup12 {
     pub cta: CTA,
     pub com: Vec<COM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup13 {
+pub struct IFTMINSegmentgroup13 {
     pub doc: DOC,
     pub dtm: Option<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup14 {
+pub struct IFTMINSegmentgroup14 {
     pub tcc: TCC,
     pub cux: Option<CUX>,
     pub pri: Option<PRI>,
@@ -79,13 +79,13 @@ pub struct Segmentgroup14 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup15 {
+pub struct IFTMINSegmentgroup15 {
     pub rff: RFF,
     pub dtm: Vec<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup16 {
+pub struct IFTMINSegmentgroup16 {
     pub cpi: CPI,
     pub rff: Vec<RFF>,
     pub cux: Option<CUX>,
@@ -94,7 +94,7 @@ pub struct Segmentgroup16 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup17 {
+pub struct IFTMINSegmentgroup17 {
     pub tsr: TSR,
     pub rff: Option<RFF>,
     pub loc: Option<LOC>,
@@ -103,7 +103,7 @@ pub struct Segmentgroup17 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup18 {
+pub struct IFTMINSegmentgroup18 {
     pub gid: GID,
     pub han: Vec<HAN>,
     pub tmp: Option<TMP>,
@@ -114,52 +114,52 @@ pub struct Segmentgroup18 {
     pub pia: Vec<PIA>,
     pub ftx: Vec<FTX>,
     pub pcd: Vec<PCD>,
-    pub segment_group_19: Vec<Segmentgroup19>,
+    pub segment_group_19: Vec<IFTMINSegmentgroup19>,
     pub gds: Vec<GDS>,
-    pub segment_group_20: Vec<Segmentgroup20>,
-    pub segment_group_21: Vec<Segmentgroup21>,
-    pub segment_group_22: Vec<Segmentgroup22>,
-    pub segment_group_23: Vec<Segmentgroup23>,
-    pub segment_group_24: Vec<Segmentgroup24>,
-    pub segment_group_25: Vec<Segmentgroup25>,
-    pub segment_group_27: Vec<Segmentgroup27>,
-    pub segment_group_29: Vec<Segmentgroup29>,
-    pub segment_group_31: Vec<Segmentgroup31>,
-    pub segment_group_32: Vec<Segmentgroup32>,
+    pub segment_group_20: Vec<IFTMINSegmentgroup20>,
+    pub segment_group_21: Vec<IFTMINSegmentgroup21>,
+    pub segment_group_22: Vec<IFTMINSegmentgroup22>,
+    pub segment_group_23: Vec<IFTMINSegmentgroup23>,
+    pub segment_group_24: Vec<IFTMINSegmentgroup24>,
+    pub segment_group_25: Vec<IFTMINSegmentgroup25>,
+    pub segment_group_27: Vec<IFTMINSegmentgroup27>,
+    pub segment_group_29: Vec<IFTMINSegmentgroup29>,
+    pub segment_group_31: Vec<IFTMINSegmentgroup31>,
+    pub segment_group_32: Vec<IFTMINSegmentgroup32>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup19 {
+pub struct IFTMINSegmentgroup19 {
     pub nad: NAD,
     pub dtm: Option<DTM>,
     pub loc: Vec<LOC>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup2 {
+pub struct IFTMINSegmentgroup2 {
     pub loc: Vec<LOC>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup20 {
+pub struct IFTMINSegmentgroup20 {
     pub mea: MEA,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup21 {
+pub struct IFTMINSegmentgroup21 {
     pub dim: DIM,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup22 {
+pub struct IFTMINSegmentgroup22 {
     pub rff: RFF,
     pub dtm: Vec<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup23 {
+pub struct IFTMINSegmentgroup23 {
     pub pci: PCI,
     pub rff: Option<RFF>,
     pub dtm: Option<DTM>,
@@ -167,59 +167,59 @@ pub struct Segmentgroup23 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup24 {
+pub struct IFTMINSegmentgroup24 {
     pub doc: DOC,
     pub dtm: Vec<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup25 {
+pub struct IFTMINSegmentgroup25 {
     pub gor: GOR,
     pub dtm: Vec<DTM>,
     pub loc: Vec<LOC>,
     pub sel: Vec<SEL>,
     pub ftx: Vec<FTX>,
-    pub segment_group_26: Vec<Segmentgroup26>,
+    pub segment_group_26: Vec<IFTMINSegmentgroup26>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup26 {
+pub struct IFTMINSegmentgroup26 {
     pub doc: DOC,
     pub dtm: Option<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup27 {
+pub struct IFTMINSegmentgroup27 {
     pub tpl: TPL,
-    pub segment_group_28: Vec<Segmentgroup28>,
+    pub segment_group_28: Vec<IFTMINSegmentgroup28>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup28 {
+pub struct IFTMINSegmentgroup28 {
     pub mea: MEA,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup29 {
+pub struct IFTMINSegmentgroup29 {
     pub sgp: SGP,
-    pub segment_group_30: Vec<Segmentgroup30>,
+    pub segment_group_30: Vec<IFTMINSegmentgroup30>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup3 {
+pub struct IFTMINSegmentgroup3 {
     pub rff: RFF,
     pub dtm: Vec<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup30 {
+pub struct IFTMINSegmentgroup30 {
     pub mea: MEA,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup31 {
+pub struct IFTMINSegmentgroup31 {
     pub tcc: TCC,
     pub cux: Option<CUX>,
     pub pri: Option<PRI>,
@@ -231,40 +231,40 @@ pub struct Segmentgroup31 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup32 {
+pub struct IFTMINSegmentgroup32 {
     pub dgs: DGS,
     pub ftx: Vec<FTX>,
-    pub segment_group_33: Vec<Segmentgroup33>,
-    pub segment_group_34: Vec<Segmentgroup34>,
-    pub segment_group_35: Vec<Segmentgroup35>,
+    pub segment_group_33: Vec<IFTMINSegmentgroup33>,
+    pub segment_group_34: Vec<IFTMINSegmentgroup34>,
+    pub segment_group_35: Vec<IFTMINSegmentgroup35>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup33 {
+pub struct IFTMINSegmentgroup33 {
     pub cta: CTA,
     pub com: Vec<COM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup34 {
+pub struct IFTMINSegmentgroup34 {
     pub mea: MEA,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup35 {
+pub struct IFTMINSegmentgroup35 {
     pub sgp: SGP,
-    pub segment_group_36: Vec<Segmentgroup36>,
+    pub segment_group_36: Vec<IFTMINSegmentgroup36>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup36 {
+pub struct IFTMINSegmentgroup36 {
     pub mea: MEA,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup37 {
+pub struct IFTMINSegmentgroup37 {
     pub eqd: EQD,
     pub eqn: Option<EQN>,
     pub tmd: Option<TMD>,
@@ -276,14 +276,14 @@ pub struct Segmentgroup37 {
     pub tmp: Option<TMP>,
     pub ftx: Vec<FTX>,
     pub rff: Vec<RFF>,
-    pub segment_group_38: Vec<Segmentgroup38>,
-    pub segment_group_39: Vec<Segmentgroup39>,
-    pub segment_group_41: Vec<Segmentgroup41>,
-    pub segment_group_42: Vec<Segmentgroup42>,
+    pub segment_group_38: Vec<IFTMINSegmentgroup38>,
+    pub segment_group_39: Vec<IFTMINSegmentgroup39>,
+    pub segment_group_41: Vec<IFTMINSegmentgroup41>,
+    pub segment_group_42: Vec<IFTMINSegmentgroup42>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup38 {
+pub struct IFTMINSegmentgroup38 {
     pub tcc: TCC,
     pub cux: Option<CUX>,
     pub pri: Option<PRI>,
@@ -294,55 +294,55 @@ pub struct Segmentgroup38 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup39 {
+pub struct IFTMINSegmentgroup39 {
     pub nad: NAD,
     pub dtm: Option<DTM>,
-    pub segment_group_40: Vec<Segmentgroup40>,
+    pub segment_group_40: Vec<IFTMINSegmentgroup40>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup4 {
+pub struct IFTMINSegmentgroup4 {
     pub gor: GOR,
     pub dtm: Vec<DTM>,
     pub loc: Vec<LOC>,
     pub sel: Vec<SEL>,
     pub ftx: Vec<FTX>,
-    pub segment_group_5: Vec<Segmentgroup5>,
+    pub segment_group_5: Vec<IFTMINSegmentgroup5>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup40 {
+pub struct IFTMINSegmentgroup40 {
     pub cta: CTA,
     pub com: Vec<COM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup41 {
+pub struct IFTMINSegmentgroup41 {
     pub eqa: EQA,
     pub eqn: Option<EQN>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup42 {
+pub struct IFTMINSegmentgroup42 {
     pub dgs: DGS,
     pub ftx: Vec<FTX>,
-    pub segment_group_43: Vec<Segmentgroup43>,
+    pub segment_group_43: Vec<IFTMINSegmentgroup43>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup43 {
+pub struct IFTMINSegmentgroup43 {
     pub cta: CTA,
     pub com: Vec<COM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup5 {
+pub struct IFTMINSegmentgroup5 {
     pub doc: DOC,
     pub dtm: Option<DTM>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup6 {
+pub struct IFTMINSegmentgroup6 {
     pub cpi: CPI,
     pub rff: Vec<RFF>,
     pub cux: Option<CUX>,
@@ -351,7 +351,7 @@ pub struct Segmentgroup6 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup7 {
+pub struct IFTMINSegmentgroup7 {
     pub tcc: TCC,
     pub loc: Option<LOC>,
     pub ftx: Option<FTX>,
@@ -364,16 +364,16 @@ pub struct Segmentgroup7 {
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup8 {
+pub struct IFTMINSegmentgroup8 {
     pub tdt: TDT,
     pub dtm: Vec<DTM>,
     pub tsr: Vec<TSR>,
-    pub segment_group_9: Vec<Segmentgroup9>,
-    pub segment_group_10: Vec<Segmentgroup10>,
+    pub segment_group_9: Vec<IFTMINSegmentgroup9>,
+    pub segment_group_10: Vec<IFTMINSegmentgroup10>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
-pub struct Segmentgroup9 {
+pub struct IFTMINSegmentgroup9 {
     pub loc: LOC,
     pub dtm: Vec<DTM>,
 }
