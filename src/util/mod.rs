@@ -151,7 +151,7 @@ mod test {
         let re_group = Regex::new(r".*-+ (\S+ ?\S+ ?\S+?)\s+-+ (C|M)\s+(\d{1,4}).*").unwrap();
         println!("Input:\n\n");
         let mut final_string: String = format!(
-            "#[derive(Debug, Serialize, Deserialize, DisplayEdifact, ParseSg)]\npub struct {MSG_TYPE} {{"
+            "#[derive(Default, Debug, Serialize, Deserialize, DisplayEdifact, ParseSg)]\npub struct {MSG_TYPE} {{"
         );
 
         let mut lines: Vec<&str> = vec![];
@@ -245,7 +245,7 @@ mod test {
                 // we are starting off with a new group
                 if outer_line.ends_with('+') {
                     // start group recording
-                    println!("group ___new: {outer_line}"); 
+                    println!("group ___new: {outer_line}");
                     if let Some((group_handle, name)) = parsed_group {
                         final_string = format!("{final_string}\n    pub {group_handle}");
                         groups.insert(name.clone(), format!("#[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]\npub struct {name} {{"));
@@ -263,13 +263,7 @@ mod test {
         }
         let u = format!(
             "use crate::{VERSION}::*;
-use crate::util::Parser;
-use edifact_types_macros::{{DisplayEdifact, DisplayEdifactSg}};
-use nom::{{
-    combinator::{{opt, peek}},
-    multi::many0,
-    IResult,
-}};
+use edifact_types_macros::{{DisplayEdifact, DisplayEdifactSg, ParseSg}};
 use serde::{{Deserialize, Serialize}};
 use std::fmt;"
         );
