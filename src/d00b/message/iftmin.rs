@@ -137,6 +137,7 @@ pub struct IFTMINSegmentgroup19 {
 
 #[derive(Debug, Serialize, Deserialize, DisplayEdifactSg, ParseSg)]
 pub struct IFTMINSegmentgroup2 {
+    pub tod: TOD,
     pub loc: Vec<LOC>,
 }
 

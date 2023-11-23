@@ -147,7 +147,7 @@ mod test {
             .expect("Should have been able to read the file");
         let mut i = contents.as_str();
         let re_line =
-            Regex::new(r"^\d{4}.+([A-Z]{3})\s+(\S+ ?\S+ ?\S+?)\s+(M|C)\s+(\d{1,4})").unwrap();
+            Regex::new(r"^\d{4}.+([A-Z]{3})\s+((?:\S+ ){1,})\s+(M|C)\s+(\d{1,4})").unwrap();
         let re_group = Regex::new(r".*-+ (\S+ ?\S+ ?\S+?)\s+-+ (C|M)\s+(\d{1,4}).*").unwrap();
         println!("Input:\n\n");
         let mut final_string: String = format!(
@@ -157,7 +157,7 @@ mod test {
         let mut lines: Vec<&str> = vec![];
         while !i.is_empty() {
             let Ok((rest, line)) = line_parser(i) else {
-                panic!("paniced while reading file")
+                panic!("panic'd while reading file")
             };
             lines.push(line);
             i = rest;
