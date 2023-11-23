@@ -506,12 +506,12 @@ pub struct MOA {
 /// NAD - NAME AND ADDRESS
 ///
 /// A segment specifying the name and/or address associated with the event such as notify party, terminal address, trucking company for gate move.
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
+#[derive(Debug, Serialize, Deserialize, DisplayOuterSegment, ParseSegment)]
 pub struct NAD {
     /// PARTY FUNCTION CODE QUALIFIER
     ///
     /// Code giving specific meaning to a party.
-    pub _010: String,
+    pub _010: _3035,
     /// C082 - PARTY IDENTIFICATION DETAILS
     ///
     /// Identification of a transaction party by code.

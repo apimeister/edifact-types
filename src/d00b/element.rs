@@ -112,14 +112,14 @@ pub struct C080 {
 /// C082 PARTY IDENTIFICATION DETAILS
 ///
 /// Identification of a transaction party by code.
-#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment, ParseElement)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment, ParseElement)]
 pub struct C082 {
     /// Party identifier                          M      an..35
     pub _010: String,
     /// Code list identification code             C      an..17
-    pub _020: Option<String>,
+    pub _020: Option<_1131>,
     /// Code list responsible agency code         C      an..3
-    pub _030: Option<String>,
+    pub _030: Option<_3055>,
 }
 
 /// Terms of delivery or transport
@@ -1084,14 +1084,14 @@ pub struct C703 {
 ///
 /// To specify a part of a country (eg county or part of
 /// a city).
-#[derive(Debug, Serialize, Deserialize, Clone, Default, DisplayInnerSegment, ParseElement)]
+#[derive(Debug, Serialize, Deserialize, Clone, DisplayInnerSegment, ParseElement)]
 pub struct C819 {
     /// Country sub-entity name code              C      an..9
     pub _010: Option<String>,
     /// Code list identification code             C      an..17
-    pub _020: Option<String>,
+    pub _020: Option<_1131>,
     /// Code list responsible agency code         C      an..3
-    pub _030: Option<String>,
+    pub _030: Option<_3055>,
     /// Country sub-entity name                   C      an..35
     pub _040: Option<String>,
 }
