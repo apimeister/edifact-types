@@ -17,11 +17,14 @@ edifact-types-macros = "0.3"
 # enable macros debug vie feature flag
 # edifact-types-macros = {version = "0.3", features = ["debug"]}
 nom = "7"
+log = {version = "0.4", optional = true }
 
 [features]
 default = ["d00b","d95b"]
 d00b = []
 d95b = []
+logging = ["log"]
 
 [dev-dependencies]
 regex = "1.10.2"
+env_logger = "0.10"
