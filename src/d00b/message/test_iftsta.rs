@@ -79,12 +79,13 @@ fn build_iftsta() {
         tsr: None,
         segment_group_1: vec![IFTSTASegmentgroup1 {
             nad: NAD {
-                _010: "CA".to_string(),
+                _010: _3035::CA,
                 _020: Some(C082 {
                     _010: "ABCD".to_string(),
-                    _020: Some("160".to_string()),
+                    _020: Some(_1131::_160),
                     _030: None,
                 }),
+                _030: None,
                 _040: Some(C080 {
                     _010: "SENDER-COMP".to_string(),
                     ..Default::default()
@@ -94,9 +95,9 @@ fn build_iftsta() {
                     ..Default::default()
                 }),
                 _060: Some("CITY1".to_string()),
+                _070: None,
                 _080: Some("99999".to_string()),
                 _090: Some("DE".to_string()),
-                ..Default::default()
             },
             segment_group_2: vec![],
         }],
