@@ -1,4 +1,5 @@
 use nom::{
+    branch::alt,
     bytes::complete::{escaped, is_not, tag},
     character::complete::{newline, one_of},
     combinator::opt,
@@ -34,7 +35,7 @@ pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Ve
 pub fn parse_plus_section(input: &str) -> IResult<&str, Vec<&str>> {
     let (rest, vars) = separated_list0(
         tag("+"),
-        preceded(opt(tag("+")), escaped(is_not("?+"), '?', one_of(r#":?+'"#))),
+        alt((escaped(is_not("?+"), '?', one_of(r#":?+'"#)), tag(""))),
     )(input)?;
     Ok((rest, vars))
 }
@@ -42,7 +43,7 @@ pub fn parse_plus_section(input: &str) -> IResult<&str, Vec<&str>> {
 pub fn parse_colon_section(input: &str) -> IResult<&str, Vec<&str>> {
     let (rest, vars) = separated_list0(
         tag(":"),
-        preceded(opt(tag(":")), escaped(is_not("?:"), '?', one_of(r#":?+'"#))),
+        alt((escaped(is_not("?:"), '?', one_of(r#":?+'"#)), tag(""))),
     )(input)?;
     Ok((rest, vars))
 }
