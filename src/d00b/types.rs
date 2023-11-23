@@ -8583,6 +8583,2051 @@ pub enum _2379 {
     _814,
 }
 
+/// Party function code qualifier
+///
+/// Code giving specific meaning to a party.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone)]
+pub enum _3035 {
+    ///Party to be billed (AAR Accounting rule 11)
+    ///
+    ///Party to be billed in accordance with AAR Accounting rule 11.
+    AA,
+    ///Buyer's agent/representative
+    ///
+    ///Third party who arranged the purchase of merchandise on behalf of the actual buyer.
+    AB,
+    ///Declarant's agent/representative
+    ///
+    ///Any natural or legal person who makes a declaration to an official body on behalf of another natural or legal person, where legally permitted (CCC).
+    AE,
+    ///Transit principal
+    ///
+    ///Natural or legal person responsible for the satisfactory performance of a Customs transit operation. Source: CCC.
+    AF,
+    ///Agent/representative
+    ///
+    ///(3196) Party authorized to act on behalf of another party.
+    AG,
+    ///Transit principal's agent/representative
+    ///
+    ///Agent acting on behalf of the transit principal (CCC).
+    AH,
+    ///Successful job applicant
+    ///
+    ///Person who has been chosen for a job.
+    AI,
+    ///Party issuing mutually agreed codes
+    ///
+    ///The party which has issued all mutually agreed codes used in the message.
+    AJ,
+    ///Acknowledgement recipient
+    ///
+    ///Party to whom acknowledgement should be sent.
+    AK,
+    ///Principal
+    ///
+    ///(3340) Party accepting liability for goods held or moving (e.g. transit) under a Customs authorization and - when applicable - a guarantee.
+    AL,
+    ///Authorized official
+    ///
+    ///Employee of a company or firm authorized to act on behalf of that company or firm e.g. to make a Customs declaration.
+    AM,
+    ///Approved importer
+    ///
+    ///Person or company which is authorised by the relevant Customs authority to import goods without payment all taxes or specific taxes at the point of entry into the country.
+    AN,
+    ///Account of
+    ///
+    ///Party account is assigned to.
+    AO,
+    ///Accepting party
+    ///
+    ///(3352) Party accepting goods, products, services etc.
+    AP,
+    ///Approved consignor
+    ///
+    ///Person or company approved by the relevant authority in the country to pack and export specific goods under Customs supervision.
+    AQ,
+    ///Authorized exporter
+    ///
+    ///Exporter authorized/approved by Customs for special Customs procedures e.g. simplified procedure.
+    AR,
+    ///Account servicing financial institution
+    ///
+    ///Identifies the financial institution servicing the account(s).
+    AS,
+    ///Authorized importer
+    ///
+    ///Importer authorized/approved by Customs for special Customs procedures e.g. simplified procedure.
+    AT,
+    ///Authorized trader (transit)
+    ///
+    ///Trader authorized/approved by Customs for special transit procedures e.g. simplified procedure.
+    AU,
+    ///Authorizing official
+    ///
+    ///Party that has delegated the authority to take a certain action on behalf of a company or agency.
+    AV,
+    ///Applicant's bank
+    ///
+    ///Financial institution which is requested to issue the documentary credit.
+    AW,
+    ///Authenticating party
+    ///
+    ///Party which certifies that a document is authentic.
+    AX,
+    ///Animal being investigated
+    ///
+    ///Animal being investigated.
+    AY,
+    ///Issuing bank
+    ///
+    ///Financial institution which issues the documentary credit, if the applicant's bank is not acting as the issuing bank.
+    AZ,
+    ///Contact bank 1
+    ///
+    ///Identifies an additional bank which must be informed of certain aspects of the message.
+    B1,
+    ///Contact bank 2
+    ///
+    ///Identifies an additional bank which must be informed of certain aspects of the message.
+    B2,
+    ///Booking agent
+    ///
+    ///Party acting as a booking office for transport and forwarding services.
+    BA,
+    ///Buyer's bank
+    ///
+    ///[3420] Bank employed by the buyer to make payment.
+    BB,
+    ///Negotiating bank
+    ///
+    ///Financial institution to whom a negotiable documentary credit is directed.
+    BC,
+    ///Documentary credit reimbursing bank
+    ///
+    ///Self-explanatory.
+    BD,
+    ///Beneficiary
+    ///
+    ///The ultimate recipient of the funds. Normally the account owner who is reimbursed by the payor.
+    BE,
+    ///Beneficiary's bank
+    ///
+    ///Identifies the account servicer for the beneficiary or the payee.
+    BF,
+    ///Employer
+    ///
+    ///Self-explanatory.
+    BG,
+    ///Previous employer
+    ///
+    ///Previous employer of a person(s).
+    BH,
+    ///Buyer's financial institution
+    ///
+    ///Financial institution designated by buyer to make payment.
+    BI,
+    ///Release to party
+    ///
+    ///Party to which the goods or container(s) is (are) to be released.
+    BJ,
+    ///Financial institution
+    ///
+    ///Party acting as financial institution.
+    BK,
+    ///Bill of lading recipient
+    ///
+    ///Party to receive B/L.
+    BL,
+    ///Insured
+    ///
+    ///Party which is the object of an insurance contract.
+    BM,
+    ///Insurance beneficiary
+    ///
+    ///Party which benefits from insurance coverage.
+    BN,
+    ///Broker or sales office
+    ///
+    ///Party acting in the name of the seller as broker or as sales office.
+    BO,
+    ///Building site purchaser
+    ///
+    ///Party at the building site responsible for the purchasing of goods and services for that particular site.
+    BP,
+    ///Cheque drawn bank
+    ///
+    ///Identifies the bank on which the cheque should be drawn, as instructed by the ordering customer.
+    BQ,
+    ///Bill and ship to
+    ///
+    ///Party receiving goods and relevant invoice.
+    BS,
+    ///Party to be billed for other than freight (bill to)
+    ///
+    ///Party receiving invoice excluding freight costs.
+    BT,
+    ///Service bureau
+    ///
+    ///Party carrying out service bureau processing work, (e.g. a payroll bureau).
+    BU,
+    ///Member
+    ///
+    ///Member of a group (e.g. of a group of persons or a service scheme).
+    BV,
+    /// Borrower
+    BW,
+    ///Building site engineer
+    ///
+    ///Party at the building site responsible for engineering matters for that particular site.
+    BX,
+    ///Buyer
+    ///
+    ///Party to whom merchandise and/or service is sold.
+    BY,
+    ///Building site forwarder
+    ///
+    ///Party at the building site responsible for forwarding the received goods on that particular site.
+    BZ,
+    ///In care of party no. 1
+    ///
+    ///Description to be provided.
+    C1,
+    ///In care of party no. 2
+    ///
+    ///Description to be provided.
+    C2,
+    ///Carrier
+    ///
+    ///(3126) Party undertaking or arranging transport of goods between named points.
+    CA,
+    ///Customs broker
+    ///
+    ///Agent or representative or a professional Customs clearing agent who deals directly with Customs on behalf of the importer or exporter (CCC).
+    CB,
+    ///Claimant
+    ///
+    ///Party who claims goods or insurance.
+    CC,
+    ///Agent's bank
+    ///
+    ///Bank of the agent.
+    CD,
+    ///Ceding company
+    ///
+    ///Description to be provided.
+    CE,
+    ///Container operator/lessee
+    ///
+    ///Party to whom the possession of specified property (e.g. container) has been conveyed for a period of time in return for rental payments.
+    CF,
+    ///Carrier's agent
+    ///
+    ///Party authorized to act for or on behalf of carrier.
+    CG,
+    ///Connecting carrier
+    ///
+    ///Owner or operator of a transportation conveyance to which goods in a given transaction will be transferred.
+    CH,
+    ///Commission processor
+    ///
+    ///Party who provides extra treatment to goods on commission base.
+    CI,
+    ///Previous member
+    ///
+    ///Previous member of a group of persons or a service scheme.
+    CJ,
+    ///Empty equipment despatch party
+    ///
+    ///Party from whose premises empty equipment will be or has been despatched.
+    CK,
+    ///Container location party
+    ///
+    ///Party from whose premises container will be or has been despatched.
+    CL,
+    ///Customs
+    ///
+    ///Identification of customs authority relevant to the transaction or shipment.
+    CM,
+    ///Consignee
+    ///
+    ///(3132) Party to which goods are consigned.
+    CN,
+    ///Cash pool top account servicing financial institution
+    ///
+    ///Identification of a financial institution servicing the top account of a cash pool.
+    CNX,
+    ///Cash pool level account servicing financial institution
+    ///
+    ///Identification of a financial institution servicing the level account of a cash pool.
+    CNY,
+    ///Cash pool sub-account servicing financial institution
+    ///
+    ///Identification of a financial institution servicing the sub-account of a cash pool.
+    CNZ,
+    ///Corporate office
+    ///
+    ///Identification of the Head Office within a company.
+    CO,
+    ///Entity in which a financial interest is held
+    ///
+    ///Business in which a financial interest is held.
+    COA,
+    ///Intermediate level parent company
+    ///
+    ///Identifies an intermediate parent company.
+    COB,
+    ///Transshipment party
+    ///
+    ///A party responsible for transshipment.
+    COC,
+    ///Quotation requesting party
+    ///
+    ///Party sending a request for a quotation.
+    COD,
+    ///Party maintaining the codes used in the message
+    ///
+    ///The party which maintains the codes used in the message.
+    COE,
+    ///Party maintaining the identifiers used in the message
+    ///
+    ///The party which maintains the identifiers used in the message.
+    COF,
+    ///Dispatcher
+    ///
+    ///An individual responsible for sending something to a destination.
+    COG,
+    ///Submitter of sample
+    ///
+    ///An entity responsible for the submission of a sample.
+    COH,
+    ///Institutional provider
+    ///
+    ///The institution providing the service.
+    COI,
+    ///Primary health care provider
+    ///
+    ///Health care provider that has primary responsibility for patient.
+    COJ,
+    ///Assistant surgeon
+    ///
+    ///Physician assisting in surgery.
+    COK,
+    ///Admitting health care provider
+    ///
+    ///Health care provider that admitted the patient.
+    COL,
+    ///Referring health care provider
+    ///
+    ///Health care provider that referred patient to current provider of services.
+    COM,
+    ///Supervising health care provider
+    ///
+    ///Health care provider that supervised the rendering of a service.
+    CON,
+    ///Party providing financing
+    ///
+    ///Identifies the party providing the financing.
+    COO,
+    ///Convoying party
+    ///
+    ///Party designated to escort the transported goods.
+    COP,
+    ///Nominated bank
+    ///
+    ///Identifies the nominated bank.
+    COQ,
+    ///Family member
+    ///
+    ///Identifies a family member.
+    COR,
+    ///Co-participant
+    ///
+    ///Identifies another party who participates in an activity.
+    COS,
+    ///Involved party
+    ///
+    ///Party which is involved in an activity.
+    COT,
+    ///Assigner
+    ///
+    ///Identifies the entity who assigns.
+    COU,
+    ///Registered principal
+    ///
+    ///An individual who is registered as a principal for an entity.
+    COV,
+    ///Freight payer on behalf of the consignor
+    ///
+    ///Freight payer is a third party acting on behalf of the consignor.
+    COW,
+    ///Freight payer on behalf of the consignee
+    ///
+    ///Freight payer is a third party acting on behalf of the consignee.
+    COX,
+    ///Party responsible for disinfection
+    ///
+    ///Party responsible for performing disinfection operations.
+    COY,
+    ///Party responsible for refueling
+    ///
+    ///Party responsible for performing refueling operations.
+    COZ,
+    ///Party to receive certificate of compliance
+    ///
+    ///Party acting for or on behalf of seller in matters concerning compliance.
+    CP,
+    ///Advising bank
+    ///
+    ///Identifies the financial institution used by the issuing bank to advise the documentary credit.
+    CPA,
+    ///Reimbursing bank
+    ///
+    ///Identifies the financial institution through which the reimbursement is to be effected.
+    CPB,
+    ///Advise through bank
+    ///
+    ///Identifies the financial institution through which the advising bank is to advise.
+    CPC,
+    ///Charges payer at destination
+    ///
+    ///Party, other than the ordering party, which has to pay the charges concerning the destination operations.
+    CPD,
+    ///Vessel master
+    ///
+    ///Master of the conveyance.
+    CPE,
+    ///Means of transport charterer
+    ///
+    ///Charterer of the means of transport.
+    CPF,
+    ///Excise party
+    ///
+    ///Party to whom excise must be paid.
+    CPG,
+    ///Copy report to
+    ///
+    ///Party receiving a copy of a report.
+    CPH,
+    ///Related healthcare party
+    ///
+    ///A healthcare party related to the subject.
+    CPI,
+    ///Clinical information provider
+    ///
+    ///Party providing clinical information.
+    CPJ,
+    ///Service requester
+    ///
+    ///Party requesting a service.
+    CPK,
+    ///Patient admitted by
+    ///
+    ///Party who admitted a patient.
+    CPL,
+    ///Patient discharged to
+    ///
+    ///The party who receives the discharged patient.
+    CPM,
+    ///Patient hosted by
+    ///
+    ///The party hosting the patient.
+    CPN,
+    ///Prescriber's contact person
+    ///
+    ///Contact person for the prescriber.
+    CPO,
+    ///Cheque order
+    ///
+    ///Party to which the cheque will be ordered, when different from the beneficiary.
+    CQ,
+    ///Empty equipment return party
+    ///
+    ///Party to whose premises empty equipment will be or has been returned.
+    CR,
+    ///Consolidator
+    ///
+    ///Party consolidating various consignments, payments etc.
+    CS,
+    ///Consignee to be specified
+    ///
+    ///The party to be identified at a later time as the consignee.
+    CT,
+    ///Container return company
+    ///
+    ///The company to which containers have to be returned.
+    CU,
+    ///Consignee of vessel
+    ///
+    ///Description to be provided.
+    CV,
+    ///Equipment owner
+    ///
+    ///Owner of equipment (container, etc.).
+    CW,
+    ///Consignee's agent
+    ///
+    ///Party authorized to act on behalf of the consignee.
+    CX,
+    /// Commissionable agent
+    ///
+    /// IATA cargo agent entitled to commission.
+    CY,
+    ///Consignor
+    ///
+    ///(3336) Party which, by contract with a carrier, consigns or sends goods with the carrier, or has them conveyed by him. Synonym: shipper, sender.
+    CZ,
+    ///Available with bank (documentary credits)
+    ///
+    ///Financial institution with whom the documentary credit is available.
+    DA,
+    ///Distributor branch
+    ///
+    ///The affiliate of a retailer or distributor.
+    DB,
+    ///Deconsolidator
+    ///
+    ///Party that splits up a large consignment composed of separate consignments of goods. The smaller consignments of goods were grouped together into that large consignment for carriage as a larger unit in order to obtain a reduced rate.
+    DC,
+    ///Despatch charge payer
+    ///
+    ///Party, other than the ordering party, which has to pay the charges concerning the despatch operations.
+    DCP,
+    ///Prescription database owner
+    ///
+    ///Organisation or person owning a prescription database.
+    DCQ,
+    ///Original prescriber
+    ///
+    ///The doctor who issued the original prescription.
+    DCR,
+    ///Temporary employee
+    ///
+    ///A person employed on a temporary basis.
+    DCS,
+    ///Designer
+    ///
+    ///A party who designs.
+    DCT,
+    ///Quotation delivered to
+    ///
+    ///Party to whom the quotation is to be or has been delivered.
+    DCU,
+    ///Developer
+    ///
+    ///A party who develops.
+    DCV,
+    ///Test execution party
+    ///
+    ///The party performing a test.
+    DCW,
+    ///Party to receive refund
+    ///
+    ///Party to whom a refund is given.
+    DCX,
+    ///Authorised issuer of prescription
+    ///
+    ///Party authorised to issue a prescription.
+    DCY,
+    ///Authorised dispenser of medicine
+    ///
+    ///Organisation or person authorised to dispense medicine.
+    DCZ,
+    ///Documentary credit account party's bank
+    ///
+    ///Bank of the documentary credit account party.
+    DD,
+    ///Report responsible party
+    ///
+    ///The party or person taking responsibility for a report.
+    DDA,
+    ///Initial sender
+    ///
+    ///The party who does the initial sending.
+    DDB,
+    ///The party authorising the original prescription
+    ///
+    ///The party authorising the issuer of the original prescription.
+    DDC,
+    ///Depositor
+    ///
+    ///Party depositing goods, financial payments or documents.
+    DE,
+    ///Documentary credit applicant
+    ///
+    ///Party at whose request the applicant's bank/issuing bank is to issue a documentary credit.
+    DF,
+    ///Documentary credit beneficiary
+    ///
+    ///Party in whose favour the documentary credit is to be issued and the party that must comply with the credit's terms and conditions.
+    DG,
+    ///Documentary credit account party
+    ///
+    ///Party which is responsible for the payment settlement of the documentary credit with the applicant's bank/issuing bank, if different from the documentary credit applicant.
+    DH,
+    ///Documentary credit second beneficiary
+    ///
+    ///Party to whom the documentary credit can be transferred.
+    DI,
+    ///Party according to documentary credit transaction
+    ///
+    ///Party related to documentary credit transaction.
+    DJ,
+    ///Documentary credit beneficiary's bank
+    ///
+    ///Financial institution with which the beneficiary of the documentary credit maintains an account.
+    DK,
+    ///Factor
+    ///
+    ///Company offering a financial service whereby a firm sells or transfers title to its accounts receivable to the factoring company.
+    DL,
+    /// Party to whom documents are to be presented
+    DM,
+    ///Owner of operation
+    ///
+    ///Owner of the operation.
+    DN,
+    ///Document recipient
+    ///
+    ///(1370) Party which should receive a specified document.
+    DO,
+    ///Delivery party
+    ///
+    ///(3144) Party to which goods should be delivered, if not identical with consignee.
+    DP,
+    ///Owner's agent
+    ///
+    ///Person acting on delegation of powers of the owner.
+    DQ,
+    ///Driver
+    ///
+    ///Person who drives a means of transport.
+    DR,
+    ///Distributor
+    ///
+    ///Party distributing goods, financial payments or documents.
+    DS,
+    ///Declarant
+    ///
+    ///(3140) Party who makes a declaration to an official body or - where legally permitted - in whose name, or on whose behalf, a declaration to an official body is made.
+    DT,
+    ///Owner's representative
+    ///
+    ///Person commissioned by the owner to represent him in certain circumstances.
+    DU,
+    ///Project management office
+    ///
+    ///Party commissioned by the owner to follow through the execution of all works.
+    DV,
+    ///Drawee
+    ///
+    ///Party on whom drafts must be drawn.
+    DW,
+    ///Engineer (construction)
+    ///
+    ///Party representing the contractor to advise and supervise engineering aspects of the works.
+    DX,
+    ///Engineer, resident (construction)
+    ///
+    ///Party commissioned by the owner to advise and supervise engineering aspects of the works.
+    DY,
+    /// Architect
+    DZ,
+    ///Architect-designer
+    ///
+    ///Designer of the construction project.
+    EA,
+    ///Building inspectorate
+    ///
+    ///Party controlling the conformity of works to legal and regulation rules.
+    EB,
+    ///Exchanger
+    ///
+    ///Party exchanging currencies or goods.
+    EC,
+    ///Engineer, consultant
+    ///
+    ///Party providing professional engineering services.
+    ED,
+    /// Location of goods for customs examination before clearance
+    ///
+    /// SE.
+    EE,
+    ///Project coordination office
+    ///
+    ///Party responsible for technical coordination of works.
+    EF,
+    ///Surveyor, topographical
+    ///
+    ///Party responsible for topographical measurements.
+    EG,
+    ///Engineer, measurement
+    ///
+    ///Party responsible for quantity measurements.
+    EH,
+    ///Controller, quality
+    ///
+    ///Party controlling the quality of goods and workmanship for the project.
+    EI,
+    ///Surveyor, quantity
+    ///
+    ///Party responsible for the quantification and valuation of the works on behalf of the contractor.
+    EJ,
+    ///Surveyor (professional), quantity
+    ///
+    ///Party responsible to the owner for the quantification and valuation of the works.
+    EK,
+    ///Project
+    ///
+    ///Party responsible for a project, e.g. a construction project.
+    EL,
+    ///Party to receive electronic memo of invoice
+    ///
+    ///Party being informed about invoice issue (via EDI).
+    EM,
+    ///Tenderer
+    ///
+    ///Firm answering an invitation to tender.
+    EN,
+    ///Owner of equipment
+    ///
+    ///Party who owns equipment.
+    EO,
+    ///Equipment drop-off party
+    ///
+    ///The party which drops off equipment.
+    EP,
+    ///Empty container responsible party
+    ///
+    ///Party responsible for the empty container.
+    EQ,
+    ///Empty container return agent
+    ///
+    ///Party, designated by owner of containers, responsible for their collection as agreed between the owner and customer/ consignee.
+    ER,
+    ///Contractor, lead
+    ///
+    ///Leader representing a grouping of co-contractors.
+    ES,
+    ///Co-contractor
+    ///
+    ///Member of a grouping of co-contractors.
+    ET,
+    ///Contractor, general
+    ///
+    ///Single contractor for the whole construction project, working by his own or with subcontractors.
+    EU,
+    ///Subcontractor
+    ///
+    ///Firm carrying out a part of the works for a contractor.
+    EV,
+    ///Subcontractor with direct payment
+    ///
+    ///Subcontractor benefiting from direct payments.
+    EW,
+    ///Exporter
+    ///
+    ///(3030) Party who makes - or on whose behalf a Customs clearing agent or other authorized person makes - an export declaration. This may include a manufacturer, seller or other person. Within a Customs union, consignor may have the same meaning as exporter.
+    EX,
+    ///Subcontractor, nominated
+    ///
+    ///Subcontractor authorized by the owner after having been proposed.
+    EY,
+    ///Operator, essential services
+    ///
+    ///Operator of essential services e.g. water, sewerage system, power.
+    EZ,
+    ///Operator, communication channel
+    ///
+    ///Operator of a communication channel.
+    FA,
+    ///Nominated freight company
+    ///
+    ///Party nominated to act as transport company or carrier for the goods.
+    FB,
+    ///Contractor, main
+    ///
+    ///Firm or grouping of co-contractors which has been awarded the contract.
+    FC,
+    ///Buyer's parent company
+    ///
+    ///Parent company, e.g. holding company.
+    FD,
+    /// Credit rating agency
+    FE,
+    ///Factor, correspondent
+    ///
+    ///Factoring company engaged by another factoring company to assist the letter with the services provided to the clients (sellers).
+    FF,
+    ///Buyer as officially registered
+    ///
+    ///Buying party as officially registered with government.
+    FG,
+    ///Seller as officially registered
+    ///
+    ///Selling party as officially registered with government.
+    FH,
+    ///Copy message to
+    ///
+    ///Party that is to receive a copy of a message.
+    FI,
+    ///Trade Union
+    ///
+    ///Organisation representing employees.
+    FJ,
+    ///Previous Trade Union
+    ///
+    ///Employee organisation who previously represented an employee .
+    FK,
+    ///Passenger
+    ///
+    ///A person conveyed by a means of transport, other than the crew.
+    FL,
+    ///Crew member
+    ///
+    ///A person manning a means of transport.
+    FM,
+    ///Tariff issuer
+    ///
+    ///The issuer of a tariff, e.g. a freight tariff.
+    FN,
+    /// Party performing inspection
+    FO,
+    ///Freight/charges payer
+    ///
+    ///Party responsible for the payment of freight.
+    FP,
+    ///Container survey agent
+    ///
+    ///The container survey agency that will survey the containers.
+    FQ,
+    ///Message from
+    ///
+    ///Party where the message comes from.
+    FR,
+    ///Party authorized to make definite a contract action
+    ///
+    ///Party who has the authority to make definite a contract action.
+    FS,
+    ///Party responsible for financial settlement
+    ///
+    ///(3450) Party responsible for either the transfer or repatriation of the funds relating to a transaction.
+    FT,
+    ///Hazardous material office
+    ///
+    ///The office responsible for providing information regarding hazardous material.
+    FU,
+    ///Party providing government furnished property
+    ///
+    ///The party responsible for providing government furnished property.
+    FV,
+    ///Freight forwarder
+    ///
+    ///Party arranging forwarding of goods.
+    FW,
+    ///Current receiver
+    ///
+    ///Current receiver of the goods in a multi-step transportation process (indirect flow) involving at least one grouping centre.
+    FX,
+    ///Current sender
+    ///
+    ///Current sender of the goods in a multi-step transportation process (indirect flow) involving at least one grouping centre.
+    FY,
+    ///Grouping centre
+    ///
+    ///A party in charge of groupage, including degroupage and regroupage.
+    FZ,
+    ///Road carrier
+    ///
+    ///A road carrier moving cargo.
+    GA,
+    ///Chamber of commerce
+    ///
+    ///Name of the Chamber of Commerce of the town where the company is registered.
+    GB,
+    ///Goods custodian
+    ///
+    ///(3024) Party responsible for the keeping of goods.
+    GC,
+    ///Producer
+    ///
+    ///Party or person who has produced the produce.
+    GD,
+    ///Registration tribunal
+    ///
+    ///Name of the tribunal where the company is registered.
+    GE,
+    ///Slot charter party
+    ///
+    ///An identification code of a participant or user that books slots (space) on a ship, more likely on a long term basis on a series of sailings. He pays for the space whether he uses it or not.
+    GF,
+    ///Warehouse
+    ///
+    ///The name of the warehouse where product is held.
+    GG,
+    ///Applicant for job
+    ///
+    ///A person who applied for a job.
+    GH,
+    ///Spouse
+    ///
+    ///Person is a spouse.
+    GI,
+    ///Mother
+    ///
+    ///Person is a mother.
+    GJ,
+    ///Father
+    ///
+    ///Person is a father.
+    GK,
+    ///Socially insured person
+    ///
+    ///A person who is registered in a social security scheme.
+    GL,
+    ///Inventory controller
+    ///
+    ///To specifically identify the party in charge of inventory control.
+    GM,
+    ///Processor
+    ///
+    ///Party or person who has or will apply a process.
+    GN,
+    ///Goods owner
+    ///
+    ///The party which owns the goods.
+    GO,
+    ///Packer
+    ///
+    ///Party or person who has undertaken or will undertake packing.
+    GP,
+    ///Slaughterer
+    ///
+    ///Party or person who has undertaken or will undertake a slaughter.
+    GQ,
+    ///Goods releaser
+    ///
+    ///(3026) Party entitled to authorize release of goods from custodian.
+    GR,
+    ///Consignor's representative
+    ///
+    ///Party authorised to represent the consignor.
+    GS,
+    ///Rail carrier
+    ///
+    ///A carrier moving cargo, including containers, via rail.
+    GT,
+    ///Originator of article number
+    ///
+    ///A code identifying the party which created a specific article number.
+    GU,
+    ///Procurement responsibility for order
+    ///
+    ///A code used to identify the organization which is responsible for the procurement.
+    GV,
+    ///Party fulfilling all operations
+    ///
+    ///Code indicating the fact that the party identified carries out all operations within that company's activities.
+    GW,
+    ///Central catalogue party
+    ///
+    ///Party controlling a central catalogue.
+    GX,
+    ///Inventory reporting party
+    ///
+    ///Party reporting inventory information.
+    GY,
+    ///Substitute supplier
+    ///
+    ///Party which may be in a position to supply products or services should the main usual supplier be unable to do so.
+    GZ,
+    ///Party which delivers consignments to the terminal
+    ///
+    ///Party which delivers consignments to a terminal.
+    HA,
+    ///Party which picks up consignments from the terminal
+    ///
+    ///Party which picks up consignments from a terminal.
+    HB,
+    ///Transit freight forwarder
+    ///
+    ///Freight forwarder to whom transit consignments are addressed, and from whom they are to be on-forwarded.
+    HC,
+    ///Inspection and acceptance party
+    ///
+    ///The party who will perform inspection and acceptance.
+    HD,
+    ///Transportation office
+    ///
+    ///The office that provides transportation information.
+    HE,
+    ///Contract administration office
+    ///
+    ///The office responsible for the administration of a contract.
+    HF,
+    ///Investigator
+    ///
+    ///A party who conducts investigations.
+    HG,
+    ///Audit office
+    ///
+    ///The office responsible for conducting audits.
+    HH,
+    ///Requestor
+    ///
+    ///The party requesting an action.
+    HI,
+    ///Foreign disclosure information office
+    ///
+    ///The office that reviews sensitive information for foreign disclosure.
+    HJ,
+    ///Mark-for party
+    ///
+    ///The party within an organization for whom the material is marked to be delivered.
+    HK,
+    ///Party to receive reports
+    ///
+    ///The party to whom reports are to be submitted.
+    HL,
+    ///Alternative manufacturer
+    ///
+    ///Party identification of an alternative manufacturer for a product.
+    HM,
+    ///Service performer
+    ///
+    ///The party who is performing a service.
+    HN,
+    ///Shipper's association
+    ///
+    ///An association of shippers.
+    HO,
+    ///Final message recipient
+    ///
+    ///To identify the final recipient of the message.
+    HP,
+    ///Account owner
+    ///
+    ///Identifies the owner of the account.
+    HQ,
+    ///Shipping line service
+    ///
+    ///Identifies the shipping line service organization.
+    HR,
+    ///Creditor
+    ///
+    ///Party to whom payment is due.
+    HS,
+    ///Clearing house
+    ///
+    ///Institution through which funds will be paid.
+    HT,
+    ///Ordering bank
+    ///
+    ///Bank which instructed the sender to act on the transaction(s).
+    HU,
+    ///Receiver of funds
+    ///
+    ///Identifies the party that receives the funds.
+    HV,
+    ///Sender of funds
+    ///
+    ///Identifies the party that sends the funds.
+    HW,
+    ///Debtor
+    ///
+    ///Party from whom payment is due.
+    HX,
+    ///Presenting bank
+    ///
+    ///The bank which presents documents to the drawee.
+    HY,
+    ///Work team
+    ///
+    ///Team responsible for performing work.
+    HZ,
+    ///Intermediary bank 1
+    ///
+    ///A financial institution between the ordered bank and the beneficiary's bank.
+    I1,
+    ///Intermediary bank 2
+    ///
+    ///A financial institution between the ordered bank and the beneficiary's bank.
+    I2,
+    ///Intermediary/broker
+    ///
+    ///Description to be provided.
+    IB,
+    ///Intermediate consignee
+    ///
+    ///The intermediate consignee.
+    IC,
+    ///Replacing manufacturer
+    ///
+    ///A code used to identify a party who replaces the previous party for the manufacture of an article.
+    ID,
+    ///Non-resident third party company with whom financial account is held
+    ///
+    ///Identifies the non-resident third party company with whom the financial account is held.
+    IE,
+    ///Non-resident group company with whom financial account is held
+    ///
+    ///Identifies the non-resident group company with whom the financial account is held.
+    IF,
+    ///Non-resident beneficiary
+    ///
+    ///The ultimate non-resident recipient of the funds. Normally the account owner who is reimbursed by the payor.
+    IG,
+    ///Resident beneficiary
+    ///
+    ///The ultimate resident recipient of the funds. Normally the account owner who is reimbursed by the payor.
+    IH,
+    ///Issuer of invoice
+    ///
+    ///(3028) Party issuing an invoice.
+    II,
+    ///Non-resident instructing party
+    ///
+    ///Identifies the non-resident party originating the instruction.
+    IJ,
+    ///Resident instructing party
+    ///
+    ///Identifies the resident party originating the instruction.
+    IL,
+    ///Importer
+    ///
+    ///(3020) Party who makes - or on whose behalf a Customs clearing agent or other authorized person makes - an import declaration. This may include a person who has possession of the goods or to whom the goods are consigned.
+    IM,
+    ///Insurer
+    ///
+    ///Description to be provided.
+    IN,
+    ///Insurance company
+    ///
+    ///Description to be provided.
+    IO,
+    ///Insurance claim adjuster
+    ///
+    ///Description to be provided.
+    IP,
+    ///Domestic financial institution
+    ///
+    ///Domestic party acting as financial institution.
+    IQ,
+    ///Non-domestic financial institution
+    ///
+    ///Non-domestic party acting as financial institution.
+    IR,
+    ///Party to receive certified inspection report
+    ///
+    ///Party (at buyer) to receive certified inspection report.
+    IS,
+    ///Installation on site
+    ///
+    ///Description to be provided.
+    IT,
+    ///Non-resident debtor
+    ///
+    ///Non-resident party who makes the payment or against whom a claim exists.
+    IU,
+    ///Invoicee
+    ///
+    ///(3006) Party to whom an invoice is issued.
+    IV,
+    ///Non-resident creditor
+    ///
+    ///Non-resident party receiving the payment or against whom a liability exists.
+    IW,
+    ///Supplier work team
+    ///
+    ///The supplier's team responsible for performing the work.
+    IX,
+    ///Tenant manager
+    ///
+    ///A code to identify the party who rents the rights to use the goodwill and facilities of an enterprise.
+    IY,
+    ///Party mandated to liquidate an enterprise
+    ///
+    ///A code to identify the party who has been legally mandated to sell off an enterprise.
+    IZ,
+    ///Certified accountant
+    ///
+    ///Code identifying the party as a certified accountant.
+    JA,
+    ///Goods collection party
+    ///
+    ///Party that will collect or has collected the goods.
+    JB,
+    ///Party at final place of positioning
+    ///
+    ///Identifies the party at the final place of positioning.
+    JC,
+    ///Customs office of clearance
+    ///
+    ///Identifies the office where customs clearance procedures take place.
+    JD,
+    ///Party from whom customs documents are to be picked up
+    ///
+    ///Identification of the party from whom customs documents are to be picked up.
+    JE,
+    ///Party from whom non-customs documents are to be picked up
+    ///
+    ///Identification of the party from whom non-customs documents are to be picked up.
+    JF,
+    ///Party to receive customs documents
+    ///
+    ///Identification of the party to whom customs documents are to be delivered.
+    JG,
+    ///Party to receive non-customs documents
+    ///
+    ///Identification of the party to whom non-customs documents are to be delivered.
+    JH,
+    ///Party designated to provide living animal care
+    ///
+    ///Party responsible to take care of transported living animals.
+    LA,
+    ///Co-producer
+    ///
+    ///A code used to identify a party who participates in production.
+    LB,
+    ///Party declaring the Value Added Tax (VAT)
+    ///
+    ///A code to identify the party who is responsible for declaring the Value Added Tax (VAT) on the sale of goods or services.
+    LC,
+    ///Party recovering the Value Added Tax (VAT)
+    ///
+    ///A code to identify the party who is eligible to recover the Value Added Tax (VAT) on the sale of goods or services.
+    LD,
+    ///Person on claim
+    ///
+    ///To identify the person who is the subject of the claim.
+    LE,
+    ///Buyer's corporate office
+    ///
+    ///The identification of the buyer's corporate office.
+    LF,
+    ///Supplier's corporate office
+    ///
+    ///The identification of the supplier's corporate office.
+    LG,
+    ///Liquidator
+    ///
+    ///The party responsible for settling or paying a debt.
+    LH,
+    ///Account coordinator
+    ///
+    ///An individual with coordination responsibilities for a specific account.
+    LI,
+    ///Inspection leader
+    ///
+    ///An individual responsible for an inspection team.
+    LJ,
+    ///Patient
+    ///
+    ///A person receiving or registered to receive medical treatment.
+    LK,
+    ///Patient companion
+    ///
+    ///Person accompanying the patient.
+    LL,
+    ///Medical treatment executant
+    ///
+    ///The party who executes a medical treatment.
+    LM,
+    ///Lender
+    ///
+    ///Party lending goods or equipment.
+    LN,
+    ///Medical treatment prescriber
+    ///
+    ///The party who prescribes a medical treatment.
+    LO,
+    ///Loading party
+    ///
+    ///Party responsible for the loading when other than carrier.
+    LP,
+    ///Debt payment authorisation party
+    ///
+    ///A party which authorises the payment of a debt.
+    LQ,
+    ///Administration centre
+    ///
+    ///Identification of an administration centre.
+    LR,
+    ///Product services and repairs centre
+    ///
+    ///A centre which services and repairs products.
+    LS,
+    ///Secretariat
+    ///
+    ///Party is a secretariat.
+    LT,
+    ///Entry point technical assessment group
+    ///
+    ///Party acts as an entry point for technical assessment.
+    LU,
+    ///Party assigning a status
+    ///
+    ///Party responsible for assigning a status.
+    LV,
+    /// Party for whom item is ultimately intended
+    MA,
+    ///Manufacturer of goods
+    ///
+    ///Party who manufactures the goods.
+    MF,
+    ///Party designated to execute re-icing
+    ///
+    ///Party designated to execute re-icing, selected in the official list of mandatories competent for this kind of operation.
+    MG,
+    /// Planning schedule/material release issuer
+    MI,
+    /// Manufacturing plant
+    MP,
+    /// Message recipient
+    MR,
+    ///Document/message issuer/sender
+    ///
+    ///Issuer of a document and/or sender of a message.
+    MS,
+    ///Party designated to execute sanitary procedures
+    MT,
+    /// Notify party no. 1
+    ///
+    /// The first party which is to be notified.
+    N1,
+    ///Notify party no. 2
+    ///
+    ///The second party which is to be notified.
+    N2,
+    ///Notify party
+    ///
+    ///(3180) Party to be notified of arrival of goods.
+    NI,
+    ///Break bulk berth operator
+    ///
+    ///Party who offers facilities for berthing of vessels, handling and storage of break bulk cargo.
+    OA,
+    ///Ordered by
+    ///
+    ///Party who issued an order.
+    OB,
+    ///Party data responsible party
+    ///
+    ///The party responsible for all party data.
+    OC,
+    ///Equipment repair party
+    ///
+    ///A party making repairs to equipment.
+    OD,
+    ///Owner of property
+    ///
+    ///Party owning a property.
+    OE,
+    ///On behalf of
+    ///
+    ///Party on behalf of which an action is executed.
+    OF,
+    ///Owner or lessor's surveyor
+    ///
+    ///Surveyor hired by the owner or lessor of the item.
+    OG,
+    ///Lessee's surveyor
+    ///
+    ///Surveyor hired by the lessee of the item.
+    OH,
+    ///Outside inspection agency
+    ///
+    ///Third party inspecting goods or equipment.
+    OI,
+    ///Third party
+    ///
+    ///Another party besides the two principals.
+    OJ,
+    ///Receiver's sub-entity
+    ///
+    ///Identifies a sub-entity within the receiver's organization.
+    OK,
+    ///Case of need party
+    ///
+    ///Party to be approached in case of difficulty.
+    OL,
+    ///Collecting bank
+    ///
+    ///Any bank, other than the remitting bank, involved in processing the collection.
+    OM,
+    ///Remitting bank
+    ///
+    ///The bank to which the principal has entrusted the handling of a collection.
+    ON,
+    ///Order of the shipper party
+    ///
+    ///The owner of goods under consignment which are moving under a negotiable transport document and will only be released upon receipt of the original transport document.
+    OO,
+    ///Operator of property or equipment
+    ///
+    ///The party which operates property or a unit of equipment.
+    OP,
+    ///Collection principal
+    ///
+    ///The party entrusting the handling of a collection to a bank.
+    OQ,
+    ///Ordered bank
+    ///
+    ///Identifies the account servicer for the ordering customer or payor.
+    OR,
+    ///Original shipper
+    ///
+    ///The original supplier of the goods.
+    OS,
+    ///Outside test agency
+    ///
+    ///Third party testing goods, equipment or services.
+    OT,
+    ///Account owner's servicing bank on the sending side
+    ///
+    ///Identifies the financial institution on the sending side which services the account owner's bank account(s).
+    OU,
+    ///Owner of means of transport
+    ///
+    ///(3126) Party owning the means of transport. No synonym of carrier = CA.
+    OV,
+    ///Account owner's servicing bank on the receiving side
+    ///
+    ///Identifies the financial institution on the receiving side which services the account owner's bank account(s).
+    OW,
+    ///Sender's correspondent bank
+    ///
+    ///The account, or branch of the sender, or another financial institution, through which the sender will reimburse the receiver.
+    OX,
+    ///Ordering customer
+    ///
+    ///Identifies the originator of the instruction.
+    OY,
+    ///Receiver's correspondent bank
+    ///
+    ///The branch of the receiver, or another financial institution, at which the funds will be made available to the receiver.
+    OZ,
+    ///Contact party 1
+    ///
+    ///First party to contact.
+    P1,
+    ///Contact party 2
+    ///
+    ///Second party to contact.
+    P2,
+    ///Contact party 3
+    ///
+    ///Third party to contact.
+    P3,
+    ///Contact party 4
+    ///
+    ///Fourth party to contact.
+    P4,
+    ///Party to receive inspection report
+    ///
+    ///Party to whom the inspection report should be sent.
+    PA,
+    ///Paying financial institution
+    ///
+    ///Financial institution designated to make payment.
+    PB,
+    ///Actual purchaser's customer
+    ///
+    ///Party the purchaser within the actual message is selling the ordered goods or services to.
+    PC,
+    ///Purchaser's department buyer
+    ///
+    ///Purchasing department of buyer.
+    PD,
+    ///Payee
+    ///
+    ///Identifies the credit party when other than the beneficiary.
+    PE,
+    ///Party to receive freight bill
+    ///
+    ///Party to whom the freight bill should be sent.
+    PF,
+    ///Prime contractor
+    ///
+    ///Party responsible for the whole project if other than the buyer.
+    PG,
+    /// Payer's financial institution
+    PH,
+    ///Payee's company name/ID
+    ///
+    ///Receiving company name/ID (ACH transfers).
+    PI,
+    ///Party to receive correspondence
+    ///
+    ///Second party designated by a first party to receive certain correspondence in lieu of it being mailed directly to this first party.
+    PJ,
+    ///Contact party
+    ///
+    ///Party to contact.
+    PK,
+    ///Payor
+    ///
+    ///Identifies the debit party when other than the ordering customer (for banking purposes).
+    PL,
+    ///Party to receive paper memo of invoice
+    ///
+    ///Party being informed about invoice issue (via paper).
+    PM,
+    ///Party to receive shipping notice
+    ///
+    ///The party is to be the recipient of the shipping notice.
+    PN,
+    ///Ordering party
+    ///
+    ///To be used only if ordering party and buyer are not identical.
+    PO,
+    /// Certifying party
+    PQ,
+    ///Payer
+    ///
+    ///(3308) Party initiating payment.
+    PR,
+    /// Payer's company name/ID (Check, Draft or Wire)
+    PS,
+    /// Party to receive test report
+    PT,
+    ///Despatch party
+    ///
+    ///(3282) Party where goods are collected or taken over by the carrier (i.e. if other than consignor).
+    PW,
+    /// Party to receive all documents
+    PX,
+    ///Checking party
+    ///
+    ///Party or contact designated on behalf of carrier or his agent to establish the actual figures for quantities, weight, volume and/or (cube) measurements of goods or containers which are to appear in the transport contract and on which charges will be based.
+    PY,
+    ///Party to print some document
+    ///
+    ///The party that is to print a specific document.
+    PZ,
+    ///Central bank or regulatory authority
+    ///
+    ///Identifies central bank or regulatory authority which must be informed of certain aspects of a message.
+    RA,
+    ///Receiving financial institution
+    ///
+    ///Financial institution designated to receive payment.
+    RB,
+    ///Party to receive commercial invoice remittance
+    ///
+    ///Party to whom payment for a commercial invoice or bill should be remitted.
+    RE,
+    ///Received from
+    ///
+    ///Name of a person or department which actually delivers the goods.
+    RF,
+    ///Seller's financial institution
+    ///
+    ///Financial institution designated by seller to receive payment. RDFI (ACH transfers).
+    RH,
+    ///Reinsurance intermediary/broker
+    ///
+    ///Intermediary party between ceding company and reinsurance.
+    RI,
+    ///Reporting carrier (Customs)
+    ///
+    ///Party who makes the cargo report to Customs.
+    RL,
+    ///Reporting carrier's nominated agent/representative (Customs)
+    ///
+    ///Agent who formally makes a cargo report to Customs on behalf of the carrier.
+    RM,
+    ///Routing party
+    ///
+    ///Party responsible for the selection of the carrier(s).
+    RP,
+    ///Party to receive statement of account
+    ///
+    ///Party to whom the statement of account should be sent.
+    RS,
+    ///Receiver of cheque
+    ///
+    ///Identifies the party which is to receive the actual cheque, when different from the receiver of funds.
+    RV,
+    ///Issuer of waybill
+    ///
+    ///Party issuing the contract (waybill) for carriage.
+    RW,
+    ///Sales responsibility
+    ///
+    ///Description to be provided.
+    SB,
+    ///Seller
+    ///
+    ///(3346) Party selling merchandise to a buyer.
+    SE,
+    ///Ship from
+    ///
+    ///Identification of the party from where goods will be or have been shipped.
+    SF,
+    ///Store group
+    ///
+    ///Description to be provided.
+    SG,
+    ///Shipping schedule issuer
+    ///
+    ///The party which issues a shipping schedule.
+    SI,
+    /// Plant
+    SK,
+    /// Store keeper
+    SN,
+    /// Sold to if different than bill to
+    SO,
+    ///Seller's agent/representative
+    ///
+    ///(3254) Party representing the seller for the purpose of the trade transaction.
+    SR,
+    ///Social securities collector's office
+    ///
+    ///Party collecting social securities premiums.
+    SS,
+    ///Ship to
+    ///
+    ///Identification of the party to where goods will be or have been shipped.
+    ST,
+    ///Supplier
+    ///
+    ///Party who supplies goods and/or services.
+    SU,
+    ///Surety for additions
+    ///
+    ///Natural of legal person (generally a bank of insurance company) who accepts responsibility in due legal form for the financial guarantee to Customs of the payment of additional duties or fees that become due against a particular shipment, which have not previously been covered by surety.
+    SX,
+    ///Surety
+    ///
+    ///Natural or legal person (generally a bank or insurance company) who accepts responsibility in due legal form for the financial consequences of non-fulfillment of another's obligations to the Customs (CCC).
+    SY,
+    ///Surety for antidumping/countervailing duty
+    ///
+    ///Natural or legal person that has been contracted by the importer to guarantee to Customs the payment of antidumping and/or countervailing duties that become due against a particular shipment.
+    SZ,
+    ///Legal receiver
+    ///
+    ///The party responsible for a receivership.
+    TA,
+    ///Submitter
+    ///
+    ///To specify that the party is a submitter.
+    TB,
+    ///Tax collector's office
+    ///
+    ///Party collecting taxes.
+    TC,
+    ///Transit charge payer
+    ///
+    ///Party, other than the ordering party, which has to pay the charges concerning the transit operations.
+    TCP,
+    ///Party to receive technical documentation
+    ///
+    ///Party to whom technical documentation should be sent.
+    TD,
+    ///Bankruptcy referee
+    ///
+    ///To specify that the party is a referee in a bankruptcy case.
+    TE,
+    ///Source of information
+    ///
+    ///To specify that the party is the source of information.
+    TF,
+    ///Judge
+    ///
+    ///To specify that the party is a judge.
+    TG,
+    ///Attorney
+    ///
+    ///To specify that the party is an attorney.
+    TH,
+    ///Law firm
+    ///
+    ///To specify that the party is a law firm.
+    TI,
+    ///Trustee
+    ///
+    ///To specify that the party is a trustee.
+    TJ,
+    ///Signatory
+    ///
+    ///To specify that the party is a signatory.
+    TK,
+    ///Occupant
+    ///
+    ///The party is an occupant.
+    TL,
+    ///Co-occupant
+    ///
+    ///The party is a co-occupant.
+    TM,
+    ///Subject of inquiry
+    ///
+    ///The party is the subject of an inquiry.
+    TN,
+    ///Lessor
+    ///
+    ///The party is a lessor.
+    TO,
+    ///Owner of residence
+    ///
+    ///Identifies the owner of a residence.
+    TP,
+    ///Founder
+    ///
+    ///Identifies the founder.
+    TQ,
+    ///Terminal operator
+    ///
+    ///A party which handles the loading and unloading of marine vessels.
+    TR,
+    ///Party to receive certified test results
+    ///
+    ///Party to whom the certified test results should be sent.
+    TS,
+    ///Transfer to
+    ///
+    ///The party which is the recipient of a transfer.
+    TT,
+    ///President
+    ///
+    ///Identifies the president.
+    TU,
+    ///Chairperson
+    ///
+    ///Identifies the chairperson.
+    TV,
+    ///Legal title holder
+    ///
+    ///Identifies the legal title holder.
+    TW,
+    ///Shareholder
+    ///
+    ///Identifies a shareholder.
+    TX,
+    ///Provider
+    ///
+    ///Identifies the provider.
+    TY,
+    ///Military branch
+    ///
+    ///Identifies the branch of the military.
+    TZ,
+    ///Educational institution
+    ///
+    ///Identifies a university, college or school.
+    UA,
+    ///Assignor
+    ///
+    ///Identifies the assignor.
+    UB,
+    ///Ultimate consignee
+    ///
+    ///Party who has been designated on the invoice or packing list as the final recipient of the stated merchandise.
+    UC,
+    ///Ultimate customer
+    ///
+    ///The final recipient of goods.
+    UD,
+    ///Advisor
+    ///
+    ///Identifies the advisor.
+    UE,
+    ///Co-defendant
+    ///
+    ///Identifies the co-defendant.
+    UF,
+    ///Merged company with retained identity
+    ///
+    ///Company whose identity has been retained from a merger.
+    UG,
+    ///Party represented
+    ///
+    ///Identifies the party represented.
+    UH,
+    ///Unexpected handling party
+    ///
+    ///Party authorized (during a voyage) to apply unexpected handling procedures or party having applied these procedures.
+    UHP,
+    ///Assignee
+    ///
+    ///Identifies the assignee.
+    UI,
+    ///Key person
+    ///
+    ///Identifies the key person.
+    UJ,
+    ///Author
+    ///
+    ///Identifies the author.
+    UK,
+    ///Ultimate parent company
+    ///
+    ///Identifies the ultimate parent company.
+    UL,
+    ///Party not to be confused with
+    ///
+    ///Identifies a party not to be confused with another party.
+    UM,
+    ///Accountant
+    ///
+    ///Identifies the accountant.
+    UN,
+    ///Plaintiff
+    ///
+    ///Identifies the plaintiff.
+    UO,
+    ///Unloading party
+    ///
+    ///Description to be provided.
+    UP,
+    ///Parent company
+    ///
+    ///Identifies the parent company.
+    UQ,
+    ///Affiliated company
+    ///
+    ///Identifies the affiliated company.
+    UR,
+    ///Bailiff
+    ///
+    ///Identifies the bailiff.
+    US,
+    ///Merged company
+    ///
+    ///Identifies the company involved in a merger.
+    UT,
+    ///Defendant
+    ///
+    ///Identifies the defendant.
+    UU,
+    ///Petitioning creditor
+    ///
+    ///Identifies the petitioning creditor.
+    UV,
+    ///Guarantee agency
+    ///
+    ///Identifies the guarantee agency.
+    UW,
+    ///Organization group
+    ///
+    ///Identifies the organization group.
+    UX,
+    ///Subsidiary
+    ///
+    ///Identifies the subsidiary.
+    UY,
+    ///Industry association
+    ///
+    ///Identifies the industry association.
+    UZ,
+    ///Joint owner
+    ///
+    ///Identifies the joint owner.
+    VA,
+    ///Joint venture
+    ///
+    ///Identifies the joint venture.
+    VB,
+    ///Filing office
+    ///
+    ///Identifies the filing office.
+    VC,
+    ///Court
+    ///
+    ///Identifies the court.
+    VE,
+    ///Liability holder
+    ///
+    ///Identifies the liability holder.
+    VF,
+    ///Local government sponsor
+    ///
+    ///Identifies the local government sponsor.
+    VG,
+    ///Mortgage company
+    ///
+    ///Identifies the mortgage company.
+    VH,
+    ///Notary public
+    ///
+    ///Identifies the notary public.
+    VI,
+    ///Officer
+    ///
+    ///Identifies the officer.
+    VJ,
+    ///Publisher
+    ///
+    ///Identifies the publisher.
+    VK,
+    ///Party manufactured for
+    ///
+    ///Identifies the party for whom manufacturing of goods is done.
+    VL,
+    ///Previous owner
+    ///
+    ///Identifies the previous owner.
+    VM,
+    ///Vendor
+    ///
+    ///Party vending goods or services.
+    VN,
+    ///Purchased company
+    ///
+    ///Identifies the purchased company.
+    VO,
+    ///Receiver manager
+    ///
+    ///Manager of a business which is in receivership status and which will not be liquidated.
+    VP,
+    ///Responsible government agency
+    ///
+    ///Identifies the responsible government agency.
+    VQ,
+    ///Sole proprietor
+    ///
+    ///Identifies the sole proprietor.
+    VR,
+    ///Auctioneer
+    ///
+    ///Identifies the auctioneer.
+    VS,
+    ///Branch
+    ///
+    ///Identifies the branch.
+    VT,
+    ///Business
+    ///
+    ///Identifies the business.
+    VU,
+    ///Ultimate same country parent company
+    ///
+    ///Identifies the highest level parent company in the same country.
+    VV,
+    ///Responsible party
+    ///
+    ///Identifies the party that can be called to account.
+    VW,
+    ///Secured party
+    ///
+    ///Identifies a party that is guaranteed against loss.
+    VX,
+    ///Other related party
+    ///
+    ///Identifies an entity as an unspecified but related party.
+    VY,
+    ///Co-debtor
+    ///
+    ///Identifies an entity as a joint or mutual debtor.
+    VZ,
+    ///Company which holds financial interest
+    ///
+    ///Identifies a company which holds any financial stake in an undertaking or organization.
+    WA,
+    ///Rating organization
+    ///
+    ///Identifies an organization responsible for assigning a classification or rating.
+    WB,
+    ///Information reference agency
+    ///
+    ///The agency responsible for the reference of information.
+    WC,
+    ///Warehouse depositor
+    ///
+    ///(3004) Party depositing goods in a warehouse.
+    WD,
+    ///Compilation agency
+    ///
+    ///The agency responsible for the compilation of information.
+    WE,
+    ///Information maintenance agency
+    ///
+    ///The agency responsible for the maintenance of information.
+    WF,
+    ///Information dissemination agency
+    ///
+    ///The agency responsible for the dissemination of information.
+    WG,
+    ///Warehouse keeper
+    ///
+    ///(3022) Party taking responsibility for goods entered into a warehouse.
+    WH,
+    ///Inspection address
+    ///
+    ///Specifies the address for an inspection.
+    WI,
+    ///Refusal party
+    ///
+    ///Identification of the party responsible for a refusal.
+    WJ,
+    ///Value added network provider
+    ///
+    ///A party that provides telecommunications interconnectivity services in an electronic data interchange environment.
+    WK,
+    ///Agency
+    ///
+    ///The business or establishment of an agent.
+    WL,
+    /// Works manager
+    WM,
+    ///Party to receive order to supply
+    ///
+    ///Party designated by the registering party to receive a binding direction to supply something.
+    WN,
+    ///Party to receive invitation to offer
+    ///
+    ///An entity to receive an invitation to offer.
+    WO,
+    ///Sub-entity
+    ///
+    ///A part into which an entity has been divided.
+    WP,
+    ///Weighting party
+    ///
+    ///Party designated (legally accepted) to ascertain the weight.
+    WPA,
+    ///Doing business as
+    ///
+    ///The name under which business is conducted.
+    WQ,
+    ///Party submitting quote
+    ///
+    ///The party stating the price of something to be purchased.
+    WR,
+    ///Wholesaler
+    ///
+    ///Seller of articles, often in large quantities, to be retailed by others.
+    WS,
+    ///Affiliated party
+    ///
+    ///A party attached or connected to another party.
+    WT,
+    ///Previous name
+    ///
+    ///Name of an entity used before the current name.
+    WU,
+    ///Party performing task
+    ///
+    ///An entity responsible for performing a task to be undertaken.
+    WV,
+    ///Registering party
+    ///
+    ///Party performing the registration.
+    WW,
+    ///No heading
+    ///
+    ///Description to be provided.
+    XX,
+    ///Mutually defined
+    ///
+    ///Party specification mutually agreed between interchanging parties.
+    ZZZ,
+}
+
 /// Code list responsible agency code
 ///
 /// Code specifying the agency responsible for a code list.
