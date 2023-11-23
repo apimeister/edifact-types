@@ -3,8 +3,8 @@ use nom::{
     bytes::complete::{escaped, is_not, tag},
     character::complete::{newline, one_of},
     combinator::opt,
-    multi::separated_list0,
-    sequence::{delimited, preceded},
+    multi::{many0, separated_list0},
+    sequence::{delimited, terminated},
     IResult,
 };
 
@@ -13,7 +13,7 @@ pub fn clean_num(mut input: &str) -> &str {
     input = input.trim();
     // make sure leading zeros are removed, up to 1 digit
     while input.starts_with('0') && input.len() > 1 {
-        input = input.strip_prefix('0').unwrap();
+        input = input.strip_prefix('0').expect("Strip prefix 0 failed!");
     }
 
     input
@@ -27,8 +27,15 @@ pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Ve
         tag("'"),
     )(input)?;
     let (_, vars) = crate::util::parse_plus_section(vars)?;
-    // look for trailing newline
-    let (rest, _) = opt(newline)(rest)?;
+    // empty lines (double '') should throw error
+    // also look for trailing newline and remove it
+    #[allow(unused_variables)]
+    let (rest, empty_line) = terminated(opt(tag("'")), many0(newline))(rest)?;
+    #[cfg(feature = "logging")]
+    if empty_line.is_some() {
+        log::warn!("Found empty line (ends with '') -> ignored");
+    }
+
     Ok((rest, vars))
 }
 
