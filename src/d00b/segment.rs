@@ -999,6 +999,18 @@ pub struct UNH {
     pub _070: Option<S018>,
 }
 
+#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
+pub struct UNT {
+    /// NUMBER OF SEGMENTS IN A MESSAGE
+    ///
+    /// The number of segments in a message body, plus the message header segment and message trailer segment.
+    pub _010: String,
+    /// MESSAGE REFERENCE NUMBER
+    ///
+    /// Unique message reference assigned by the sender.
+    pub _020: String,
+}
+
 /// UNZ Interchange trailer
 ///
 /// To end and check the completeness of an interchange.
@@ -1015,16 +1027,4 @@ pub struct UNZ {
     /// Unique reference assigned by the sender to an interchange.
     /// Shall be identical in UNB and UNZ.
     _020: String,
-}
-
-#[derive(Debug, Serialize, Deserialize, Default, DisplayOuterSegment, ParseSegment)]
-pub struct UNT {
-    /// NUMBER OF SEGMENTS IN A MESSAGE
-    ///
-    /// The number of segments in a message body, plus the message header segment and message trailer segment.
-    pub _010: String,
-    /// MESSAGE REFERENCE NUMBER
-    ///
-    /// Unique message reference assigned by the sender.
-    pub _020: String,
 }
