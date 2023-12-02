@@ -1,6 +1,269 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumString};
 
+/// Syntax identifier
+///
+/// Coded identification of the agency controlling a syntax and syntax level used in an interchange.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq, Default)]
+pub enum _0001 {
+    /// UN/ECE level A
+    /// As defined in the basic code table of ISO 646 with the exceptions of lower case letters, alternative graphic character allocations and national or application-oriented graphic character allocations.
+    UNOA,
+    /// UN/ECE level B
+    /// As defined in the basic code table of ISO 646 with the exceptions of alternative graphic character allocations and national or application-oriented graphic character allocations.
+    UNOB,
+    /// UN/ECE level C
+    /// As defined in ISO 8859-1 : Information processing - Part 1: Latin alphabet No. 1.
+    #[default]
+    UNOC,
+    /// UN/ECE level D
+    /// As defined in ISO 8859-2 : Information processing - Part 2: Latin alphabet No. 2.
+    UNOD,
+    /// UN/ECE level E
+    /// As defined in ISO 8859-5 : Information processing - Part 5: Latin/Cyrillic alphabet.
+    UNOE,
+    /// UN/ECE level F
+    /// As defined in ISO 8859-7 : Information processing - Part 7: Latin/Greek alphabet.
+    UNOF,
+}
+
+/// Syntax version number
+///
+/// Version number of the syntax identified in the syntax identifier (0001)
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq, Default)]
+pub enum _0002 {
+    /// Version 1
+    /// ISO 9735:1988.
+    #[strum(serialize = "1")]
+    _1,
+    /// Version 2
+    /// ISO 9735:1990.
+    #[strum(serialize = "2")]
+    _2,
+    /// Version 3
+    /// ISO 9735 Amendment 1:1992.
+    #[default]
+    #[strum(serialize = "3")]
+    _3,
+}
+
+/// Partner identification code qualifier
+///
+/// Qualifier referring to the source of codes for the identifiers of interchanging partners.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq)]
+pub enum _0007 {
+    /// DUNS (Dun & Bradstreet)
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "1")]
+    _1,
+    /// IATA (International Air Transport Association)
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "4")]
+    _4,
+    /// INSEE/SIRET
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "5")]
+    _5,
+    /// UCC Communications ID (Uniform Code Council Communications Identifier)
+    ///
+    /// The Uniform Code Council Communications Identifier is a ten digit code used to uniquely identify physical and logical locations.
+    #[strum(serialize = "8")]
+    _8,
+    /// DUNS with 4 digit suffix
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "9")]
+    _9,
+    /// Telephone number
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "12")]
+    _12,
+    /// EAN (European Article Numbering Association)
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "14")]
+    _14,
+    /// AIAG (Automotive Industry Action Group)
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "18")]
+    _18,
+    /// INSEE/SIREN
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "22")]
+    _22,
+    /// ISO 6523: Organization identification
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "30")]
+    _30,
+    /// DIN (Deutsches Institut fuer Normung)
+    ///
+    /// German standardization institute.
+    #[strum(serialize = "31")]
+    _31,
+    /// BfA (Bundesversicherungsanstalt fuer Angestellte)
+    ///
+    /// German social security association.
+    #[strum(serialize = "33")]
+    _33,
+    /// National Statistical Agency
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "34")]
+    _34,
+    /// General Electric Information Services
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "51")]
+    _51,
+    /// IBM Network Services
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "52")]
+    _52,
+    /// Datenzentrale des Einzelhandels, Germany
+    ///
+    /// German data centre for retail trade.
+    #[strum(serialize = "53")]
+    _53,
+    /// Bundesverband der Deutschen Baustoffhaendler, Germany
+    ///
+    /// German building material trade association.
+    #[strum(serialize = "54")]
+    _54,
+    /// Bank identifier code
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "55")]
+    _55,
+    /// Statens Teleforvaltning
+    ///
+    /// Norwegian telecommunications regulatory authority (NTRA).
+    #[strum(serialize = "56")]
+    _56,
+    /// KTNet
+    ///
+    /// Korea Trade Network Services.
+    #[strum(serialize = "57")]
+    _57,
+    /// UPU (Universal Postal Union)
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "58")]
+    _58,
+    /// ODETTE
+    ///
+    /// Organization for Data Exchange through Tele-Transmission in Europe (European automotive industry project).
+    #[strum(serialize = "59")]
+    _59,
+    /// SCAC (Standard Carrier Alpha Code)
+    ///
+    /// Directory of standard multimodal carriers and tariff agent codes. The SCAC lists and codes transportation companies.
+    #[strum(serialize = "61")]
+    _61,
+    /// ECA (Electronic Commerce Australia)
+    ///
+    /// Australian association for electronic commerce.
+    #[strum(serialize = "63")]
+    _63,
+    /// TELEBOX 400 (Deutsche Bundespost)
+    ///
+    /// German post office.
+    #[strum(serialize = "65")]
+    _65,
+    /// NHS (National Health Service)
+    ///
+    /// United Kingdom National Health Service.
+    #[strum(serialize = "80")]
+    _80,
+    /// Athens Chamber of Commerce
+    ///
+    /// Greek Chamber of Commerce.
+    #[strum(serialize = "84")]
+    _84,
+    /// Swiss Chamber of Commerce
+    ///
+    /// Swiss Chamber of Commerce.
+    #[strum(serialize = "85")]
+    _85,
+    /// US Council for International Business
+    ///
+    /// United States Council for International Business.
+    #[strum(serialize = "86")]
+    _86,
+    /// National Federation of Chambers of Commerce and Industry
+    ///
+    /// Belguim National Federation of Chambers of Commerce andIndustry.
+    #[strum(serialize = "87")]
+    _87,
+    /// Assigned by seller or seller's agent
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "91")]
+    _91,
+    /// Assigned by buyer or buyer's agent
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "92")]
+    _92,
+    /// Mutually defined
+    ///
+    /// Self explanatory.
+    #[strum(serialize = "ZZZ")]
+    ZZZ,
+}
+
+/// Recipient's reference/password qualifier
+///
+/// Qualifier for the recipient's reference or password.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq)]
+pub enum _0025 {
+    /// Reference
+    /// Self explanatory.
+    AA,
+    /// Password
+    /// Self explanatory.
+    BB,
+}
+
+/// Processing priority code
+///
+/// Code determined by the sender requesting processing priority for the interchange.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq)]
+pub enum _0029 {
+    /// Highest priority
+    /// Self explanatory.
+    A,
+}
+
+/// Acknowledgement request
+///
+/// Code determined by the sender for acknowledgement of the interchange.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq)]
+pub enum _0031 {
+    /// Requested
+    /// Acknowledgement is requested.
+    #[strum(serialize = "1")]
+    _1,
+}
+
+/// Test indicator
+///
+/// Indication that the interchange is a test.
+#[derive(Debug, Serialize, Deserialize, EnumString, Display, Clone, PartialEq, Eq)]
+pub enum _0035 {
+    /// Interchange is a test
+    /// Self explanatory.
+    #[strum(serialize = "1")]
+    _1,
+}
+
 /// 1225  Message function code
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, EnumString, Display)]
 #[strum(serialize_all = "camelCase")]

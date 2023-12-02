@@ -1,9 +1,12 @@
 use super::*;
-use crate::util::clean_num;
-use edifact_types_macros::{DisplayInnerSegment, ParseElement, ParseSegment};
+use crate::util::{clean_num, Parser};
+use edifact_types_macros::{DisplayOuterSegment, ParseSegment};
+use nom::{bytes::complete::take_until, character::complete::not_line_ending, IResult};
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
-
+use std::{
+    fmt::{self, Debug},
+    str::FromStr,
+};
 /// BGM - BEGINNING OF MESSAGE
 ///
 /// To indicate the type and function of a message and to
@@ -18,732 +21,6 @@ pub struct BGM {
     pub _020: Option<String>,
     pub _030: Option<_1225>,
     pub _040: Option<_4343>,
-}
-
-/// C002 - DOCUMENT/MESSAGE NAME
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C002 {
-    pub _010: Option<String>,
-    pub _020: Option<String>,
-    pub _030: Option<String>,
-    pub _040: Option<String>,
-}
-
-/// C040 - CARRIER
-///
-/// Identification of a carrier by code and/or by name. Code
-/// preferred.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C040 {
-    /// Carrier identification
-    ///
-    /// C  an..17
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Carrier name
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-}
-
-/// C056 - DEPARTMENT OR EMPLOYEE DETAILS
-///
-/// Code and/or name of a department or employee. Code
-/// preferred.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C056 {
-    /// Department or employee identification
-    ///
-    /// C  an..17
-    pub _010: Option<String>,
-    /// Department or employee
-    ///
-    /// C  an..35
-    pub _020: Option<String>,
-}
-
-/// C058 - NAME AND ADDRESS
-///
-/// Unstructured name and address: one to five lines.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C058 {
-    /// Name and address line
-    ///
-    /// M  an..35
-    pub _010: String,
-    /// Name and address line
-    ///
-    /// C  an..35
-    pub _020: Option<String>,
-    /// Name and address line
-    ///
-    /// C  an..35
-    pub _030: Option<String>,
-    /// Name and address line
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-    /// Name and address line
-    ///
-    /// C  an..35
-    pub _050: Option<String>,
-}
-
-/// C059 - STREET
-///
-/// Street address and/or PO Box number in a structured
-/// address: one to three lines.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C059 {
-    /// Street and number/p.o. box
-    ///
-    /// M  an..35
-    pub _010: String,
-    /// Street and number/p.o. box
-    ///
-    /// C  an..35
-    pub _020: Option<String>,
-    /// Street and number/p.o. box
-    ///
-    /// C  an..35
-    pub _030: Option<String>,
-}
-
-/// C080 - PARTY NAME
-///
-/// Identification of a transaction party by name, one to five
-/// lines. Party name may be formatted.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C080 {
-    /// Party name
-    ///
-    /// M  an..35
-    pub _010: String,
-    /// Party name
-    ///
-    /// C  an..35
-    pub _020: Option<String>,
-    /// Party name
-    ///
-    /// C  an..35
-    pub _030: Option<String>,
-    /// Party name
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-    /// Party name
-    ///
-    /// C  an..35
-    pub _050: Option<String>,
-    /// Party name format, coded
-    ///
-    /// C  an..3
-    pub _060: Option<String>,
-}
-
-/// C082  PARTY IDENTIFICATION DETAILS
-///
-/// Identification of a transaction party by code.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C082 {
-    /// Party id. identification
-    ///
-    /// M  an..35
-    pub _010: String,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-}
-
-/// C107 - TEXT REFERENCE
-///
-/// Coded reference to a standard text and its source.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C107 {
-    /// Free text, coded
-    ///
-    /// M  an..3
-    pub _010: String,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-}
-
-/// C108 - TEXT LITERAL
-///
-/// Free text; one to five lines.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C108 {
-    /// Free text
-    ///
-    /// M  an..70
-    pub _010: String,
-    /// Free text
-    ///
-    /// C  an..70
-    pub _020: Option<String>,
-    /// Free text
-    ///
-    /// C  an..70
-    pub _030: Option<String>,
-    /// Free text
-    ///
-    /// C  an..70
-    pub _040: Option<String>,
-    /// Free text
-    ///
-    /// C  an..70
-    pub _050: Option<String>,
-}
-
-/// C174 - VALUE/RANGE
-///
-/// Measurement value and relevant minimum and maximum
-/// tolerances in that order.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C174 {
-    /// Measure unit qualifier
-    ///
-    /// M  an..3
-    pub _010: String,
-    /// Measurement value
-    ///
-    /// C  n..18
-    pub _020: Option<String>,
-    /// Range minimum
-    ///
-    /// C  n..18
-    pub _030: Option<String>,
-    /// Range maximum
-    ///
-    /// C  n..18
-    pub _040: Option<String>,
-    /// Significant digits
-    ///
-    /// C  n..2
-    pub _050: Option<String>,
-}
-
-/// C205 - HAZARD CODE
-///
-/// The identification of the dangerous goods in code.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C205 {
-    /// Hazard code identification                        M  an..7
-    pub _010: String,
-    /// Hazard substance/item/page number                 C  an..7
-    pub _020: Option<String>,
-    /// Hazard code version number                        C  an..10
-    pub _030: Option<String>,
-}
-
-/// C211 - DIMENSIONS
-///
-/// Specification of the dimensions of a transportable unit.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C211 {
-    /// Measure unit qualifier
-    ///
-    /// M  an..3
-    pub _010: String,
-    /// Length dimension
-    ///
-    /// C  n..15
-    pub _020: Option<String>,
-    /// Width dimension
-    ///
-    /// C  n..15
-    pub _030: Option<String>,
-    /// Height dimension
-    ///
-    /// C  n..15
-    pub _040: Option<String>,
-}
-
-/// C215 - SEAL ISSUER
-///
-/// Identification of the issuer of a seal on equipment either
-/// by code or by name.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C215 {
-    /// Sealing party, coded
-    ///
-    /// C  an..3
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Sealing party
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-}
-
-/// C219 - MOVEMENT TYPE
-///
-/// Description of type of service for movement of cargo.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C219 {
-    /// Movement type, coded
-    ///
-    /// C  an..3
-    pub _010: Option<String>,
-    /// Movement type
-    ///
-    /// C  an..35
-    pub _020: Option<String>,
-}
-
-/// C220 - MODE OF TRANSPORT
-///
-/// Method of transport code or name. Code preferred.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C220 {
-    /// Mode of transport, coded
-    ///
-    /// C  an..3
-    pub _010: Option<String>,
-    /// Mode of transport
-    ///
-    /// C  an..17
-    pub _020: Option<String>,
-}
-
-/// C222 - TRANSPORT IDENTIFICATION
-///
-/// Code and/or name identifying the means of transport.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C222 {
-    /// Id. of means of transport identification
-    ///
-    /// C  an..9
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Id. of the means of transport
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-    /// Nationality of means of transport, coded
-    ///
-    /// C  an..3
-    pub _050: Option<String>,
-}
-
-/// C223 - DANGEROUS GOODS SHIPMENT FLASHPOINT
-///
-/// Temperature at which a vapor according to ISO 1523/73 can
-/// be ignited.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C223 {
-    /// Shipment flashpoint
-    ///
-    /// C  n3
-    pub _010: Option<String>,
-    /// Measure unit qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-}
-
-/// C224 - EQUIPMENT SIZE AND TYPE
-///
-/// Code and/or name identifying size and type of equipment
-/// used in transport. Code preferred.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C224 {
-    /// Equipment size and type identification
-    ///
-    /// C  an..10
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Equipment size and type
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-}
-
-/// C228 - TRANSPORT MEANS
-///
-/// Code and/or name identifying the type of means of
-/// transport.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C228 {
-    /// Type of means of transport identification
-    ///
-    /// C  an..8
-    pub _010: Option<String>,
-    /// Type of means of transport
-    ///
-    /// C  an..17
-    pub _020: Option<String>,
-}
-
-/// C234 - UNDG INFORMATION
-///
-/// Information on United Nations Dangerous Goods
-/// classification.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C234 {
-    /// UNDG number
-    ///
-    /// C  n4
-    pub _010: Option<String>,
-    /// Dangerous goods flashpoint
-    ///
-    /// C  an..8
-    pub _020: Option<String>,
-}
-
-/// C235 - HAZARD IDENTIFICATION
-///
-/// Identification of the Orange placard required on the means
-/// of transport.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C235 {
-    /// Hazard identification number, upper part
-    ///
-    /// C  an..4
-    pub _010: Option<String>,
-    /// Substance identification number, lower part
-    ///
-    /// C  an4
-    pub _020: Option<String>,
-}
-
-/// C236 - DANGEROUS GOODS LABEL
-///
-/// Markings identifying the type of hazardous goods and
-/// similar information.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C236 {
-    /// Dangerous goods label marking                     C  an..4
-    pub _010: Option<String>,
-    /// Dangerous goods label marking                     C  an..4
-    pub _020: Option<String>,
-    /// Dangerous goods label marking                     C  an..4
-    pub _030: Option<String>,
-}
-
-/// C237 - EQUIPMENT IDENTIFICATION
-///
-/// Marks (letters and/or numbers) identifying equipment used
-/// for transport such as a container.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C237 {
-    /// Equipment identification number
-    ///
-    /// C  an..17
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Country, coded
-    ///
-    /// C  an..3
-    pub _040: Option<String>,
-}
-
-/// C239 - TEMPERATURE SETTING
-///
-/// The temperature under which the goods are (to be) stored
-/// or shipped.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C239 {
-    /// Temperature setting                               C  n3
-    pub _010: Option<String>,
-    /// Measure unit qualifier                            C  an..3
-    pub _020: Option<String>,
-}
-
-/// C270 - CONTROL
-///
-/// Control total for checking integrity of a message or part
-/// of a message.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C270 {
-    /// Control qualifier
-    ///
-    /// M  an..3
-    pub _010: String,
-    /// Control value
-    ///
-    /// M  n..18
-    pub _020: String,
-    /// Measure unit qualifier
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-}
-
-/// C280 - RANGE
-///
-/// Range minimum and maximum limits.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C280 {
-    /// Measure unit qualifier                            M  an..3
-    pub _010: String,
-    /// Range minimum                                     C  n..18
-    pub _020: Option<String>,
-    /// Range maximum                                     C  n..18
-    pub _030: Option<String>,
-}
-
-/// C401 - EXCESS TRANSPORTATION INFORMATION
-///
-/// To provide details of reason for, and responsibility for,
-/// use of transportation other than normally utilized.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C401 {
-    /// Excess transportation reason, coded
-    ///
-    /// M  an..3
-    pub _010: String,
-    /// Excess transportation responsibility, coded
-    ///
-    /// M  an..3
-    pub _020: String,
-    /// Customer authorization number
-    ///
-    /// C  an..17
-    pub _030: Option<String>,
-}
-
-/// C502 - MEASUREMENT DETAILS
-///
-/// Identification of measurement type.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C502 {
-    /// Measurement dimension, coded                      C  an..3
-    pub _010: Option<String>,
-    /// Measurement significance, coded                   C  an..3
-    pub _020: Option<String>,
-    /// Measurement attribute, coded                      C  an..3
-    pub _030: Option<String>,
-    /// Measurement attribute                             C  an..70
-    pub _040: Option<String>,
-}
-
-/// C506 - REFERENCE
-///
-/// Identification of a reference.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C506 {
-    /// Reference qualifier
-    ///
-    /// M  an..3
-    pub _010: String,
-    /// Reference number
-    ///
-    /// C  an..35
-    pub _020: Option<String>,
-    /// Line number
-    ///
-    /// C  an..6
-    pub _030: Option<String>,
-    /// Reference version number
-    ///
-    /// C  an..35
-    pub _040: Option<String>,
-}
-
-/// C507 - DATE/TIME/PERIOD
-///
-/// Date and/or time, or period relevant to the specified
-/// date/time/period type.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C507 {
-    pub _010: String,
-    pub _020: Option<String>,
-    pub _030: Option<String>,
-}
-
-/// C517 - LOCATION IDENTIFICATION
-///
-/// Identification of a location by code or name.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C517 {
-    /// Place/location identification
-    ///
-    /// C  an..25
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Place/location
-    ///
-    /// C  an..17
-    pub _040: Option<String>,
-}
-
-/// C519 - RELATED LOCATION ONE IDENTIFICATION
-///
-/// Identification the first related location by code or name.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C519 {
-    /// Related place/location one identification
-    ///
-    /// C  an..25
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Related place/location one
-    ///
-    /// C  an..70
-    pub _040: Option<String>,
-}
-
-/// C523 - NUMBER OF UNIT DETAILS
-///
-/// Identification of number of units and its purpose.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C523 {
-    /// Number of units                                   C  n..15
-    pub _010: Option<String>,
-    /// Number of units qualifier                         C  an..3
-    pub _020: Option<String>,
-}
-
-/// C553 - RELATED LOCATION TWO IDENTIFICATION
-///
-/// Identification of second related location by code or name.
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct C553 {
-    /// Related place/location two identification
-    ///
-    /// C  an..25
-    pub _010: Option<String>,
-    /// Code list qualifier
-    ///
-    /// C  an..3
-    pub _020: Option<String>,
-    /// Code list responsible agency, coded
-    ///
-    /// C  an..3
-    pub _030: Option<String>,
-    /// Related place/location two
-    ///
-    /// C  an..70
-    pub _040: Option<String>,
 }
 
 /// CNT - CONTROL TOTAL
@@ -933,9 +210,9 @@ pub struct MEA {
 #[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct LOC {
     pub _010: String,
-    pub _020: C517,
-    pub _030: C519,
-    pub _040: C553,
+    pub _020: Option<C517>,
+    pub _030: Option<C519>,
+    pub _040: Option<C553>,
     /// RELATION, CODED
     ///
     /// C  an..3
@@ -981,49 +258,6 @@ pub struct RNG {
     /// RANGE
     pub _020: Option<C280>,
 }
-
-/// MESSAGE IDENTIFIER
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct S009 {
-    /// Message type
-    ///
-    /// M  an..6
-    pub _010: String,
-    /// Message version number
-    ///
-    /// M  an..3
-    pub _020: String,
-    /// Message release number
-    ///
-    /// M  an..3
-    pub _030: String,
-    /// Controlling agency
-    ///
-    /// M  an..2
-    pub _040: String,
-    /// Association assigned code
-    ///
-    /// C  an..6
-    pub _050: Option<String>,
-}
-
-/// STATUS OF THE TRANSFER
-#[derive(
-    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
-)]
-pub struct S010 {
-    /// Sequence of transfers
-    ///
-    /// M  n..2
-    pub _010: String,
-    /// First and last transfer
-    ///
-    /// C  a1
-    pub _020: Option<String>,
-}
-
 /// SEL - SEAL NUMBER
 ///
 /// To specify a seal number related to equipment.
@@ -1048,17 +282,17 @@ pub struct SEL {
 /// reference number and the identification of the means
 /// of transport.
 /// The segment may be pointed to by the TPL segment.
-#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment, ParseSegment)]
+#[derive(Default, Debug, Serialize, Deserialize, Clone, DisplayOuterSegment, ParseSegment)]
 pub struct TDT {
     pub _010: String,
-    pub _020: String,
-    pub _030: C220,
-    pub _040: C228,
-    pub _050: C040,
-    pub _060: String,
-    pub _070: C401,
-    pub _080: C222,
-    pub _090: String,
+    pub _020: Option<String>,
+    pub _030: Option<C220>,
+    pub _040: Option<C228>,
+    pub _050: Option<C040>,
+    pub _060: Option<String>,
+    pub _070: Option<C401>,
+    pub _080: Option<C222>,
+    pub _090: Option<String>,
 }
 
 /// TMD - TRANSPORT MOVEMENT DETAILS
@@ -1090,6 +324,98 @@ pub struct TMP {
     pub _010: String,
     /// TEMPERATURE SETTING
     pub _020: Option<C239>,
+}
+
+/// UNA, Service String advice
+///
+/// Function: To define the characters selected for use
+/// as delimiters and indicators in the rest of the
+/// interchange that follows:
+///
+/// The specifications in the Service string advice take
+/// precedence over the specifications for delimiters etc. in
+/// segment UNB.  See clause 4.
+///
+/// When transmitted, the Service string advice must appear
+/// immediately before the Interchange Header (UNB) segment and
+/// begin with the upper case characters UNA immediately followed
+/// by the six characters selected by the sender to indicate, in
+/// sequence, the following functions:
+/// Repr. | Req. | Name | Remarks
+/// --- | --- | --- | ---
+/// an1 | M | COMPONENT DATA ELEMENT SEPARATOR |
+/// an1 | M | DATA ELEMENT SEPARATOR |
+/// an1 | M | DECIMAL NOTATION | Comma or full stop
+/// an1 | M | RELEASE INDICATOR | If not used, insert space character
+/// an1 | M | Reserved for future use | Insert space character
+/// an1 | M | SEGMENT TERMINATOR |
+#[derive(Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment)]
+pub struct UNA {
+    /// an1    M     COMPONENT DATA ELEMENT SEPARATOR
+    pub component_data_element_seperator: char,
+    /// an1    M     DATA ELEMENT SEPARATOR
+    pub data_element_seperator: char,
+    /// an1    M     DECIMAL NOTATION       Comma or full stop
+    pub decimal_notation: char,
+    /// an1    M     RELEASE INDICATOR      If not used, insert space character
+    pub release_indicator: char,
+    /// an1    M     Reserved for future use    Insert space character
+    pub reserved_for_future_use: char,
+    /// an1    M     SEGMENT TERMINATOR
+    pub segment_terminator: char,
+}
+
+impl<'a> Parser<&'a str, UNA, nom::error::Error<&'a str>> for UNA {
+    fn parse(input: &'a str) -> IResult<&'a str, UNA> {
+        let (rest, vars) = take_until("UNB")(input)?;
+        if vars.is_empty() {
+            return Err(nom::Err::Error(nom::error::Error::new(
+                rest,
+                nom::error::ErrorKind::TakeUntil,
+            )));
+        }
+        // look for trailing newline
+        let vars = not_line_ending(vars)?.1;
+        if vars.len() != 9 {
+            println!("UNA Segment found, but malformed:\n{vars:?}");
+            panic!("UNA Segment malformed, needs to be exactly 6 characters")
+        }
+        let vars = vars.strip_prefix("UNA").unwrap();
+        let mut vars = vars.chars();
+        let una = UNA {
+            component_data_element_seperator: vars.next().unwrap(),
+            data_element_seperator: vars.next().unwrap(),
+            decimal_notation: vars.next().unwrap(),
+            release_indicator: vars.next().unwrap(),
+            reserved_for_future_use: vars.next().unwrap(),
+            segment_terminator: vars.next().unwrap(),
+        };
+        Ok((rest, una))
+    }
+}
+
+/// UNB Interchange header
+///
+/// To start, identify and specify an interchange.
+#[derive(
+    Serialize, Deserialize, Clone, Debug, PartialEq, Eq, Default, DisplayOuterSegment, ParseSegment,
+)]
+pub struct UNB {
+    _010: S001,
+    _020: S002,
+    _030: S003,
+    _040: S004,
+    /// Interchange control reference
+    ///
+    /// Unique reference assigned by the sender to an interchange.
+    /// Shall be identical in UNB and UNZ.
+    _050: String,
+    _060: Option<S005>,
+    _070: Option<String>,
+    _080: Option<_0029>,
+    _090: Option<_0031>,
+    _100: Option<String>,
+    _110: Option<_0035>,
 }
 
 /// UNH - MESSAGE HEADER
@@ -1124,4 +450,22 @@ pub struct UNT {
     ///
     /// M  an..14
     pub _020: String,
+}
+
+/// UNZ Interchange trailer
+///
+/// To end and check the completeness of an interchange.
+#[derive(
+    Serialize, Deserialize, Clone, Default, Debug, PartialEq, Eq, DisplayOuterSegment, ParseSegment,
+)]
+pub struct UNZ {
+    /// Interchange control count
+    ///
+    /// The count either of the number of messages or, if used, of the number of functional groups in an interchange. One of these counts shall appear.
+    _010: String,
+    /// Interchange control reference
+    ///
+    /// Unique reference assigned by the sender to an interchange.
+    /// Shall be identical in UNB and UNZ.
+    _020: String,
 }
