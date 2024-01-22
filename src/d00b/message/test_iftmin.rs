@@ -12,7 +12,7 @@ fn parse_sg1() {
 
 #[test]
 fn unb_test() {
-    env_logger::init();
+    _ = env_logger::builder().is_test(true).try_init();
     let input_str =
         r#"UNB+UNOC:3+NO0987654321:30+7080003248381:14+101201:1105+1234567890++CONSIGNOR++++1'"#;
     let (_rest, unb) = UNB::parse(input_str).unwrap();
@@ -22,7 +22,7 @@ fn unb_test() {
 
 #[test]
 fn t_0029_test() {
-    env_logger::init();
+    _ = env_logger::builder().is_test(true).try_init();
     let input_str = r#"A"#;
     let rest = _0029::from_str(input_str).unwrap();
     println!("{rest:#?}");
@@ -30,7 +30,7 @@ fn t_0029_test() {
 
 #[test]
 fn test_double_end() {
-    env_logger::init();
+    _ = env_logger::builder().is_test(true).try_init();
     let input_str = r#"MEA+WT+G+KGM:1.5''MEA+WT+G+KGM:1.5'"#;
     let (rest, _) = MEA::parse(input_str).unwrap();
     let (rest, _) = MEA::parse(rest).unwrap();
@@ -42,7 +42,7 @@ fn test_double_end() {
 fn parse_iftmin() {
     // https://developer.bring.com/files/IG_BIG14_1_5_2017-08-09.pdf
     // queried 20.11.23 - 08:00
-    env_logger::init();
+    _ = env_logger::builder().is_test(true).try_init();
     let input_str = r#"UNA:+,? '
 UNB+UNOC:3+NO0987654321:30+7080003248381:14+101201:1105+1234567890++CONSIGNOR+A+++1'
 UNH+1234+IFTMIN:D:00B:UN:BIG14'
