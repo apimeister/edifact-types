@@ -11,4 +11,3 @@ fn test_bgm() {
     println!("{obj}");
     assert_eq!(format!("{obj}"), r#"NAD+CA+HAM:160:20"#);
 }
-

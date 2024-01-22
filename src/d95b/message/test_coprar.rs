@@ -259,7 +259,7 @@ fn render_coprar() {
                 }],
                 dgs: vec![],
                 eqa: vec![],
-                segment_group_4: Some( COPRARSegmentgroup4 {
+                segment_group_4: Some(COPRARSegmentgroup4 {
                     tdt: TDT {
                         _010: "10".to_string(),
                         _020: Some("142E".to_string()),
