@@ -29,7 +29,7 @@ So far, there is also no validation attached to the structs.
 * d95b
   * coprar
 * d00b
-  * copran
+  * coparn
   * iftmin
   * iftsta
 
