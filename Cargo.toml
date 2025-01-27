@@ -16,7 +16,7 @@ strum = "0.26"
 edifact-types-macros = "0.3"
 # enable macros debug vie feature flag
 # edifact-types-macros = {version = "0.3", features = ["debug"]}
-nom = "7"
+nom = "8"
 log = {version = "0.4", optional = true }
 
 [features]
