@@ -5,7 +5,7 @@ use nom::{
     combinator::opt,
     multi::{many0, separated_list0},
     sequence::{delimited, terminated},
-    IResult,
+    IResult, Parser as _,
 };
 
 pub fn clean_num(mut input: &str) -> &str {
@@ -25,12 +25,12 @@ pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Ve
         tag(tag_name.as_str()),
         escaped(is_not("?'"), '?', one_of(r#":?+'"#)),
         tag("'"),
-    )(input)?;
+    ).parse(input)?;
     let (_, vars) = crate::util::parse_plus_section(vars)?;
     // empty lines (double '') should throw error
     // also look for trailing newline and remove it
     #[allow(unused_variables)]
-    let (rest, empty_line) = terminated(opt(tag("'")), many0(newline))(rest)?;
+    let (rest, empty_line) = terminated(opt(tag("'")), many0(newline)).parse(rest)?;
     #[cfg(feature = "logging")]
     if empty_line.is_some() {
         log::warn!("Found empty line (ends with '') -> ignored");
@@ -43,7 +43,7 @@ pub fn parse_plus_section(input: &str) -> IResult<&str, Vec<&str>> {
     let (rest, vars) = separated_list0(
         tag("+"),
         alt((escaped(is_not("?+"), '?', one_of(r#":?+'"#)), tag(""))),
-    )(input)?;
+    ).parse(input)?;
     Ok((rest, vars))
 }
 
@@ -51,7 +51,7 @@ pub fn parse_colon_section(input: &str) -> IResult<&str, Vec<&str>> {
     let (rest, vars) = separated_list0(
         tag(":"),
         alt((escaped(is_not("?:"), '?', one_of(r#":?+'"#)), tag(""))),
-    )(input)?;
+    ).parse(input)?;
     Ok((rest, vars))
 }
 
@@ -101,7 +101,7 @@ mod test {
     }
 
     fn line_parser(i: &str) -> IResult<&str, &str> {
-        let (rest, _) = opt(newline)(i)?;
+        let (rest, _) = opt(newline).parse(i)?;
         let (rest, line) = not_line_ending(rest)?;
         Ok((rest, line))
     }

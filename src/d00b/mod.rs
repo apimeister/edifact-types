@@ -1,5 +1,6 @@
 use crate::util::Parser;
 use edifact_types_macros::DisplayEdifact;
+use nom::Parser as _;
 use nom::{combinator::opt, IResult};
 use serde::{Deserialize, Serialize};
 use std::fmt;
@@ -70,7 +71,7 @@ impl<'a, T: Default + Parser<&'a str, T, nom::error::Error<&'a str>> + std::fmt:
 {
     fn parse(input: &'a str) -> IResult<&'a str, Interchange<T>> {
         let mut output = Interchange::default();
-        let (input, obj) = opt(UNA::parse)(input)?;
+        let (input, obj) = opt(UNA::parse).parse(input)?;
         output.una = obj;
         let (input, obj) = UNB::parse(input)?;
         output.unb = obj;

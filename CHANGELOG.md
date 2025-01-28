@@ -1,6 +1,7 @@
-# 0.4.1 2023-10-*
+# 0.4.1 2025-01-28
 
 * support escaped characters
+* nom 8 support
 
 # 0.4.0 2023-10-08
 
