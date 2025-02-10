@@ -12,7 +12,7 @@ description = "Bindings for the Edifact standard"
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 strum_macros = "0.26"
-strum = "0.26"
+strum = "0.27"
 edifact-types-macros = "0.3"
 # enable macros debug vie feature flag
 # edifact-types-macros = {version = "0.3", features = ["debug"]}
