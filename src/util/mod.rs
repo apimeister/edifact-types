@@ -25,7 +25,8 @@ pub fn parse_line<'a>(input: &'a str, segment_name: &str) -> IResult<&'a str, Ve
         tag(tag_name.as_str()),
         escaped(is_not("?'"), '?', one_of(r#":?+'"#)),
         tag("'"),
-    ).parse(input)?;
+    )
+    .parse(input)?;
     let (_, vars) = crate::util::parse_plus_section(vars)?;
     // empty lines (double '') should throw error
     // also look for trailing newline and remove it
@@ -43,7 +44,8 @@ pub fn parse_plus_section(input: &str) -> IResult<&str, Vec<&str>> {
     let (rest, vars) = separated_list0(
         tag("+"),
         alt((escaped(is_not("?+"), '?', one_of(r#":?+'"#)), tag(""))),
-    ).parse(input)?;
+    )
+    .parse(input)?;
     Ok((rest, vars))
 }
 
@@ -51,7 +53,8 @@ pub fn parse_colon_section(input: &str) -> IResult<&str, Vec<&str>> {
     let (rest, vars) = separated_list0(
         tag(":"),
         alt((escaped(is_not("?:"), '?', one_of(r#":?+'"#)), tag(""))),
-    ).parse(input)?;
+    )
+    .parse(input)?;
     Ok((rest, vars))
 }
 
