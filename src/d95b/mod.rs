@@ -13,7 +13,7 @@ mod types;
 
 // Re-Export on root level to keep compatibility
 pub use element::*;
-// pub use message::baplie::*;
+pub use message::baplie::*;
 pub use message::coprar::*;
 pub use segment::*;
 pub use types::*;

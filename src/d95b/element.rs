@@ -869,6 +869,27 @@ impl<'a> Parser<&'a str, S009, nom::error::Error<&'a str>> for S009 {
     }
 }
 
+/// C213 - NUMBER AND TYPE OF PACKAGES
+///
+/// Number and type of individual parts of a shipment.
+#[derive(
+    Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,
+)]
+pub struct C213 {
+    /// Package quantity                          C      n..8
+    pub _010: Option<String>,
+    /// Package type description code             C      an..17
+    pub _020: Option<String>,
+    /// Code list identification code             C      an..17
+    pub _030: Option<String>,
+    /// Code list responsible agency code         C      an..3
+    pub _040: Option<String>,
+    /// Type of packages                          C      an..35
+    pub _050: Option<String>,
+    /// Packaging related description code        C      an..3
+    pub _060: Option<String>,
+}
+
 /// STATUS OF THE TRANSFER
 #[derive(
     Debug, Serialize, Deserialize, Default, PartialEq, Eq, Clone, DisplayInnerSegment, ParseElement,

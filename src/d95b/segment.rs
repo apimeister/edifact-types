@@ -452,6 +452,34 @@ pub struct UNT {
     pub _020: String,
 }
 
+/// GDS - NATURE OF CARGO
+///
+/// To identify or specify the goods carried.
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment, ParseSegment)]
+pub struct GDS {
+    /// NATURE OF CARGO
+    ///
+    /// M  an..35
+    pub _010: String,
+}
+
+/// GID - GOODS ITEM DETAILS
+///
+/// To identify the number of packages of the goods.
+#[derive(Debug, Serialize, Deserialize, Default, Clone, DisplayOuterSegment, ParseSegment)]
+pub struct GID {
+    /// GOODS ITEM NUMBER
+    ///
+    /// M  n..5
+    pub _010: String,
+    /// NUMBER AND TYPE OF PACKAGES
+    pub _020: Option<C213>,
+    /// CONSIGNMENT LOAD SEQUENCE NUMBER
+    ///
+    /// C  n..6
+    pub _030: Option<String>,
+}
+
 /// UNZ Interchange trailer
 ///
 /// To end and check the completeness of an interchange.
